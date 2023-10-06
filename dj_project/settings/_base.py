@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "imagekit",
     # Local
     "users.apps.UsersConfig",
+    "products.apps.ProductsConfig",
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# If for some reason imagekit thumbnail does not show on admin panel then it is going to work.
+# IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
