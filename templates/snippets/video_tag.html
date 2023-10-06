@@ -1,0 +1,31 @@
+<video width="320" height="240" controls>
+    <source src="{{ MEDIA_URL }}{{ product.video }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+  
+<video width="320" height="240" controls>
+    <source src="{{ product.video.url }}">
+    Your browser does not support the video tag.
+</video>
+
+<!--
+If you have videos in multiple formats, you can use Django's file storage API to get the URL of the video file, 
+and then use that URL in the `src` attribute of the `source` element inside the `video` tag. 
+
+You don't have to specify the `type` attribute in the `source` element. 
+Most modern browsers are able to automatically detect the video type. Here's how you can do it:
+
+```html
+<video width="320" height="240" controls>
+  <source src="{{ product.video.url }}">
+  Your browser does not support the video tag.
+</video>
+```
+
+In this example, `{{ product.video.url }}` gets the URL of the video file. The browser will automatically detect the video type.
+
+Please note that not all video formats are supported by all browsers. For maximum compatibility, it's recommended to use MP4 format, as it's supported by almost all modern browsers. If you have videos in a format that's not widely supported, you might need to convert them to a more compatible format.
+
+Also, remember that Django is not designed to serve large media files like videos. If you're planning to host large video files, you should consider using a dedicated media server or a cloud service like AWS S3.
+
+-->

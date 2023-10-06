@@ -27,7 +27,7 @@ load_dotenv()  # loads the configs from .env
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.getenv('SECRET_KEY'))
+SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     # Local
     "users.apps.UsersConfig",
     "products.apps.ProductsConfig",
+    "orders.apps.OrdersConfig",
+    # "products.context_processors.categories",
 ]
 
 MIDDLEWARE = [
@@ -147,7 +149,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = "users.CustomUser"
 
 # If for some reason imagekit thumbnail does not show on admin panel then it is going to work.
 # IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'

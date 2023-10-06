@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from django.forms import ModelForm, ValidationError
 from django.utils.html import mark_safe
@@ -6,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from PIL import Image
 from imagekit.admin import AdminThumbnail
 
-from .models import Product, Category, ProductImage, ProductSpecification
+from .models import Product, Category, ProductImage, ProductSpecification, TV
 
 
 class CategoryAdminForm(ModelForm):
@@ -43,6 +44,24 @@ class CategoryAdminForm(ModelForm):
         #         )
         #     )
         return image
+
+    def clean(self, *args, **kwargs):
+        if self.cleaned_data.get("video"):
+            if self.cleaned_data["video"].content_type not in [
+                "video/mp4",
+                "video/quicktime",
+                "video/x-matroska",
+            ]:
+                raise forms.ValidationError(
+                    _(
+                        "Unsupported file type. Only mp4, quicktime, and mkv are supported."
+                    )
+                )
+            if self.cleaned_data["video"].size > 20 * 1024 * 1024:
+                raise forms.ValidationError(
+                    _("Video file too large. Maximum size is 20MB.")
+                )
+        return super().clean(*args, **kwargs)
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -87,15 +106,28 @@ class ProductSpecificationTitleInline(admin.StackedInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ["title", "model", "slug", "created_at"]
+    list_display = [
+        "type",
+        "title",
+        "model",
+        "slug",
+        "created_at",
+        "price",
+        "sale_percent",
+    ]
     prepopulated_fields = {
         "slug": ("title",),
         "model_en": ("model",),
         "model_ru": ("model",),
     }
-    list_filter = ["title", "model", "created_by", "created_at"]
-    search_fields = ["title", "model", "created_by"]
+    list_filter = ["type", "title", "model", "price", "created_by"]
+    search_fields = ["type", "created_by"]
     inlines = (ProductImageInline, ProductSpecificationTitleInline)
+
+    def get_readonly_fields(self, request, obj=None):
+        return self.readonly_fields + ("sale_price",)
 
 
 admin.site.register(Product, ProductAdmin)
+
+admin.site.register(TV, ProductAdmin)
