@@ -1,0 +1,113 @@
+{% load i18n static %}
+<!--HEADER-->
+<header >
+	<nav class="navbar navbar-expand-lg bg-light" aria-label="Offcanvas navbar large">
+		<div class="container-xxl">
+			<!--LOGO brand-->
+			<a class="navbar-brand mx-2 " href="#">
+				<img src="{% static 'img/logo/logo.png' %}" alt="logo" class="" width="70px">
+			</a>
+			<!--END of LOGO brand-->
+
+			<div class="d-flex">
+				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+	
+	
+				<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+	
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+	
+					<div class="offcanvas-body ">
+						<ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+							<li class="nav-item">
+								<a class="nav-link jeytun-yellow" aria-current="page" href="#">{% trans 'TVs' %}</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link jeytun-yellow" href="#">{% trans 'AC' %}</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link jeytun-yellow" href="#">{% trans 'Refrigerators' %}</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link jeytun-yellow" href="#">{% trans 'Washing Machine' %}</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link jeytun-yellow" href="#">{% trans 'Dishwasher' %}</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link jeytun-yellow" href="#">{% trans 'Audio' %}</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link jeytun-yellow" href="#">{% trans 'Others' %}</a>
+							</li>
+						</ul>
+	
+						<!--Navigation SEARCH form-->
+						<form id="search-div" class="d-flex mt-3 mt-lg-0 mx-3" action="#" method="get" role="search">
+							<input autofocus id="search-input" class="form-control form-control-sm rounded-start" name="q" type="search" placeholder="{% trans "Search" %}" aria-label="Search">
+							<button id="header-search-btn" class="btn btn-outline-success border-0 rounded-circle" type="submit">
+								<i class="fa fa-fw fa-search jeytun-yellow"></i>
+							</button>
+						</form>
+						<!--END of Navigation SEARCH form-->
+	
+						<!--LANGUAGE SELECTION-->
+						<div class="d-flex mt-3 mt-lg-0 align-items-center" id="lang-select-div">
+							<div class="mx-0 px-0">
+								{% if LANGUAGE_CODE == "tk" %}
+								<img src="{% static 'img/icons/fl_tm.png' %}" alt="sdas" style="width:30px; height=30px">
+								{% elif LANGUAGE_CODE == "en" %}
+								<img src="{% static 'img/icons/fl_us.png' %}" alt="sdas" style="width:30px; height=30px">
+								{% else %}
+								<img src="{% static 'img/icons/fl_ru.png' %}" alt="sdas" style="width:30px; height=30px">
+								{% endif %}
+							</div>
+							<form class="border-0 mx-0 px-0" action="{% url "set_language" %}" method="post">
+								{% csrf_token %}
+								<div class="form-group mx-0 px-0">
+									<input name="next" type="hidden" value="{{ redirect_to }}">
+									<select name="language" id="lang-select" class="form-select form-select-sm border-0" onchange="this.form.submit()">
+										{% for language in languages %}
+										<option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected="selected" {% endif %}>
+											{% if language.code == "tk" %}
+											<p>TM</p>
+											{% elif language.code == "en" %}
+											<p>EN</p>
+											{% else %}
+											<p>RU</p>
+											{% endif %}
+											<i class="fa fa-envelope mx-2"></i>
+										</option>
+										{% endfor %}
+									</select>
+								</div>
+							</form>
+						</div>
+						<!--END of LANGUAGE SELECTION-->
+	
+	
+					</div>
+				</div>
+	
+				<!-- ----------------------Cart------------------------ -->
+				<a type="button" role="button" href="#" class="btn btn-outline-secondary border-0 basket-btn">
+					<div id="basket-qty" class="basket-qty">
+						0
+					</div>
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+							<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+						</svg>
+					</div>
+				</a>
+				<!-- -----------------END OF Cart----------------------- -->
+			</div>
+
+		</div>
+	</nav>
+</header>

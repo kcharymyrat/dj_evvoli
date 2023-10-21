@@ -1,0 +1,49 @@
+{% load i18n static %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kaka Dokma toplumy | {% block title %}{% endblock title %}</title>
+
+    <link rel="icon" type="image/x-icon" href="{% static 'img/icons/evvoli-favicon.png' %}">
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css">
+
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'fonts/roboto/stylesheet.css' %}" type="text/css">
+
+    {% block third_party_css %}{% endblock third_party_css %}
+
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/trial_custom.css' %}" type="text/css">
+
+    {% block css %}{% endblock css %}
+</head>
+
+<body>
+    {% include "includes/topnav.html" %}
+
+    {% include "includes/new_header_trial.html" %}
+
+    {% block content %}{% endblock content %}
+
+    {% include "includes/footer.html" %}
+
+    <script src="{% static 'popper/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+
+    {% block js %}{% endblock js %}
+</body>
+
+</html>

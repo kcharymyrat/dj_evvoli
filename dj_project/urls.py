@@ -28,7 +28,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 ] + i18n_patterns(
     path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
-    path("i18n/", include("django.conf.urls.i18n")), prefix_default_language=False,
+    path("i18n/", include("django.conf.urls.i18n")),
+    path("", include("products.urls", namespace="products")),
+    prefix_default_language=False,
 )
 
 # handler404 = "products.views.my_custom_page_not_found_view"
@@ -37,4 +39,3 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

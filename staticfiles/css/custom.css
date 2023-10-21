@@ -1,0 +1,580 @@
+@font-face {
+    font-family: 'robotothin_italic';
+    src: url('roboto-thinitalic-webfont.woff2') format('woff2'),
+        url('roboto-thinitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: "robotolight";
+    src: url("../fonts/roboto/roboto-light-webfont.woff2") format('woff2'),
+        url("../fonts/roboto/roboto-light-webfont.woff") format('woff1'),
+        url("../fonts/roboto/Roboto-Light.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../fonts/roboto/roboto-regular-webfont.woff2') format('woff2'),
+        url('../fonts/roboto/roboto-regular-webfont.woff') format('woff'),
+        url("../fonts/roboto/Roboto-Regular.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'robotomedium';
+    src: url('../fonts/roboto/roboto-medium-webfont.woff2') format('woff2'),
+        url('../fonts/roboto/roboto-medium-webfont.woff') format('woff'),
+        url("../fonts/roboto/Roboto-Medium.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'robotobold';
+    src: url('../fonts/roboto/roboto-bold-webfont.woff2') format('woff2'),
+        url('../fonts/roboto/roboto-bold-webfont.woff') format('woff'),
+        url("../fonts/roboto/Roboto-Bold.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'signika-bold';
+    src: url('../fonts/signika/static/Signika-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'signika-light';
+    src: url('../fonts/signika/static/Signika-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'signika-medium';
+    src: url('../fonts/signika/static/Signika-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'signika-regular';
+    src: url('../fonts/signika/static/Signika-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'signika-semibold';
+    src: url('../fonts/signika/static/Signika-SemiBold.ttf') format('truetype');
+}
+
+
+:root {
+    --jeytun-green: rgb(48, 137, 74);
+    --jeytun-cyprus: rgb(1, 51, 51);
+    --jeytun-yellow: rgb(214, 157, 81);
+}
+
+/* Colors of Jeytun */
+.jeytun-green {
+    color: var(--jeytun-green);
+}
+
+.jeytun-cyprus {
+    color: var(--jeytun-cyprus);
+}
+
+.jeytun-yellow {
+    color: var(--jeytun-yellow);
+}
+
+/* END of Colors of Jeytun */
+
+
+/* Background Colors of Jeytun  */
+.bg-jeytun-yellow {
+    background-color: var(--jeytun-yellow);
+}
+
+.bg-jeytun-green {
+    background-color: var(--jeytun-green);
+}
+
+
+.bg-jeytun-cyprus {
+    background-color: var(--jeytun-cyprus);
+}
+
+/* END of Background Colors of Jeytun  */
+
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+input,
+textarea {
+    font-family:'signika-regular', 'robotoregular', Helvetica, sans-serif !important;
+    color: var(--jeytun-cyprus);
+}
+
+i.fa-envelope,
+i.fa-phone,
+i.fas {
+    color: var(--jeytun-yellow);
+}
+
+.text-cyprus {
+    color: var(--jeytun-cyprus);
+}
+
+.text-cyprus:hover {
+    color: var(--jeytun-yellow);
+}
+
+.hover-jeytun-yellow:hover {
+    color: var(--jeytun-yellow);
+}
+
+.bg-jeytun-light {
+    background-color: #e9eef5;
+}
+
+/*-------------------------------------- topnav.html --------------------------------------------------- */
+.topnav-text {
+    text-decoration: none;
+    color: rgb(202, 194, 194);
+    font-size: 0.75em;
+}
+
+.topnav-text:hover {
+    color: var(--jeytun-yellow);
+}
+
+.topnav-text-small {
+    font-size: 0.7em;
+}
+
+/*------------------------------------END of topnav.html ------------------------------------------------ */
+
+
+/*-------------------------------------- header.html --------------------------------------------------- */
+.nav-link.jeytun-yellow:hover {
+    color: var(--jeytun-green);
+}
+
+.fa-search {
+    color: var(--jeytun-yellow);
+}
+
+select#lang-select {
+    box-shadow: none;
+}
+
+select#lang-select:focus {
+    outline: 0;
+    box-shadow: none;
+    color: var(--jeytun-yellow);
+}
+
+select#lang-select:active {
+    outline: none;
+    box-shadow: none;
+}
+
+input#search-input {
+    font-size: 0.75em !important;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    font-size: small;
+    transition: all 3s ease-in-out;
+}
+
+input#search-input:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+input#search-input:placeholder-shown {
+    font-size: 0.75em !important;
+    color: var(--jeytun-yellow);
+}
+
+input#search-input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--jeytun-yellow);
+    opacity: 1;
+    /* Firefox */
+}
+
+input#search-input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: var(--jeytun-yellow);
+}
+
+input#search-input::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: var(--jeytun-yellow);
+}
+
+#header-search-btn:hover {
+    background: transparent;
+    color: var(--jeytun-green);
+}
+
+select#lang-select {
+    background-color: transparent;
+    color: magenta;
+}
+
+select#lang-select option {
+    /* color: var(--jeytun-yellow); */
+    color: red;
+    border: none;
+    /* background-color: aqua; */
+}
+
+select#lang-select option:selected {
+    color: black;
+}
+
+/*-------------------------------------- END of header.html --------------------------------------------- */
+
+
+
+/*-------------------------------------- footer.html ---------------------------------------------------- */
+.border-jt-yellow {
+    border-bottom: 1px solid rgba(214, 157, 81, 0.8);
+}
+.footer-news-img {
+    width: 100%; 
+    object-fit: cover;
+}
+/*------------------------------------END of footer.html ------------------------------------------------ */
+
+
+
+/*-------------------------------------- index.html ---------------------------------------------------- */
+.btn-category-detail {
+    color: var(--jeytun-cyprus);
+    background-color: var(--jeytun-yellow);
+}
+
+.btn-category-detail:hover {
+    background-color: var(--jeytun-cyprus);
+    color: var(--jeytun-yellow);
+}
+
+.btn-toggle-categories {
+    transition: all 0.5s ease;
+}
+
+.btn-toggle-categories:hover {
+    background-color: var(--jeytun-yellow);
+}
+
+.btn-toggle-categories:hover>i {
+    color: var(--jeytun-cyprus);
+}
+
+.btn-toggle-categories[aria-expanded=false] .categories-expanded {
+    display: none;
+}
+
+.btn-toggle-categories[aria-expanded=true] .categories-collapsed {
+    display: none;
+}
+
+/* .product-card {
+    box-shadow: rgba(214, 157, 81, 0.2) 7px 7px 0px 2px;
+} */
+
+.product-title-link {
+    color: var(--jeytun-cyprus);
+}
+
+.product-title-link:hover {
+    color: var(--jeytun-yellow);
+}
+
+.product-eye-button {
+    color: var(--jeytun-cyprus);
+    background-color: var(--jeytun-yellow);
+}
+
+.product-eye-button:hover {
+    background-color: var(--jeytun-cyprus);
+    color: var(--jeytun-yellow);
+}
+
+.product-eye-button:hover > i {
+    color: var(--jeytun-yellow);
+}
+
+.page-link {
+    color: var(--jeytun-yellow);
+}
+
+.page-link:hover {
+    background-color: var(--jeytun-cyprus);
+    color: var(--jeytun-yellow);
+}
+
+@media only screen and (max-width: 992px) {
+    .yh {
+        font-size: small;
+    }
+}
+/*-----------------------------------END of index.html ------------------------------------------------- */
+
+
+/*-------------------------------------- about.html ---------------------------------------------------- */
+/* Nothing yet was implemented */
+/*------------------------------------END of about.html ------------------------------------------------ */
+
+
+/*-------------------------------------- products.html -------------------------------------------------- */
+/* Acccordion custom style */
+.accordion-button {
+    background-color: transparent !important;
+    font-size: 1.3rem;
+    color: var(--jeytun-green);
+}
+
+
+.accordion-button:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--jeytun-yellow);
+}
+
+.accordion-product-item {
+    color: var(--jeytun-cyprus);
+}
+
+.accordion-product-item:hover {
+    color: var(--jeytun-yellow);
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23D69D51'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+
+/* .product-wap-border {
+    border-color: var(--jeytun-yellow);
+} */
+
+/*-----------------------------------END of products.html ------------------------------------------------ */
+
+
+/*--------------------------------- product_detail.html -------------------------------------------------- */
+/* Nothing yet was implemented */
+/*--------------------------------END of product_detail.html  -------------------------------------------- */
+
+
+
+/* -----------------------------------------news.html----------------------------------------------------- */
+.news-detail-link {
+    color: var(--jeytun-green);
+}
+
+.news-detail-link:hover {
+    color: var(--jeytun-yellow);
+}
+
+.scaleNews {
+    transition: all 0.5s ease;
+}
+
+.scaleNews:hover {
+    box-shadow: 3px 3px 3px 3px #010c05;
+    transform: scale(1.05);
+    background-color: rgba(48, 137, 75, 0.09);
+
+}
+
+.news-list {
+    width: 65vw; 
+    margin-top: 2rem
+}
+/* --------------------------------------END of news.html------------------------------------------------- */
+
+
+/* --------------------------------------news_detail.html------------------------------------------------- */
+.news-prev-next-link {
+    color: var(--jeytun-green);
+}
+
+.news-prev-next-link:hover {
+    color: var(--jeytun-yellow);
+}
+
+.news-image {
+    width: 40%;
+}
+
+.news-detail {
+    width: 70vw;
+}
+/* ----------------------------------END of news_detail.html---------------------------------------------- */
+
+
+
+
+
+/* ---------------------------------------contacts.html-------------------------------------------------- */
+.jeytun-form-control{
+    border: 1px solid var(--jeytun-yellow);
+}
+
+.jeytun-form-control:focus {
+    box-shadow: 3px 0px 3px 0px var(--jeytun-yellow), -3px 0px 3px 0px var(--jeytun-yellow), 0px 3px 3px 0px var(--jeytun-yellow), 0px -3px 3px 0px var(--jeytun-yellow);
+    border: 1px solid var(--jeytun-cyprus);
+}
+
+.btn-jeytun {
+    color: var(--jeytun-cyprus);
+    background-color: var(--jeytun-yellow);
+}
+
+.btn-jeytun:hover {
+    background-color: var(--jeytun-cyprus);
+    color: var(--jeytun-yellow);
+}
+
+.btn-category-detail {
+    color: var(--jeytun-cyprus);
+    background-color: var(--jeytun-yellow);
+}
+
+.btn-category-detail:hover {
+    background-color: var(--jeytun-cyprus);
+    color: var(--jeytun-yellow);
+}
+/* ------------------------------------END of contacts.html----------------------------------------------- */
+
+
+
+
+/* ----------------------------------------media queries --------------------------------------------------- */
+
+@media only screen and (max-width: 992px) {
+    .news-list {
+      width: 95vw;
+    }
+    .news-detail {
+        width: 95vw;
+    }
+  }
+
+/* ----------------------------------------END of media queries --------------------------------------------------- */
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* -----------------------------------END OF CUSTOM CSS file ------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------------- */
+
+/* TO CUSTOMIZE select element */
+/* select#lang-select {
+    color: azure;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='150' height='70'  fill='%2326749a'><polygon points='0,0 100,0 50,50'/></svg>");
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+select#lang-select option {
+    color:#013333;
+}
+
+select#lang-select option[value="tk"] {
+    color:#013333;
+    background: rgba(5, 102, 26, 0.3);
+} */
+/* END of TO CUSTOMIZE select element */
+
+/* Hover effect on search btn DO NOT IMPLEMENT*/
+/* input#search-input {
+    visibility: hidden;
+    font-size: 0.75em !important;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    font-size: small;
+    transition: all 3s ease-in-out;
+}
+
+input#search-input:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+    width: auto;
+}
+
+input#search-input:placeholder-shown {
+    font-size: 0.75em !important;
+}
+
+#search-div:hover input#search-input {
+    visibility:visible;
+    /* transition: all 3s ease-in-out; 
+}
+
+#search-div {
+    transition: all 3s ease-in-out;
+} */
+/* END of Hover effect on search btn */
+
+
+/* Hover effect on search btn DO NOT IMPLEMENT*/
+/* input#search-input {
+    visibility: hidden;
+    font-size: 0.75em !important;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    font-size: small;
+    transition: all 3s ease-in-out;
+}
+
+input#search-input:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+    width: auto;
+}
+
+input#search-input:placeholder-shown {
+    font-size: 0.75em !important;
+}
+
+#search-div:hover input#search-input {
+    visibility:visible;
+    /* transition: all 3s ease-in-out; 
+}
+
+#search-div {
+    transition: all 3s ease-in-out;
+} */
+/* END of Hover effect on search btn */
+
+
+/* ---------------------------------------------------------------- */
