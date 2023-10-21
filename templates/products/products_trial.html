@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_trial.html' %}
 
 {% load static %}
 {% load i18n %}
@@ -8,254 +8,212 @@
 
 {% block content %}
 
-<!-- Main Content -->
-<div class="container py-5">
+<div class="container">
 	<div class="row">
-		<!--Category SideBar Accordion section-->
-		<div class="col-lg-3">
-			<h2 class="pb-4 m-auto text-center jeytun-yellow">{% trans "Categories" %}</h2>
-			<div class="accordion accordion-flush" id="accordionCategory">
-				{% for category in categories %}
-				{% if LANGUAGE_CODE == "tk" %}
-				<div class="accordion-item border-0">
-					<h2 class="accordion-header" id="flush-heading-{{ category.slug }}">
-						<button class="accordion-button collapsed h3 jeytun-green" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ category.slug }}" aria-expanded="false" aria-controls="flush-collapse-{{ category.slug }}">
-							{{ category.name }}
-						</button>
-					</h2>
-					<div id="flush-collapse-{{ category.slug }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ category.slug }}" data-bs-parent="#accordionCategory">
-						<div class="accordion-body">
-							<div class="accordion-body">
-								{% for product in category.products.all %}
-								{% if forloop.counter < 5 %}
-								<p>
-									<a class="text-decoration-none ms-3 text-cyprus" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-								</p>
-								{% endif %}
-								{% endfor %}
-								<p>
-									<a class="text-decoration-none ms-3 text-cyprus" href="{{ category.get_absolute_url }}">{% trans "See all" %}</a>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
 
-				{% elif LANGUAGE_CODE == "en" %}
-				<div class="accordion-item border-0">
-					<h2 class="accordion-header" id="flush-heading-{{ category.slug }}">
-						<button class="accordion-button collapsed h3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ category.slug }}" aria-expanded="false" aria-controls="flush-collapse-{{ category.slug }}">
-							{{ category.name_en }}
-						</button>
-					</h2>
-					<div id="flush-collapse-{{ category.slug }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ category.slug }}" data-bs-parent="#accordionCategory">
-						<div class="accordion-body">
-							{% for product in category.products.all %}
-							{% if forloop.counter < 5 %}
-							<p>
-								<a class="text-decoration-none ms-3 text-cyprus" href="{{ product.get_absolute_url }}">{{ product.title_en }}</a>
-							</p>
-							{% endif %}
-							{% endfor %}
-							<p>
-								<a class="text-decoration-none ms-3 text-cyprus" href="{{ category.get_absolute_url }}">{% trans "See all" %}</a>
-							</p>
-						</div>
-					</div>
-				</div>
+		<aside class="col-md-3">
 
-				{% else %}
-				<div class="accordion-item border-0">
-					<h2 class="accordion-header" id="flush-heading-{{ category.slug }}">
-						<button class="accordion-button collapsed h3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ category.slug }}" aria-expanded="false" aria-controls="flush-collapse-{{ category.slug }}">
-							{{ category.name_ru }}
-						</button>
-					</h2>
-					<div id="flush-collapse-{{ category.slug }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ category.slug }}" data-bs-parent="#accordionCategory">
-						<div class="accordion-body">
-							{% for product in category.products.all %}
-							{% if forloop.counter < 5 %}
-							<p>
-								<a class="text-decoration-none ms-3 text-cyprus" href="{{ product.get_absolute_url }}">{{ product.title_ru }}</a>
-							</p>
-							{% endif %}
-							{% endfor %}
-							<p>
-								<a class="text-decoration-none ms-3 text-cyprus" href="{{ category.get_absolute_url }}">{% trans "See all" %}</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				{% endif %}
-				{% endfor %}
-			</div>
-		</div>
-		<!--END Category SideBar Accordion section-->
-
-		<!--PRODUCTS DISPLAY SECTION-->
-		<div class="col-lg-9">
-			<!--Product Display section-->
-			<div class="row">
-				{% comment %} <h2 class="h2 jeytun-yellow">{% trans "Products" %}</h2> {% endcomment %}
-				{% for product in page_obj.object_list %}
-				<div class="col-md-3 mb-3">
-					<div class="card h-100 mb-4 product-wap rounded-0">
-						<div class="card rounded-0">
-							<img src="{{product.images.first.image.url}}" alt="{{img.product}}" class="card-img rounded-0 img-fluid">
-							<div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-								<ul class="list-unstyled">
-									<li>
-										<a class="btn mt-2 product-eye-button" href="{{ product.get_absolute_url }}"><i class="far fa-eye"></i></a>
-									</li>
-								</ul>
-							</div>
-							</a>
-						</div>
+			<div class="card">
+				<article class="filter-group">
+					<header class="card-header">
+						<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+							<i class="icon-control fa fa-chevron-down"></i>
+							<h6 class="title">Product type</h6>
+						</a>
+					</header>
+					<div class="filter-content collapse show" id="collapse_1" style="">
 						<div class="card-body">
-							{% if LANGUAGE_CODE == "tk" %}
-							<a href="{{product.get_absolute_url}}" class="h3 text-decoration-none">{{product.title}}</a>
-							{% elif LANGUAGE_CODE == "en" %}
-							<a href="{{product.get_absolute_url}}" class="h3 text-decoration-none">{{product.title_en}}</a>
-							{% else %}
-							<a href="{{product.get_absolute_url}}" class="h3 text-decoration-none">{{product.title_ru}}</a>
-							{% endif %}
-						</div>
+							<form class="pb-3">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search">
+									<div class="input-group-append">
+										<button class="btn btn-light" type="button"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+							</form>
+
+							<ul class="list-menu">
+								<li><a href="#">People </a></li>
+								<li><a href="#">Watches </a></li>
+								<li><a href="#">Cinema </a></li>
+								<li><a href="#">Clothes </a></li>
+								<li><a href="#">Home items </a></li>
+								<li><a href="#">Animals</a></li>
+								<li><a href="#">People </a></li>
+							</ul>
+
+						</div> <!-- card-body.// -->
 					</div>
+				</article> <!-- filter-group  .// -->
+				<article class="filter-group">
+					<header class="card-header">
+						<a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" class="">
+							<i class="icon-control fa fa-chevron-down"></i>
+							<h6 class="title">Brands </h6>
+						</a>
+					</header>
+					<div class="filter-content collapse show" id="collapse_2" style="">
+						<div class="card-body">
+							<label class="custom-control custom-checkbox">
+								<input type="checkbox" checked="" class="custom-control-input">
+								<div class="custom-control-label">Mercedes
+									<b class="badge badge-pill badge-light float-right">120</b> </div>
+							</label>
+							<label class="custom-control custom-checkbox">
+								<input type="checkbox" checked="" class="custom-control-input">
+								<div class="custom-control-label">Toyota
+									<b class="badge badge-pill badge-light float-right">15</b> </div>
+							</label>
+							<label class="custom-control custom-checkbox">
+								<input type="checkbox" checked="" class="custom-control-input">
+								<div class="custom-control-label">Mitsubishi
+									<b class="badge badge-pill badge-light float-right">35</b> </div>
+							</label>
+							<label class="custom-control custom-checkbox">
+								<input type="checkbox" checked="" class="custom-control-input">
+								<div class="custom-control-label">Nissan
+									<b class="badge badge-pill badge-light float-right">89</b> </div>
+							</label>
+							<label class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input">
+								<div class="custom-control-label">Honda
+									<b class="badge badge-pill badge-light float-right">30</b> </div>
+							</label>
+						</div> <!-- card-body.// -->
+					</div>
+				</article> <!-- filter-group .// -->
+				<article class="filter-group">
+					<header class="card-header">
+						<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+							<i class="icon-control fa fa-chevron-down"></i>
+							<h6 class="title">Price range </h6>
+						</a>
+					</header>
+					<div class="filter-content collapse show" id="collapse_3" style="">
+						<div class="card-body">
+							<input type="range" class="custom-range" min="0" max="100" name="">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label>Min</label>
+									<input class="form-control" placeholder="$0" type="number">
+								</div>
+								<div class="form-group text-right col-md-6">
+									<label>Max</label>
+									<input class="form-control" placeholder="$1,0000" type="number">
+								</div>
+							</div> <!-- form-row.// -->
+							<button class="btn btn-block btn-primary">Apply</button>
+						</div><!-- card-body.// -->
+					</div>
+				</article> <!-- filter-group .// -->
+				<article class="filter-group">
+					<header class="card-header">
+						<a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
+							<i class="icon-control fa fa-chevron-down"></i>
+							<h6 class="title">Sizes </h6>
+						</a>
+					</header>
+					<div class="filter-content collapse show" id="collapse_4" style="">
+						<div class="card-body">
+							<label class="checkbox-btn">
+								<input type="checkbox">
+								<span class="btn btn-light"> XS </span>
+							</label>
+
+							<label class="checkbox-btn">
+								<input type="checkbox">
+								<span class="btn btn-light"> SM </span>
+							</label>
+
+							<label class="checkbox-btn">
+								<input type="checkbox">
+								<span class="btn btn-light"> LG </span>
+							</label>
+
+							<label class="checkbox-btn">
+								<input type="checkbox">
+								<span class="btn btn-light"> XXL </span>
+							</label>
+						</div><!-- card-body.// -->
+					</div>
+				</article> <!-- filter-group .// -->
+				<article class="filter-group">
+					<header class="card-header">
+						<a href="#" data-toggle="collapse" data-target="#collapse_5" aria-expanded="false" class="">
+							<i class="icon-control fa fa-chevron-down"></i>
+							<h6 class="title">More filter </h6>
+						</a>
+					</header>
+					<div class="filter-content collapse in" id="collapse_5" style="">
+						<div class="card-body">
+							<label class="custom-control custom-radio">
+								<input type="radio" name="myfilter_radio" checked="" class="custom-control-input">
+								<div class="custom-control-label">Any condition</div>
+							</label>
+
+							<label class="custom-control custom-radio">
+								<input type="radio" name="myfilter_radio" class="custom-control-input">
+								<div class="custom-control-label">Brand new </div>
+							</label>
+
+							<label class="custom-control custom-radio">
+								<input type="radio" name="myfilter_radio" class="custom-control-input">
+								<div class="custom-control-label">Used items</div>
+							</label>
+
+							<label class="custom-control custom-radio">
+								<input type="radio" name="myfilter_radio" class="custom-control-input">
+								<div class="custom-control-label">Very old</div>
+							</label>
+						</div><!-- card-body.// -->
+					</div>
+				</article> <!-- filter-group .// -->
+			</div> <!-- card.// -->
+
+		</aside>
+
+		<main class="col-md-9">
+
+			<header class="border-bottom mb-4 pb-3">
+				<div class="form-inline">
+					<span class="mr-md-auto">32 Items found </span>
+					<select class="mr-2 form-control">
+						<option>Latest items</option>
+						<option>Trending</option>
+						<option>Most Popular</option>
+						<option>Cheapest</option>
+					</select>
 				</div>
+			</header><!-- sect-heading -->
+
+			<div>{{products}}</div>
+
+			<div class="row">
+				{% for product in products %}
+				<div class="col-md-4">
+					<figure class="card card-product-grid">
+						<div class="img-wrap">
+							<span class="badge badge-danger"> NEW </span>
+							<img src="{{product.images.first.image.url}}" alt="{{img.product}}" class="img-fluid">
+							<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
+						</div> <!-- img-wrap.// -->
+						<figcaption class="info-wrap">
+							<div class="fix-height">
+								<a href="#" class="title">{{product.name}}</a>
+								<div class="price-wrap mt-2">
+									<span class="price">$1280</span>
+									<del class="price-old">$1980</del>
+								</div> <!-- price-wrap.// -->
+							</div>
+							<a href="#" class="btn btn-block btn-primary">Add to cart </a>
+						</figcaption>
+					</figure>
+				</div> <!-- col.// -->
 				{% endfor %}
-			</div>
-			<!--END of Product Display section-->
+			</div> <!-- row end.// -->
 
-			<!--Pagination-->
-			{% if page_obj.paginator.num_pages > 1 %}
-			<div class="row mt-2">
-				<ul class="pagination pagination-lg justify-content-end">
-					{% if page_obj.has_previous and page_obj.has_next %}
-					<li class="page-item">
-						<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 " href="?page=1">1</i></a>
-					</li>
-					<li class="page-item">
-						<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 " href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-chevron-left"></i></a>
-					</li>
-					<li class="page-item disabled">
-						<a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 " href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a>
-					</li>
-					<li class="page-item">
-						<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 " href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-					</li>
-					{% endif %}
-
-					{% if page_obj.has_previous and not page_obj.has_next %}
-					<li class="page-item">
-						<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 " href="?page=1">1</i></a>
-					</li>
-					<li class="page-item">
-						<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 " href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-chevron-left"></i></a>
-					</li>
-					<li class="page-item disabled">
-						<a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
-					</li>
-					{% endif %}
-
-					{% if page_obj.has_next and not page_obj.has_previous %}
-					<li class="page-item disabled">
-						<a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 " href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a>
-					</li>
-					<li class="page-item">
-						<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 " href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-					</li>
-					{% endif %}
-				</ul>
-			</div>
-			{% endif %}
-			<!--END of Pagination-->
-		</div>
-		<!--END OF PRODUCTS DISPLAY SECTION-->
+		</main>
 	</div>
 </div>
-<!-- End Content -->
-
-<!-- Start Categories -->
-<section class="bg-jeytun-light py-5 ">
-	<div class="container my-4">
-		<div class="row text-center py-3">
-			<div class="col-lg-6 m-auto">
-				<h1 class="h1 jeytun-yellow">{% trans "Our Categories" %}</h1>
-				<p>
-					{% trans "Here you can find out about out other product categories." %}
-				</p>
-			</div>
-			<div class="col-lg-9 m-auto tempaltemo-carousel">
-				<div class="row d-flex flex-row">
-					<!--Controls-->
-					<div class="col-1 align-self-center">
-						<a class="h1" href="#multi-item-example" role="button" data-bs-slide="prev">
-							<i class="fas fa-chevron-left jeytun-yellow"></i>
-						</a>
-					</div>
-					<!--End Controls-->
-
-					<!--Carousel Wrapper-->
-					<div class="col">
-						<div class="carousel slide carousel-multi-item pt-2 pt-md-0" id="multi-item-example" data-bs-ride="carousel">
-							<!--Slides-->
-							<div class="carousel-inner">
-								{% for four_categories in categories_by_four %}
-									{% if forloop.counter == 1 %}
-									<div class="carousel-item active">
-									{% else %}
-									<div class="carousel-item">
-										{% endif %}
-										<div class="row">
-											{% for category in four_categories %}
-											<div class="col-3 p-md-5">
-												<a href="{{ category.get_absolute_url }}">
-													<img class="img-fluid brand-img" src="{{ category.image.url }}" alt="{{category}}">
-												</a>
-												{% if LANGUAGE_CODE == "tk" %}
-												<a href="{{category.get_absolute_url}}" class="text-decoration-none text-cyprus">
-													<small>{{category.name }}</small>
-												</a>
-												{% elif LANGUAGE_CODE == "en" %}
-												<a href="{{category.get_absolute_url}}" class="text-decoration-none text-cyprus">
-													<small>{{category.name_en }}</small>
-												</a>
-												{% else %}
-												<a href="{{category.get_absolute_url}}" class="text-decoration-none text-cyprus">
-													<small>{{category.name_ru }}</small>
-												</a>
-												{% endif %}
-																	
-											</div>
-											{% endfor %}
-										</div>
-									</div>
-								{% endfor %}
-								<!--End First slide-->
-							</div>
-							<!--End Slides-->
-							</div>
-						</div>
-						<!--End Carousel Wrapper-->
-
-						<!--Controls-->
-						<div class="col-1 align-self-center">
-							<a class="h1" href="#multi-item-example" role="button" data-bs-slide="next">
-								<i class="fas fa-chevron-right jeytun-yellow"></i>
-							</a>
-						</div>
-						<!--End Controls-->
-					</div>
-				</div>
-			</div>
-		</div>
-</section>
-<!--End Categories-->
 
 {% endblock content %}

@@ -4,3 +4,4 @@ Pillow==10.0.1
 django-imagekit==5.0.0
 python-dotenv==1.0.0
 black==23.9.1
+django-htmx==1.17.0

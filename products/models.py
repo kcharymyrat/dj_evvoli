@@ -45,7 +45,7 @@ class Category(models.Model):
     description_en = models.TextField(_("description (English)"), null=True, blank=True)
     description_ru = models.TextField(_("description (Russian)"), null=True, blank=True)
 
-    image = models.ImageField(_("image"), upload_to="images/categories/")
+    image = models.ImageField(_("image"), upload_to=f"images/categories/")
 
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     modified_at = models.DateTimeField(_("modified at"), auto_now=True)
@@ -93,6 +93,9 @@ class ProductManager(models.Manager):
 
 
 class Product(models.Model):
+    REQUIRED_RESOLUTIONS = (600, 600)
+    MAX_IMAGE_SIZE = 12_900_000
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     category = models.ForeignKey(
         Category,
@@ -109,9 +112,7 @@ class Product(models.Model):
         _("type (Russian)"), max_length=50, null=True, blank=True
     )
 
-    model = models.CharField(_("model (Turkmen)"), max_length=100, unique=True)
-    model_en = models.CharField(_("model (English)"), max_length=100, unique=True)
-    model_ru = models.CharField(_("model (Russian)"), max_length=100, unique=True)
+    model = models.CharField(_("model"), max_length=100, unique=True)
 
     title = models.CharField(_("title (Turkmen)"), max_length=100, unique=True)
     title_en = models.CharField(_("title (English)"), max_length=100, unique=True)
@@ -134,6 +135,7 @@ class Product(models.Model):
 
     in_stock = models.BooleanField(_("in stock"), default=True)
 
+    image = models.ImageField(_("image"), upload_to=f"images/products/")
     video = models.FileField(
         _("video"), upload_to="videos/products/", null=True, blank=True
     )
@@ -181,8 +183,20 @@ class Product(models.Model):
     #                 {"video": _("Video file too large. Maximum size is 20MB.")}
     #             )
 
-    def __str__(self) -> str:
-        return f"Product: {self.title}, price: {self.price}"
+    def clean(self):
+        super().clean()
+
+        # Perform image validation
+        if self.image:
+            # Open the image using PIL
+            img = Image.open(self.image)
+
+            # Resize the image if needed
+            if img.width > 1000 or img.height > 1000:
+                img.thumbnail((1000, 1000))
+
+            # Save the resized image back to the model instance
+            img.save(self.image.path)
 
     def save(self, *args, **kwargs):
         if self.sale_percent > 0:
@@ -197,6 +211,9 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("products:product_detail", kwargs={"slug": self.slug})
+
+    def __str__(self) -> str:
+        return f"Product: {self.title}, price: {self.price}"
 
 
 class TV(Product):
@@ -269,9 +286,9 @@ class ProductSpecification(models.Model):
         on_delete=models.CASCADE,
         related_name="specs",
     )
-    title = models.CharField(_("title (Turkmen)"), max_length=255, unique=True)
-    title_en = models.CharField(_("title (English)"), max_length=255, unique=True)
-    title_ru = models.CharField(_("title (Russian)"), max_length=255, unique=True)
+    title = models.CharField(_("title (Turkmen)"), max_length=255)
+    title_en = models.CharField(_("title (English)"), max_length=255)
+    title_ru = models.CharField(_("title (Russian)"), max_length=255)
     content = models.CharField(_("content (Turkmen)"), max_length=255)
     content_en = models.CharField(_("content (English)"), max_length=255)
     content_ru = models.CharField(_("content (Russian)"), max_length=255)
