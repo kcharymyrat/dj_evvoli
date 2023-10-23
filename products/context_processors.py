@@ -1,5 +1,5 @@
-# from .models import Category
+from .models import Category
 
 
-# def categories(request):
-#     return {"categories": Category.objects.all()}
+def categories(request):
+    return {"categories": Category.objects.all()}

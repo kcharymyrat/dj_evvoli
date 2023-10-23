@@ -17,46 +17,37 @@ def search(request):
         ).distinct()
     else:
         products = Product.objects.all()
-    return _search_results_view(request, products)
+    return render(
+        request, "products/search_results.html", context={"products": products}
+    )
 
 
-def _search_results_view(request, products):
-    paginator = Paginator(products, 12)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    context = {
-        "page_obj": page_obj,
-    }
-    return render(request, "products/search_results.html", context)
+class HomeView(ListView):
+    model = Category
+    paginate_by = 2
+    context_object_name = "categories"
 
+    def get_template_names(self):
+        if self.request.htmx:
+            print("HTMX requst triggered")
+            return "includes/category_list_elements.html"
+        return "index_trial.html"
 
-def specific_category_products(request, slug):
-    category_products = Category.objects.filter(slug=slug).first().products.all()
-    return _specific_category_products_view(request, category_products)
-
-
-def _specific_category_products_view(request, category_products):
-    paginator = Paginator(category_products, 12)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    context = {
-        "page_obj": page_obj,
-        "category_name": category_products.first().category.name,
-        "category_name_en": category_products.first().category.name_en,
-        "category_name_ru": category_products.first().category.name_ru,
-    }
-    return render(request, "products/category_detail.html", context)
-
-
-class HomeTemplateView(TemplateView):
-    template_name = "index_trial.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 
 class ProductListView(ListView):
     model = Product
-    paginate_by = 12
+    paginate_by = 2
     context_object_name = "products"
-    template_name = "products/products_trial.html"
+
+    def get_template_names(self):
+        if self.request.htmx:
+            print("HTMX requwst triggered")
+            return "products/components/product_list_elements.html"
+        return "products/products_trial.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -160,6 +160,10 @@ class Product(models.Model):
             )
         ]
 
+    @property
+    def img_preview(self):
+        return mark_safe(f'<img src = "{self.image.url}"/>')
+
     # def clean(self):
     #     """
     #     Validation for the video.

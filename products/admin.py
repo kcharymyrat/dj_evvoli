@@ -179,7 +179,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = (ProductImageInline, ProductSpecificationTitleInline)
 
     def get_readonly_fields(self, request, obj=None):
-        return self.readonly_fields + ("sale_price",)
+        return self.readonly_fields + ("sale_price", "img_preview")
 
 
 admin.site.register(Product, ProductAdmin)

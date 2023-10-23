@@ -48,14 +48,11 @@
 
 /* GLOBAL STYLES
 -------------------------------------------------- */
-/* Padding below the footer and lighter body text */
 
-body {
-    color: #5a5a5a;
-    margin: 0;
-    padding:0;
+* {
+  padding: 0;
+  margin: 0;
 }
-
 
   
   /* CUSTOMIZE THE CAROUSEL
@@ -125,7 +122,7 @@ body {
   }
   
   @media (min-width: 62em) {
-    .featurette-heading {
+    .featurette-heading, .featurette-image {
       margin-top: 7rem;
     }
   }
@@ -241,4 +238,26 @@ body {
 .img-wrap {
   overflow: hidden;
   position: relative;
+}
+
+.card {
+  border: none;
+}
+
+
+/* ------------------ */
+
+/* ---- My STyles for Product list page */
+#product-main-image {
+  height: 300px;
+}
+
+
+#filter-accordion {
+  margin: 0;
+  padding: 0;
+}
+
+.product-filter-text {
+  font-size: 0.5rem;
 }

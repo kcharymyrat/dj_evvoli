@@ -1,0 +1,34 @@
+{% load static %}
+{% load i18n %}
+
+<!-- Product list using htmx-->
+<div class="row">
+	{% for product in products %}
+	{% if forloop.last %}
+	<div class="col-md-6" hx-get="{% url 'products:product_list' %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend">
+	{% else %}
+	<div class="col-md-6 d-flex">
+		{% endif %}
+		<figure class="card card-product-grid">
+			<div class="img-wrap">
+				<span class="badge badge-danger"> NEW </span>
+				<img id="product-main-image" src="{{product.image.url}}" alt="{{product.title}}" class="card-img img-fluid">
+				<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
+			</div> <!-- img-wrap.// -->
+			<figcaption class="info-wrap">
+				<div class="fix-height">
+					<a href="#" class="title">{{product.title}}</a>
+					<p>{{product.description}}</p>
+					<div class="price-wrap mt-1">
+						<span class="price">${{product.sale_price}}</span>
+						{% if product.on_sale %}
+						<del class="price-old">${{product.price}}</del>
+						{% endif %}
+					</div> <!-- price-wrap.// -->
+				</div>
+				<a href="#" class="btn btn-block btn-primary">Add to cart </a>
+			</figcaption>
+		</figure>
+	</div> <!-- col.// -->
+	{% endfor %}
+</div> <!-- row end.// -->

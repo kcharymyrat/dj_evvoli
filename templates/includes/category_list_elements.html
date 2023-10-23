@@ -1,0 +1,29 @@
+{% load static %}
+{% load i18n %}
+
+<!-- Category list using htmmx-->
+<div class="container marketing">
+
+	{% for category in categories %}
+
+    {% if forloop.last and forloop.counter|divisibleby:2  %}
+	<div class="row featurette" hx-get="{% url 'products:home' %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend">
+    {% include "./single_category_even.html" %}
+
+    {% elif forloop.last %}
+    <div class="row featurette" hx-get="{% url 'products:home' %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend">
+    {% include "./single_category_odd.html" %}
+
+    {% elif forloop.counter|divisibleby:2 %}
+    <div class="row featurette">
+    {% include "./single_category_even.html" %}
+
+	{% else %}
+	<div class="row featurette">
+    {% include "./single_category_odd.html" %}
+    {% endif %}
+    
+    </div>
+	{% endfor %}
+
+</div>

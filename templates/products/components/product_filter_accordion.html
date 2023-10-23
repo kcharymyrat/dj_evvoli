@@ -1,0 +1,96 @@
+<div class="accordion accordion-flush" id="filter-accordion">
+			
+    <!--OFFERS FILTER-->
+    <div class="accordion-item border-0">
+        <p class="accordion-header product-filter-text" id="flush-heading-offers">
+            <button class="accordion-button collapsed px-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-offers" aria-expanded="false" aria-controls="flush-collapse-offers">
+                OFFERS
+            </button>
+        </p>
+        <div id="flush-collapse-offers" class="accordion-collapse collapse" aria-labelledby="flush-heading-offers" data-bs-parent="#filter-accordion">
+            <div class="accordion-body">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">On sale</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END OFFERS FILTER-->
+    <hr class="divider">
+
+    <!--CATEGORIES FILTER-->
+    <div class="accordion-item border-0">
+        <p class="accordion-header header-text-accordion" id="flush-heading-categories">
+            <button class="accordion-button collapsed px-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-categories" aria-expanded="false" aria-controls="flush-collapse-categories">
+                CATEGORIES
+            </button>
+        </p>
+        <div id="flush-collapse-categories" class="accordion-collapse collapse" aria-labelledby="flush-heading-categories" data-bs-parent="#filter-accordion">
+            <div class="accordion-body">
+                <ul class="list-menu">
+                    {% for category in categories %}
+                        <li><a href="#">{{ category.name }} </a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--END CATEGORIES FILTER-->
+    <hr class="divider">
+
+    <!--PRODUCT TYPES FILTER-->
+    <div class="accordion-item border-0">
+        <p class="accordion-header header-text-accordion" id="flush-heading-product-types">
+            <button class="accordion-button collapsed px-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-product-types" aria-expanded="false" aria-controls="flush-collapse-product-types">
+                PRODUCT TYPES
+            </button>
+        </p>
+        <div id="flush-collapse-product-types" class="accordion-collapse collapse" aria-labelledby="flush-heading-product-types" data-bs-parent="#filter-accordion">
+            <div class="accordion-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      All products
+                    </label>
+                </div>
+
+                {% for product in products %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        {{ product.type }}
+                    </label>
+                  </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!--END PRODUCT TYPES FILTER-->
+    <hr class="divider">
+
+    <!--PRICE RANGE FILTER-->
+    <div class="accordion-item border-0">
+        <p class="accordion-header header-text-accordion" id="flush-heading-price-range">
+            <button class="accordion-button collapsed px-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-price-range" aria-expanded="false" aria-controls="flush-collapse-price-range">
+                Price Range
+            </button>
+        </p>
+        <div id="flush-collapse-price-range" class="accordion-collapse collapse" aria-labelledby="flush-heading-price-range" data-bs-parent="#filter-accordion">
+            <div class="accordion-body">
+                <form class="row">
+                    <div class="col">
+                        <input class="form-control" placeholder="0" type="number">
+                    </div>
+                    <div class="col">
+                        <input class="form-control" placeholder="1,000" type="number">
+                    </div>
+                </div> <!-- form-row.// -->
+                <button class="btn btn-block btn-primary mt-2">Apply</button>
+            </form>
+        </div>
+    </div>
+    <!--END CATEGORIES FILTER-->
+    <hr class="divider">
+
+</div>
