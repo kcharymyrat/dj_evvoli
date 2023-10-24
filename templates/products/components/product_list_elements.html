@@ -1,11 +1,12 @@
 {% load static %}
 {% load i18n %}
 
+
 <!-- Product list using htmx-->
-<div class="row">
+<div id="product_list_elements" class="row">
 	{% for product in products %}
 	{% if forloop.last %}
-	<div class="col-md-6" hx-get="{% url 'products:product_list' %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend">
+	<div id="last_product_page" class="col-md-6" hx-get="{% url 'products:product_list' %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend">
 	{% else %}
 	<div class="col-md-6 d-flex">
 		{% endif %}
@@ -18,7 +19,7 @@
 			<figcaption class="info-wrap">
 				<div class="fix-height">
 					<a href="#" class="title">{{product.title}}</a>
-					<p>{{product.description}}</p>
+					<p>{{product.type}}: {{product.description}}</p>
 					<div class="price-wrap mt-1">
 						<span class="price">${{product.sale_price}}</span>
 						{% if product.on_sale %}
