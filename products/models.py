@@ -213,8 +213,8 @@ class Product(models.Model):
             self.on_sale = False
         super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse("products:product_detail", kwargs={"slug": self.slug})
+    # def get_absolute_url(self):
+    #     return reverse("products:product_detail", kwargs={"slug": self.slug})
 
     def __str__(self) -> str:
         return f"Product: {self.title}, price: {self.price}"

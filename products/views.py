@@ -3,9 +3,14 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView
 
-from .models import Category, Product
+from uuid import UUID
+
+from .models import Category, Product, ProductImage
+
+
+products_global = Product.objects.all()
 
 
 def search(request):
@@ -32,14 +37,11 @@ class HomeView(ListView):
         if self.request.htmx:
             print("HTMX requst triggered")
             return "includes/category_list_elements.html"
-        return "index_trial.html"
+        return "index.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-
-products_global = Product.objects.all()
 
 
 class ProductListView(ListView):
@@ -53,7 +55,7 @@ class ProductListView(ListView):
             print("HTMX request triggered")
             return "products/components/product_list_elements.html"
         products_global = Product.objects.all()
-        return "products/products_trial.html"
+        return "products/products.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,3 +120,26 @@ class ProductListView(ListView):
             print(f"products_global = {products_global}")
             return products_global
         return products_global
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = "products/product_detail_xander.html"
+
+
+def product_main_image_view(request, *args, **kwargs):
+    print(f"request.GET = {request.GET}")
+    product_id = UUID(request.GET.get("product_id"))
+    product = Product.objects.filter(id=product_id).first()
+    image_id = request.GET.get("image_id")
+    if image_id:
+        image_id = UUID(request.GET.get("image_id"))
+        image = ProductImage.objects.filter(id=image_id).first()
+        context = {"product": product, "image": image}
+    else:
+        image = "main"
+        context = {"product": product}
+    print(f"product_id = {product_id}, image_id = {image_id}")
+
+    print(context)
+    return render(request, "products/components/product_main_image.html", context)
