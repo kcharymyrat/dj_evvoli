@@ -30,6 +30,7 @@ urlpatterns = [
     path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     path("i18n/", include("django.conf.urls.i18n")),
     path("", include("products.urls", namespace="products")),
+    path("", include("orders.urls", namespace="orders")),
     prefix_default_language=False,
 )
 

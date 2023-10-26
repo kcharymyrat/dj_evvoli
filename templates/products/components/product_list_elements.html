@@ -6,7 +6,7 @@
 <div id="product_list_elements" class="row">
 	{% for product in products %}
 	{% if forloop.last %}
-	<div id="last_product_page" class="col-md-6" hx-get="{% url 'products:product_list' %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend">
+	<div id="last_product_page" class="col-md-6" hx-get="{% url 'products:product_list' category_slug=category_slug %}?page={{ page_obj.number|add:1 }}" hx-trigger="revealed" hx-swap="afterend">
 	{% else %}
 	<div class="col-md-6 d-flex">
 		{% endif %}
@@ -14,7 +14,7 @@
 			<div class="img-wrap">
 				<span class="badge badge-danger"> NEW </span>
 				<img id="product-main-image" src="{{product.image.url}}" alt="{{product.title}}" class="card-img img-fluid">
-				<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
+				<a class="btn-overlay" href="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"><i class="fa fa-search-plus"></i> Quick view</a>
 			</div> <!-- img-wrap.// -->
 			<figcaption class="info-wrap">
 				<div class="fix-height">

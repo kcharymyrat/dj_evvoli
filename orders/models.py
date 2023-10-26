@@ -77,8 +77,17 @@ class CartItem(models.Model):
         verbose_name_plural = _("carts items")
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)  # Call the "real" save() method.
-        self.cart.update_total_price()  # Update the cart's total price after saving.
+        # If quantity is 0, delete the CartItem
+        if self.quantity == 0:
+            self.delete()
+        else:
+            super().save(*args, **kwargs)  # Call the "real" save() method.
+            self.cart.update_total_price()  # Update the cart's total price after saving.
+
+    def delete(self, *args, **kwargs):
+        cart = self.cart
+        super().delete(*args, **kwargs)  # Call the "real" delete() method.
+        cart.update_total_price()  # Update the cart's total price after deletion.
 
     def __str__(self):
         return f"{self.quantity}-{self.product.title} = {self.sub_total}"
