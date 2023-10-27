@@ -89,9 +89,8 @@ class CartItem(models.Model):
             self.cart.update_total_price()  # Update the cart's total price after saving.
 
     def delete(self, *args, **kwargs):
-        cart = self.cart
         super().delete(*args, **kwargs)  # Call the "real" delete() method.
-        cart.update_total_price()  # Update the cart's total price after deletion.
+        self.cart.update_total_price()  # Update the cart's total price after deletion.
 
     def __str__(self):
         return f"{self.quantity}-{self.product.title} = {self.sub_total}"

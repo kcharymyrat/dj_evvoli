@@ -43,32 +43,51 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     // Add to cart function
     const addToCart = async () => {
-        const response = await fetch(addURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
-            }
-        });
+        try {
+            const response = await fetch(addURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                }
+            });
 
-        const data = await response.json();
-        updateDisplay(data.productQty);
-        updateNavCart(data.cartQty);
+            if(response.ok) {
+                console.log(response.json)
+                const jsonData = await response.json();
+                updateDisplay(jsonData.productQty);
+                updateNavCart(jsonData.cartQty);
+            } else {
+                console.log(response.json)
+                console.error('Failed to add item to cart');
+            }
+        } catch (error) {
+            console.error('Failed to connect to server', error);
+        }
     };
 
     // Remove from cart function
     const removeFromCart = async () => {
-        const response = await fetch(removeURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
+        try {
+            const response = await fetch(removeURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                }
+            });
+            if(response.ok) {
+                console.log(response.json)
+                const jsonData = await response.json();
+                updateDisplay(jsonData.productQty);
+                updateNavCart(jsonData.cartQty);
+            } else {
+                console.log(response.json)
+                console.error('Failed to add item to cart');
             }
-        });
-
-        const data = await response.json();
-        updateDisplay(data.productQty);
-        updateNavCart(data.cartQty);
+        } catch (error) {
+            console.error('Failed to connect to server', error);
+        }  
     };
 
     // Event handlers
