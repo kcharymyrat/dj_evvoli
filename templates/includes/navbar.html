@@ -95,7 +95,11 @@
 
 			<!-- ----------------------Cart------------------------ -->
 			<a type="button" role="button" href="#" class="btn btn-outline-secondary border-0 basket-btn">
-				<div id="cart-qty" class="basket-qty">
+				<div id="cart-qty" class="basket-qty"
+				hx-get="{% url "orders:cart_view" %}"
+                hx-trigger="click"
+                hx-target="#main-body"
+                hx-swap="outerHTML">
 					{{ request.session.cart_qty|default:0 }}
 				</div>
 				<div>

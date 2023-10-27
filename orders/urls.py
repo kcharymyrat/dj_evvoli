@@ -1,11 +1,6 @@
 from django.urls import path
 
-from .views import (
-    add_to_cart,
-    remove_from_cart,
-    add_to_cart_json,
-    remove_from_cart_json,
-)
+from .views import add_to_cart_json, remove_from_cart_json, cart_view
 
 
 app_name = "orders"
@@ -14,4 +9,5 @@ urlpatterns = [
     path(
         "remove_from_cart/<slug:slug>/", remove_from_cart_json, name="remove_from_cart"
     ),
+    path("cart/", cart_view, name="cart_view"),
 ]

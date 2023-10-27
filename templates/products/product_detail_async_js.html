@@ -9,7 +9,7 @@
 {% endblock %}
 {% block content %}
 
-<div id="product-detail-div" class="container-xxl">
+<div id="product-detail-div" class="container-xxl mb-2">
 {% if messages %}
 <div class="alert alert-warning" alert="{{ message.tags }}" role="alert">
 {% for message in messages  %}
@@ -46,18 +46,17 @@
         <hr>
 
           <!--CART BUTTONS-->
-          <button type="button" id="add-btn" class="btn btn-success fw500" data-url='{% url "orders:add_to_cart" slug=product.slug %}' data-cart-qty='{{ request.session.cart_qty|default:0 }}' data-product-qty='{{ product_qty_in_cart|default:0 }}'>
+          <button type="button" id="add-btn" class="btn btn-success col-lg-6 fw500" data-url='{% url "orders:add_to_cart" slug=product.slug %}' data-cart-qty='{{ request.session.cart_qty|default:0 }}' data-product-qty='{{ product_qty_in_cart|default:0 }}'>
             Add to Cart
           </button>
           <div id="d-none-div" 
-          class="d-flex justify-content-around bg-primary rounded">
-            <p id="d-none-minus-btn" class="cursor-pointer" data-url='{% url "orders:remove_from_cart" slug=product.slug %}'><i class="fa-solid fa-minus"></i></p>
-            <p id="d-none-product-qty">{{ product_qty_in_cart|default:0  }}</p>
-            <p id="d-none-plus-btn" class="cursor-pointer" data-url='{% url "orders:add_to_cart" slug=product.slug %}'><i class="fa-solid fa-plus"></i></p> 
+          class="d-flex col-lg-6 align-items-center justify-content-around btn-evvoli-pink rounded">
+            <p id="d-none-minus-btn" class="my-2 pointer-cursor" data-url='{% url "orders:remove_from_cart" slug=product.slug %}'><i class="fa-solid fa-minus"></i></p>
+            <p id="d-none-product-qty" class="my-2">{{ product_qty_in_cart|default:0  }}</p>
+            <p id="d-none-plus-btn" class="my-2 pointer-cursor" data-url='{% url "orders:add_to_cart" slug=product.slug %}'><i class="fa-solid fa-plus"></i></p> 
           </div>
           <!--END OF CART BUTTONS-->
 
-          <a href="#" class="btn btn-light fw500" role="button" aria-disabled="true">Add to Wish List</a>
       </div>
     </div>
     <!--END OF Details of Products, ADD to CARD, ADD to WISHLIST-->

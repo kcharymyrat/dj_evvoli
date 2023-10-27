@@ -36,6 +36,10 @@ class Cart(models.Model):
     date_added = models.DateTimeField(_("date added"), auto_now_add=True)
     date_modified = models.DateTimeField(_("date added"), auto_now=True)
 
+    @property
+    def total_quantity(self):
+        return sum(item.quantity for item in self.cart_items.all())
+
     class Meta:
         verbose_name = _("cart")
         verbose_name_plural = _("carts")
