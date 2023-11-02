@@ -32,7 +32,8 @@
 							hx-get="{% url 'products:category_list' category_slug=category.slug %}" 
 							hx-swap="outerHTML" 
 							hx-trigger="click" 
-							hx-target="#main-body">
+							hx-target="#main-body"
+							hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">
 								{% if LANGUAGE_CODE == "tk" %}
 								{{category.name}}
 								{% elif LANGUAGE_CODE == "en" %}
@@ -55,7 +56,8 @@
 									hx-get="{% url 'products:category_list' category_slug=category.slug %}" 
 									hx-swap="outerHTML" 
 									hx-trigger="click" 
-									hx-target="#main-body">
+									hx-target="#main-body"
+									hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">
 										{% if LANGUAGE_CODE == "tk" %}
 										{{category.name}}
 										{% elif LANGUAGE_CODE == "en" %}

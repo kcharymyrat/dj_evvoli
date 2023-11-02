@@ -7,6 +7,7 @@ from .views import (
     product_main_image_view,
     # HTMX
     category_list_view,
+    product_elements_list_view,
 )
 
 
@@ -35,6 +36,9 @@ htmxpatterns = [
         "categories/<slug:category_slug>/",
         category_list_view,
         name="category_list",
+    ),
+    path(
+        "cat/product_list/yo/", product_elements_list_view, name="product_elements_list"
     ),
 ]
 
