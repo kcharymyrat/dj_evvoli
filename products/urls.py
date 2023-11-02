@@ -5,6 +5,8 @@ from .views import (
     ProductListView,
     ProductDetailView,
     product_main_image_view,
+    # HTMX
+    category_list_view,
 )
 
 
@@ -27,3 +29,14 @@ urlpatterns = [
         name="product_main_image",
     ),
 ]
+
+htmxpatterns = [
+    path(
+        "categories/<slug:category_slug>/",
+        category_list_view,
+        name="category_list",
+    ),
+]
+
+
+urlpatterns += htmxpatterns

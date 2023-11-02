@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+
+{% block title %}
+{% if product %}{{ product.title }}{% else %}{% trans "Önüm" %}{% endif %}
+{% endblock %}
+{% block content %}
+
+<div id="product-detail-div" class="container-xxl mb-2">
+{% if messages %}
+<div class="alert alert-warning" alert="{{ message.tags }}" role="alert">
+{% for message in messages  %}
+  {{message|safe}} - <a href="#" class="alert-link">Your Wishlist</a>.
+{% endfor %}
+</div>
+{% endif %}
+  <div class="row g-3">
+
+    <!--Details of Products, ADD to CARD, ADD to WISHLIST-->
+    <div class="col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+      <div class="d-grid gap-2">
+        <div>
+            <p class="h4">{{product.title}}</p>
+            <p>Model: <span>{{product.model}}</span></p>
+            <p>{{product.description}}</p>
+            <p>Product Specification</p>
+            <ul>
+                {% for spec in product.specs.all %}
+                    <p>{{spec.title}}: {{spec.content}}</p>
+                {% endfor %}
+            </ul>
+               
+        </div>
+
+        <div class="d-flex d-flex-inline justify-content-between">
+            <div class="price-wrap mt-1 h3">
+                <span class="price">{{product.sale_price}} m</span>
+                {% if product.on_sale %}
+                <del class="price-old">${{product.price}}</del>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+
+          <!--CART BUTTONS-->
+          <button type="button" id="add-btn" class="btn btn-success col-lg-6 fw500" data-url='{% url "orders:add_to_cart" slug=product.slug %}' data-cart-qty='{{ request.session.cart_qty|default:0 }}' data-product-qty='{{ product_qty_in_cart|default:0 }}'>
+            Add to Cart
+          </button>
+          <div id="d-none-div" 
+          class="d-flex col-lg-6 align-items-center justify-content-around btn-evvoli-pink rounded">
+            <p id="d-none-minus-btn" class="my-2 pointer-cursor" data-url='{% url "orders:remove_from_cart" slug=product.slug %}'><i class="fa-solid fa-minus"></i></p>
+            <p id="d-none-product-qty" class="my-2">{{ product_qty_in_cart|default:0  }}</p>
+            <p id="d-none-plus-btn" class="my-2 pointer-cursor" data-url='{% url "orders:add_to_cart" slug=product.slug %}'><i class="fa-solid fa-plus"></i></p> 
+          </div>
+          <!--END OF CART BUTTONS-->
+
+      </div>
+    </div>
+    <!--END OF Details of Products, ADD to CARD, ADD to WISHLIST-->
+
+
+    <!--Product Images-->
+    <div class="col-md-7 col-lg-7 p-0">
+      <div class="card mb-3 border-0 text-center">
+        <div class="row g-0">
+          <div class="col-md-12">
+
+            <div class="card-body p-1">
+              <h1 class="mb-0 h2 pe-4 pb-4">{{ product.title }}</h1>
+              <div class="text-center">
+
+                <img id="product-main-image" class="image-fluid mx-auto d-block" alt="Responsive image" src="{{ product.image.url}}"
+                  alt="{{ product.title }}">
+               
+                {% for image in product.images.all %}
+                <img id="{{image.id}}" class="other-images img-fluid d-block-inline pt-3" width="100px" alt="Responsive image"
+                  src="{{ image.thumbnail.url }}" alt="{{ image.image.alt_text }}" 
+                  hx-get="{% url "products:product_main_image" category_slug=product.category.slug slug=product.slug %}?product_id={{ product.id }}&image_id={{image.id}}"
+                  hx-trigger="click"
+                  hx-target="#product-main-image"
+                  hx-swap="outerHTML">
+                {% endfor %}
+                <img id="{{image.id}}" class="other-images img-fluid d-block-inline pt-3" width="100px" alt="Responsive image"
+                src="{{ product.image.url}}" alt="{{ product.title}}" 
+                  hx-get="{% url "products:product_main_image" category_slug=product.category.slug slug=product.slug %}?product_id={{ product.id }}"
+                  hx-trigger="click"
+                  hx-target="#product-main-image"
+                  hx-swap="outerHTML">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--END OF Product Images-->
+
+  </div>
+
+  {% endblock content %}
+
+
+  {% block js %}
+  <script type="text/javascript">
+      var csrfToken = '{{ csrf_token }}';
+  </script>
+  <script src='{% static "js/cart_async_post.js" %}'></script>
+  {% endblock js %}
+
+
+
+
+
+  <!--
+    <img id="product-main-image" class="mx-auto d-block" alt="Responsive image" src="{{ product.image.url}}"
+                  alt="{{ product.title }}">
+               
+    {% for image in product.images.all %}
+    <img id="{{image.id}}" class="other-images img-fluid d-block-inline pt-3" width="100px" alt="Responsive image"
+        src="{{ image.thumbnail.url }}" alt="{{ image.image.alt_text }}" 
+        hx-get="{% url "products:product_main_image" slug=product.slug %}"
+        hx-trigger="click"
+        hx-target="#product-main-image"
+        hx-swap="outerHTML"
+        hx-include="[product_id='{{ product.id }}', image_id = '{{ image.id }}']">
+    {% endfor %}
+  -->

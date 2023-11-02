@@ -1,0 +1,107 @@
+
+
+<div class="accordion accordion-flush" id="filter-accordion">
+
+    <form id="product_type_form" hx-get="{% url "products:category_list" category_slug=category_slug  %}" hx-target="#product_list_elements" hx-trigger="change">
+			
+        <!--OFFERS FILTER-->
+        <div class="accordion-item border-0">
+            <p class="accordion-header" id="flush-heading-offers">
+                <button class="accordion-button px-0 product-filter-button-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-offers" aria-expanded="true" aria-controls="flush-collapse-offers">
+                    OFFERS
+                </button>
+            </p>
+            <div id="flush-collapse-offers" class="accordion-collapse collapse show" aria-labelledby="flush-heading-offers">
+                <div class="accordion-body">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="on_sale" hx-trigger="change">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">On sale</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END OFFERS FILTER-->
+        <hr class="hr-divider">
+
+        <!--PRODUCT TYPES FILTER-->
+        <div class="accordion-item border-0">
+            <p class="accordion-header header-text-accordion" id="flush-heading-product-types">
+                <button class="accordion-button px-0 product-filter-button-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-product-types" aria-expanded="false" aria-controls="flush-collapse-product-types">
+                    PRODUCT TYPES
+                </button>
+            </p>
+            <div id="flush-collapse-product-types" class="accordion-collapse collapse show" aria-labelledby="flush-heading-product-types">
+                <div class="accordion-body">
+
+                        <div class="form-check mx-0">
+                            <input class="form-check-input" type="radio" id="all_product_types" checked name="product_type" value="all" hx-trigger="change">
+                            <label class="form-check-label" for="all_product_types">
+                            All products
+                            </label>
+                        </div>
+
+                        {% for product_type in types %}
+                        <div class="form-check mx-0">
+                            <input class="form-check-input" type="radio" id="radio-{{product_type}}" name="product_type" value="{{product_type}}" hx-trigger="change">
+                            <label class="form-check-label" for="radio-{{product_type}}">
+                                {{product_type}}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    
+
+                </div>  
+            </div>
+        </div>
+        <!--END PRODUCT TYPES FILTER-->
+        <hr class="hr-divider">
+
+        <!--PRICE RANGE FILTER-->
+        <div class="accordion-item border-0">
+            <p class="accordion-header header-text-accordion" id="flush-heading-price-range">
+                <button class="accordion-button px-0 product-filter-button-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-price-range" aria-expanded="false" aria-controls="flush-collapse-price-range">
+                    PRICE RANGE
+                </button>
+            </p>
+            <div id="flush-collapse-price-range" class="accordion-collapse collapse show" aria-labelledby="flush-heading-price-range">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div>
+                            <input class="form-control" placeholder="0" type="number" name="min_price" hx-trigger="change">
+                        </div>
+                        <div>
+                            <input class="form-control mt-2" placeholder="1,000" type="number" name="max_price" hx-trigger="change">
+                        </div> 
+                    </div> <!-- form-row.// -->
+                </div>
+            </div>
+        </div>
+        <!--END RANGE FILTER-->
+        <hr class="hr-divider">
+
+    </form> <!--END of form id="product_type_form" -->
+
+    <!--CATEGORIES FILTER-->
+    <div class="accordion-item border-0">
+        <p class="accordion-header header-text-accordion" id="flush-heading-categories">
+            <button class="accordion-button collapsed px-0 product-filter-button-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-categories" aria-expanded="false" aria-controls="flush-collapse-categories">
+                CATEGORIES
+            </button>
+        </p>
+        <div id="flush-collapse-categories" class="accordion-collapse collapse" aria-labelledby="flush-heading-categories">
+            <div class="accordion-body">
+                {% for category in categories %}
+                <div class="form-check mx-0">
+                    <input class="form-check-input" type="radio" name="{{category.id}}" id="radio-{{category.slug}}">
+                    <label class="form-check-label" for="radio-{{category.slug}}">
+                        {{category.name}}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!--END CATEGORIES FILTER-->
+    <hr class="hr-divider">
+
+</div>
