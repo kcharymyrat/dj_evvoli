@@ -1,26 +1,16 @@
 from django.urls import path
 
 from .views import (
-    OldHomeView,
-    OldProductListView,
-    OldProductDetailView,
-    product_main_image_view,
     # HTMX
     category_list_view,
     HomeListView,
     ProductDetailView,
+    product_main_image_view,
 )
 
 
 app_name = "products"
-urlpatterns = [
-    path("home/", OldHomeView.as_view(), name="old_home"),
-    path(
-        "products/<slug:category_slug>/",
-        OldProductListView.as_view(),
-        name="product_list",
-    ),
-]
+urlpatterns = []
 
 htmxpatterns = [
     path("", HomeListView.as_view(), name="home"),

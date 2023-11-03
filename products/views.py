@@ -257,97 +257,93 @@ def product_main_image_view(request, *args, **kwargs):
         context = {"product": product}
     return render(request, "products/components/product_main_image.html", context)
 
+    ############################### OLD Views that were corrected above############################
+    # class OldHomeView(ListView):
+    #     model = Category
+    #     paginate_by = 2
+    #     context_object_name = "categories"
 
-# OLD Views that were corrected above############################
-class OldHomeView(ListView):
-    model = Category
-    paginate_by = 2
-    context_object_name = "categories"
+    #     def get_template_names(self):
+    #         if self.request.htmx:
+    #             return "includes/category_list_elements.html"
+    #         return "index.html"
 
-    def get_template_names(self):
-        if self.request.htmx:
-            return "includes/category_list_elements.html"
-        return "index.html"
+    # products_global = []
 
+    # class OldProductListView(ListView):
+    #     model = Product
+    #     paginate_by = 2
+    #     context_object_name = "products"
 
-products_global = []
+    #     def get_template_names(self):
+    #         category_slug = self.kwargs.get("category_slug")
+    #         if self.request.htmx:
+    #             return "products/components/product_list_elements.html"
+    #         products_global = (
+    #             Category.objects.filter(slug=category_slug).first().products.all()
+    #         )
+    #         return "products/products.html"
 
+    #     def get_context_data(self, **kwargs):
+    #         context = super().get_context_data(**kwargs)
+    #         category_slug = self.kwargs.get("category_slug")
+    #         context["category_slug"] = category_slug
 
-class OldProductListView(ListView):
-    model = Product
-    paginate_by = 2
-    context_object_name = "products"
+    #         # send product types
+    #         types = set(
+    #             Category.objects.filter(slug=category_slug)
+    #             .first()
+    #             .products.values_list("type", flat=True)
+    #             .distinct()
+    #         )
+    #         context["types"] = types
+    #         return context
 
-    def get_template_names(self):
-        category_slug = self.kwargs.get("category_slug")
-        if self.request.htmx:
-            return "products/components/product_list_elements.html"
-        products_global = (
-            Category.objects.filter(slug=category_slug).first().products.all()
-        )
-        return "products/products.html"
+    #     def get_queryset(self):
+    #         global products_global
+    #         request = self.request
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        category_slug = self.kwargs.get("category_slug")
-        context["category_slug"] = category_slug
+    #         category_slug = self.kwargs.get("category_slug")
+    #         category = Category.objects.filter(slug=category_slug).first()
 
-        # send product types
-        types = set(
-            Category.objects.filter(slug=category_slug)
-            .first()
-            .products.values_list("type", flat=True)
-            .distinct()
-        )
-        context["types"] = types
-        return context
+    #         if not products_global:
+    #             products_global = category.products.all()
 
-    def get_queryset(self):
-        global products_global
-        request = self.request
+    #         if products_global.first():
+    #             product_category_slug = products_global.first().category.slug
+    #             if product_category_slug != category_slug:
+    #                 products_global = category.products.all()
 
-        category_slug = self.kwargs.get("category_slug")
-        category = Category.objects.filter(slug=category_slug).first()
+    #         if request.htmx.trigger == "product_type_form":
+    #             product_type = request.GET.get("product_type")
+    #             products_global = category.products.filter(type=product_type)
 
-        if not products_global:
-            products_global = category.products.all()
+    #             # Check if all product types was chose
+    #             if product_type == "all":
+    #                 products_global = category.products.all()
 
-        if products_global.first():
-            product_category_slug = products_global.first().category.slug
-            if product_category_slug != category_slug:
-                products_global = category.products.all()
+    #             # Check for on sale - maybe will have to change it to context processor later???
+    #             on_sale = request.GET.get("on_sale")
+    #             if on_sale:
+    #                 products_global = products_global.filter(on_sale=True)
 
-        if request.htmx.trigger == "product_type_form":
-            product_type = request.GET.get("product_type")
-            products_global = category.products.filter(type=product_type)
+    #             # Check the price range
+    #             min_price = request.GET.get("min_price")
+    #             max_price = request.GET.get("max_price")
+    #             if min_price and max_price:
+    #                 products_global = products_global.filter(
+    #                     price__gt=min_price, price__lt=max_price
+    #                 )
+    #             elif min_price:
+    #                 products_global = products_global.filter(price__gt=min_price)
+    #             elif max_price:
+    #                 products_global = products_global.filter(price__lt=max_price)
+    #             return products_global
+    #         elif request.htmx.trigger == "last_product_page":
+    #             return products_global
+    #         return products_global
 
-            # Check if all product types was chose
-            if product_type == "all":
-                products_global = category.products.all()
-
-            # Check for on sale - maybe will have to change it to context processor later???
-            on_sale = request.GET.get("on_sale")
-            if on_sale:
-                products_global = products_global.filter(on_sale=True)
-
-            # Check the price range
-            min_price = request.GET.get("min_price")
-            max_price = request.GET.get("max_price")
-            if min_price and max_price:
-                products_global = products_global.filter(
-                    price__gt=min_price, price__lt=max_price
-                )
-            elif min_price:
-                products_global = products_global.filter(price__gt=min_price)
-            elif max_price:
-                products_global = products_global.filter(price__lt=max_price)
-            return products_global
-        elif request.htmx.trigger == "last_product_page":
-            return products_global
-        return products_global
-
-
-class OldProductDetailView(DetailView):
+    # class OldProductDetailView(DetailView):
     model = Product
     template_name = "products/product_detail_async_js.html"
 
