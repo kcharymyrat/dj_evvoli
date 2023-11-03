@@ -255,7 +255,7 @@ def product_main_image_view(request, *args, **kwargs):
     else:
         image = "main"
         context = {"product": product}
-    return render(request, "products/components/product_main_image.html", context)
+    return render(request, "categories/partials/product_main_image.html", context)
 
     ############################### OLD Views that were corrected above############################
     # class OldHomeView(ListView):

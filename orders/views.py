@@ -54,8 +54,11 @@ def remove_from_cart_json(request, *args, **kwargs):
 
         with transaction.atomic():
             # If the cart item exists and its quantity is greater than 0, decrease the quantity
+            print("cart_item.quantity =", cart_item.quantity)
             if cart_item.quantity > 0:
                 cart_item.quantity -= 1
+                print("cart_item.quantity =", cart_item.quantity)
+
                 # If the quantity is now 0, delete the cart item
                 if cart_item.quantity == 0:
                     cart_item.delete()
@@ -76,6 +79,7 @@ def remove_from_cart_json(request, *args, **kwargs):
 
 
 def cart_view(request, *args, **kwargs):
+    print("\n\n\ncart_view(request, *args, **kwargs)")
     for k, v in request.session.items():
         print(f"{k}: {v}")
     # del request.session["cart_id"]
@@ -88,10 +92,15 @@ def cart_view(request, *args, **kwargs):
     print([items for items in cart.cart_items.all()])
     context = {"cart": cart}
     print(context)
+    if request.htmx:
+        print("htmx cart_view(request, *args, **kwargs)")
+        return render(request, "orders/partials/cart_partial.html", context)
+    print("not htmx cart_view(request, *args, **kwargs)")
     return render(request, "orders/cart.html", context)
 
 
 def cart_checkout_details(request, *args, **kwargs):
+    print("\n\n\ncart_checkout_details(request, *args, **kwargs)")
     for k, v in request.session.items():
         print(f"{k}: {v}")
     # del request.session["cart_id"]
