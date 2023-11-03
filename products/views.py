@@ -29,25 +29,24 @@ def search(request):
     )
 
 
-class HomeView(ListView):
+class HomeListView(ListView):
     model = Category
     paginate_by = 2
-    context_object_name = "categories"
+    context_object_name = "cats"
 
     def get_template_names(self):
         if self.request.htmx:
-            return "includes/category_list_elements.html"
-        return "index.html"
+            if self.request.htmx.target == "main-body":
+                print("\n\nin request.htmx.target == 'main-body':")
+                return "index_htmx_partial.html"
+            else:
+                return "includes/category_list_elements_htmx.html"
+        return "index_htmx.html"
 
-
-def product_elements_list_view(request, context):
-    print("product_elements_list_view(request, context)")
-    print("context =", context)
-    new_context = context
-    new_context["context"] = new_context
-    return render(
-        request, "categories/partials/product_list_elements.html", new_context
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        return context
 
 
 def all_product_elements_list_view(request, kwargs):
@@ -214,10 +213,67 @@ def category_list_view(request, *args, **kwargs):
     return all_product_elements_list_view(request, kwargs)
 
 
+class ProductDetailView(DetailView):
+    model = Product
+
+    def get_template_names(self):
+        if self.request.htmx:
+            print("\n\nif self.request.htmx:")
+            return "categories/partials/product_detail_async_js_htmx_partial.html"
+        return "categories/product_detail_async_js_htmx.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        product_qty_in_cart = 0
+        cart_id = self.request.session.get("cart_id", None)
+
+        if not cart_id:
+            context["product_qty_in_cart"] = product_qty_in_cart
+            return context
+
+        cart = get_object_or_404(Cart, id=cart_id)
+        if cart:
+            for cart_item in cart.cart_items.all():
+                print(
+                    f"cart_item = {cart_item}, {cart_item.product} {context['object']} {cart_item.quantity}"
+                )
+                if context["object"] == cart_item.product and cart_item.quantity > 0:
+                    product_qty_in_cart = cart_item.quantity
+        context["product_qty_in_cart"] = product_qty_in_cart
+        return context
+
+
+def product_main_image_view(request, *args, **kwargs):
+    product_id = UUID(request.GET.get("product_id"))
+    product = Product.objects.filter(id=product_id).first()
+    image_id = request.GET.get("image_id")
+    if image_id:
+        image_id = UUID(request.GET.get("image_id"))
+        image = ProductImage.objects.filter(id=image_id).first()
+        context = {"product": product, "image": image}
+    else:
+        image = "main"
+        context = {"product": product}
+    return render(request, "products/components/product_main_image.html", context)
+
+
+# OLD Views that were corrected above############################
+class OldHomeView(ListView):
+    model = Category
+    paginate_by = 2
+    context_object_name = "categories"
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return "includes/category_list_elements.html"
+        return "index.html"
+
+
 products_global = []
 
 
-class ProductListView(ListView):
+class OldProductListView(ListView):
     model = Product
     paginate_by = 2
     context_object_name = "products"
@@ -291,7 +347,7 @@ class ProductListView(ListView):
         return products_global
 
 
-class ProductDetailView(DetailView):
+class OldProductDetailView(DetailView):
     model = Product
     template_name = "products/product_detail_async_js.html"
 
@@ -315,17 +371,3 @@ class ProductDetailView(DetailView):
                     product_qty_in_cart = cart_item.quantity
         context["product_qty_in_cart"] = product_qty_in_cart
         return context
-
-
-def product_main_image_view(request, *args, **kwargs):
-    product_id = UUID(request.GET.get("product_id"))
-    product = Product.objects.filter(id=product_id).first()
-    image_id = request.GET.get("image_id")
-    if image_id:
-        image_id = UUID(request.GET.get("image_id"))
-        image = ProductImage.objects.filter(id=image_id).first()
-        context = {"product": product, "image": image}
-    else:
-        image = "main"
-        context = {"product": product}
-    return render(request, "products/components/product_main_image.html", context)

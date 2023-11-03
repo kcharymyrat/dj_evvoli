@@ -7,5 +7,4 @@ def categories(request):
 
 def product_types(request):
     types = set(Product.objects.values_list("type", flat=True).distinct())
-    print(types)
     return {"product_types": types}

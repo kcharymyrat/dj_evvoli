@@ -1,3 +1,6 @@
+{% load static %}
+{% load i18n %}
+
 
 
 <div class="accordion accordion-flush" id="filter-accordion">
@@ -83,28 +86,4 @@
         <hr class="hr-divider">
 
     </form> <!--END of form id="product_type_form" -->
-
-    <!--CATEGORIES FILTER-->
-    <div class="accordion-item border-0">
-        <p class="accordion-header header-text-accordion" id="flush-heading-categories">
-            <button class="accordion-button collapsed px-0 product-filter-button-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-categories" aria-expanded="false" aria-controls="flush-collapse-categories">
-                CATEGORIES
-            </button>
-        </p>
-        <div id="flush-collapse-categories" class="accordion-collapse collapse" aria-labelledby="flush-heading-categories">
-            <div class="accordion-body">
-                {% for category in categories %}
-                <div class="form-check mx-0">
-                    <input class="form-check-input" type="radio" name="{{category.id}}" id="radio-{{category.slug}}">
-                    <label class="form-check-label" for="radio-{{category.slug}}">
-                        {{category.name}}
-                    </label>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <!--END CATEGORIES FILTER-->
-    <hr class="hr-divider">
-
 </div>

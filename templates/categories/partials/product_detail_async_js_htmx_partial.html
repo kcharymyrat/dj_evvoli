@@ -1,13 +1,6 @@
-{% extends 'base_htmx.html' %}
-
 {% load static %}
 {% load i18n %}
 
-
-{% block title %}
-{% if product %}{{ product.title }}{% else %}{% trans "Önüm" %}{% endif %}
-{% endblock %}
-{% block content %}
 
 <div id="product-detail-div" class="container-xxl mb-2">
   {% if messages %}
@@ -97,16 +90,104 @@
       </div>
     </div>
     <!--END OF Product Images-->
-
   </div>
 
-  {% endblock content %}
-
-
-  {% block js %}
   <script type="text/javascript">
-      var csrfToken = '{{ csrf_token }}';
+      // console.log("cart_asyn_post.js")
+      console.log("window.addEventListener")
+
+      var navCart = document.querySelector('#cart-qty');
+      console.log("navCart =", navCart);
+
+      var addBtn = document.querySelector('#add-btn');
+      var minusBtn = document.querySelector('#d-none-minus-btn');
+      var plusBtn = document.querySelector('#d-none-plus-btn');
+      var qtyDisplay = document.querySelector(`#d-none-product-qty`);
+      var dNoneDiv = document.querySelector('#d-none-div');
+
+      var addURL = addBtn.dataset.url;
+      var removeURL = minusBtn.dataset.url;
+
+      var productQty = addBtn.dataset.productQty;
+      var cartQty = addBtn.dataset.cartQty;
+
+      // console.log(addURL, removeURL)
+      // console.log("cartQty =", cartQty, "productQty =", productQty)
+
+      // Function to update the display and button visibility
+      var updateDisplay = (qty) => {
+          // console.log("qty =", qty)
+          if (qty > 0) {
+              addBtn.classList.add('d-none');
+              dNoneDiv.classList.remove('d-none');
+              qtyDisplay.textContent = qty;
+          } else {
+              addBtn.classList.remove('d-none');
+              dNoneDiv.classList.add('d-none');
+          }
+      };
+
+      var updateNavCart = (qty) => {
+          navCart.textContent = qty;
+      };
+
+      // Initial update
+      updateDisplay(productQty);
+
+      // Add to cart function
+      var addToCart = async () => {
+          try {
+              const response = await fetch(addURL, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': '{{ csrf_token }}'
+                  }
+              });
+
+              if(response.ok) {
+                  console.log(response.json)
+                  const jsonData = await response.json();
+                  updateDisplay(jsonData.productQty);
+                  updateNavCart(jsonData.cartQty);
+              } else {
+                  console.log(response.json)
+                  console.error('Failed to add item to cart');
+              }
+          } catch (error) {
+              console.error('Failed to connect to server', error);
+          }
+      };
+
+      // Remove from cart function
+      var removeFromCart = async () => {
+          try {
+              const response = await fetch(removeURL, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': '{{ csrf_token }}'
+                  }
+              });
+              if(response.ok) {
+                  console.log(response.json)
+                  const jsonData = await response.json();
+                  updateDisplay(jsonData.productQty);
+                  updateNavCart(jsonData.cartQty);
+              } else {
+                  console.log(response.json)
+                  console.error('Failed to add item to cart');
+              }
+          } catch (error) {
+              console.error('Failed to connect to server', error);
+          }  
+      };
+
+      // Event handlers
+      addBtn.addEventListener('click', addToCart);
+      minusBtn.addEventListener('click', removeFromCart);
+      plusBtn.addEventListener('click', addToCart);
+
+      console.log("END OF SCRIPT")
   </script>
-  <script src='{% static "js/cart_async_post.js" %}'></script>
-  {% endblock js %}
 

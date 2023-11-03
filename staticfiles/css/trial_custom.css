@@ -54,6 +54,15 @@
   margin: 0;
 }
 
+
+/* HTMX Transitions */
+body {
+  transition: all 1s ease;
+}
+
+#main-body {
+  transition: all 1s ease;
+}
   
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
@@ -287,3 +296,4 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 .pointer-cursor:hover {
   color: var(--color-orange);
 }
+

@@ -5,7 +5,12 @@
 <nav class="navbar navbar-expand-lg bg-light" aria-label="Offcanvas navbar large">
 	<div class="container-xxl">
 		<!--LOGO brand-->
-		<a class="navbar-brand mx-2 " href="{% url "products:home" %}">
+		<a class="navbar-brand mx-2 " href=""
+		hx-get="{% url "products:home" %}" 
+		hx-swap="outerHTML swap:1s" 
+		hx-trigger="click" 
+		hx-target="#main-body"
+		hx-push-url="{% url "products:home" %}">
 			<img src="{% static 'img/logo/logo.png' %}" alt="logo" class="" width="70px">
 		</a>
 		<!--END of LOGO brand-->
@@ -25,12 +30,12 @@
 				<div class="offcanvas-body ">
 					<ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
 						{% for category in categories %}
-						{% if forloop.counter < 4 %}
+						{% if forloop.counter < 5 %}
 						<!--FIX aria-current and learn how to do it-->
 						<li class="nav-item">
 							<a id="category-{{category.slug}}" class="nav-link" aria-current="page"
 							hx-get="{% url 'products:category_list' category_slug=category.slug %}" 
-							hx-swap="outerHTML" 
+							hx-swap="outerHTML swap:1s" 
 							hx-trigger="click" 
 							hx-target="#main-body"
 							hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">
@@ -54,7 +59,7 @@
 								<li>
 									<a id="category-{{category.slug}}" class="dropdown-item" 
 									hx-get="{% url 'products:category_list' category_slug=category.slug %}" 
-									hx-swap="outerHTML" 
+									hx-swap="outerHTML swap:1s" 
 									hx-trigger="click" 
 									hx-target="#main-body"
 									hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">

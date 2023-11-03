@@ -1,3 +1,5 @@
+{% load static i18n %}
+
 {% if image %}
 <img id="product-main-image"  class="mx-auto d-block" alt="Responsive image" src="{{ image.image.url}}" alt="{{ image.description }}">
 {% else %}

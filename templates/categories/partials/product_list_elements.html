@@ -17,8 +17,15 @@
 		<figure class="card card-product-grid">
 			<div class="img-wrap">
 				<span class="badge badge-danger"> NEW </span>
-				<img id="product-main-image" src="{{product.image.url}}" alt="{{product.title}}" class="card-img img-fluid">
-				<a class="btn-overlay" href="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"><i class="fa fa-search-plus"></i> Quick view</a>
+				<img src="{{product.image.url}}" alt="{{product.title}}" class="card-img img-fluid">
+				<a class="btn-overlay product-quick-view" href="#"
+				hx-get="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"
+				hx-swap="innerHTML" 
+				hx-trigger="click delay:0.5s" 
+				hx-target="#main-body"
+				hx-push-url="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}">
+					<i class="fa fa-search-plus"></i> {% trans "Quick view" %}
+				</a>
 			</div> <!-- img-wrap.// -->
 			<figcaption class="info-wrap">
 				<div class="fix-height">
@@ -31,9 +38,41 @@
 						{% endif %}
 					</div> <!-- price-wrap.// -->
 				</div>
-				<a href="#" class="btn btn-block btn-primary">{% trans "Buy Now" %}</a>
+				<a href="#" class="btn btn-block btn-primary buy-now-btn"
+				hx-get="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"
+				hx-swap="innerHTML" 
+				hx-trigger="click delay:0.5s" 
+				hx-target="#main-body"
+				hx-push-url="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}">
+					{% trans "Buy Now" %}
+				</a>
 			</figcaption>
 		</figure>
 	</div> <!-- col.// -->
 	{% endfor %}
 </div> <!-- row end.// -->
+
+<script>
+    var productQuickView = document.querySelectorAll(".product-quick-view");
+    var buyNowBtn = document.querySelectorAll(".buy-now-btn");
+
+	// When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+
+	// Loop through each element and add an event listener
+	productQuickView.forEach((link) => {
+		if (link) {
+			link.addEventListener('click', topFunction);
+		}
+	});
+
+	buyNowBtn.forEach((link) => {
+		if (link) {
+			link.addEventListener('click', topFunction);
+		}
+	});
+
+</script>
