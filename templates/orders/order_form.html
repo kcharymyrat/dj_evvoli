@@ -1,0 +1,78 @@
+{% extends 'base_htmx.html' %}
+{% load i18n static %}
+{% load django_htmx %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+{% block title %}{% trans "Cart" %}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    {% comment %} <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Customer Name</label>
+            <input type="text" class="form-control" name="customer_name" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Shipping Address</label>
+            <textarea class="form-control" name="shipping_address" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" name="phone" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Delivery Time</label>
+            <input type="datetime-local" class="form-control" name="delivery_time" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Payment Option</label>
+            <select class="form-select" name="payment_option" required>
+                <option value="">Select Payment Option</option>
+                <option value="Cash">Cash</option>
+                <option value="Card Terminal">Card Terminal</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form> {% endcomment %}
+    
+
+    {% comment %} <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            {{ form.customer_name.label }} {{ form.customer_name }}
+        </div>
+        <div class="row">
+            {{ form.shipping_address.label }} {{ form.shipping_address }}
+        </div>
+        <div class="row">
+            {{ form.phone.label }} {{ form.phone }}
+        </div>
+        <div class="row">
+            {{ form.email.label }} {{ form.email }}
+        </div>
+        <div class="row">
+            {{ form.delivery_time.label }} {{ form.delivery_time }}
+        </div>
+        <div class="row">
+            {{ form.payment_option.label }} {{ form.payment_option }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div> {% endcomment %}
+
+{% endblock content %}

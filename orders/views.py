@@ -1,10 +1,27 @@
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.http import Http404, JsonResponse
+from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
 
 from .models import Cart, CartItem, Order
+from .forms import OrderForm
+
 from products.models import Category, Product
+
+
+class OrderCreateView(CreateView):
+    model = Order
+    form_class = OrderForm
+    template_name = "orders/order_form.html"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("product:home")
 
 
 @require_POST

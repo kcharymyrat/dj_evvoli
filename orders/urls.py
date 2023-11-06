@@ -5,6 +5,7 @@ from .views import (
     remove_from_cart_json,
     cart_view,
     cart_checkout_details,
+    OrderCreateView,
 )
 
 
@@ -20,4 +21,5 @@ urlpatterns = [
         cart_checkout_details,
         name="cart_checkout_details",
     ),
+    path("order/", OrderCreateView.as_view(), name="order"),
 ]
