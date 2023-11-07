@@ -63,6 +63,94 @@ body {
 #main-body {
   transition: all 1s ease;
 }
+
+/* REFACTOR from custom.css */
+
+/*-------------------------------------- navbar.html --------------------------------------------------- */
+.nav-link:hover {
+  color: var(--color-pink);
+}
+
+.fa-search {
+  color: gray;
+}
+
+select#lang-select {
+  box-shadow: none;
+}
+
+select#lang-select:focus {
+  outline: 0;
+  box-shadow: none;
+  color: gray;
+}
+
+select#lang-select:active {
+  outline: none;
+  box-shadow: none;
+}
+
+input#search-input {
+  font-size: 0.75em !important;
+  box-shadow: none;
+  outline: none;
+  border: none;
+  font-size: small;
+  transition: all 3s ease-in-out;
+}
+
+input#search-input:focus {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+input#search-input:placeholder-shown {
+  font-size: 0.75em !important;
+  color: gray;
+}
+
+input#search-input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: gray;
+  opacity: 1;
+  /* Firefox */
+}
+
+input#search-input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: gray;
+}
+
+input#search-input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: gray;
+}
+
+#header-search-btn:hover {
+  background: transparent;
+  color: var(--color-pink);
+}
+
+select#lang-select {
+  background-color: transparent;
+  color: gray;
+}
+
+select#lang-select option {
+  /* color: var(--jeytun-yellow); */
+  color: red;
+  border: none;
+  /* background-color: aqua; */
+}
+
+select#lang-select option:selected {
+  color: black;
+}
+
+/*-------------------------------------- END of header.html --------------------------------------------- */
+
+/* END of REFACTOR from custom.css */
   
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */
