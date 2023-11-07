@@ -142,7 +142,11 @@ def cart_view(request, *args, **kwargs):
     # del request.session["cart_qty"]
     request.session.save()
     if "cart_id" not in request.session:
-        return render(request, "orders/partials/no_products_in_cart_partial.html")
+        if request.htmx:
+            print('"cart_id" not in request.session: - htmx')
+            return render(request, "orders/partials/no_products_in_cart_partial.html")
+        print('"cart_id" not in request.session: - NOT htmx')
+        return render(request, "orders/no_products_in_cart.html")
     cart = get_object_or_404(Cart, id=request.session["cart_id"])
     print(f"cart = {cart}")
     print([items for items in cart.cart_items.all()])
