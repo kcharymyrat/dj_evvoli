@@ -46,7 +46,7 @@
 				<span class="text-primary">{% trans "Your Order" %}</span>
 				<span id="cartTotalQty" class="badge bg-primary rounded-pill">{% trans "No. of products" %}: {{ cart.total_quantity }}</span>
 			</h4>
-			<form class="list-group mb-3">
+			<form method="POST" class="list-group mb-3">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-primary">Submit</button>

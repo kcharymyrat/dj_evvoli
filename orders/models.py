@@ -49,7 +49,7 @@ class Cart(models.Model):
         self.total_price = sum(item.sub_total for item in self.cart_items.all())
         self.save()
 
-    def update_is_order(self):
+    def update_is_ordered(self):
         self.is_ordered = True
         self.save()
 

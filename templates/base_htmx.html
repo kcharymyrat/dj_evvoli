@@ -32,7 +32,7 @@
 
 <body class="mx-auto px-0">
 
-    {% include "includes/header.html" %}
+    <div id="overlay"></div>
 
     {% include "includes/navbar_htmx.html" %}
 
@@ -45,7 +45,22 @@
     <script src="{% static 'popper/popper.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    <script>
+        var navbar = document.querySelector('#navBar');
+        var overlay = document.querySelector('#overlay');
 
+        navbar.addEventListener('mouseover', function() {
+            overlay.style.opacity = '1';
+            overlay.style.pointerEvents = 'auto'; // Make the overlay clickable again
+        });
+
+        navbar.addEventListener('mouseout', function() {
+            overlay.style.opacity = '0';
+            setTimeout(function() { // This will delay the pointer-events update until the transition is complete
+                overlay.style.pointerEvents = 'none';
+            }, 500); // The delay should be equal to the transition duration
+        });
+    </script>
 
     {% block js %}{% endblock js %}
 </body>

@@ -1,9 +1,11 @@
 from django.db import transaction
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.http import Http404, JsonResponse, HttpResponse
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
+from django.utils.translation import gettext_lazy as _
 
 from .models import Cart, CartItem, Order
 from .forms import OrderForm
@@ -16,9 +18,13 @@ class OrderCreateView(CreateView):
     form_class = OrderForm
 
     def dispatch(self, request, *args, **kwargs):
+        print(
+            "session =", [{key: value} for key, value in self.request.session.items()]
+        )
         self.cart = None
         cart_id = self.request.session.get("cart_id")
         if cart_id:
+            self.cart_id = cart_id
             self.cart = get_object_or_404(Cart, id=cart_id)
         return super().dispatch(request, *args, **kwargs)
 
@@ -30,7 +36,14 @@ class OrderCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("product:home")
+        for key in list(self.request.session.keys()):
+            if key.startswith("cart"):
+                del self.request.session[key]
+        print(
+            "session =", [{key: value} for key, value in self.request.session.items()]
+        )
+        self.request.session.modified = True
+        return reverse("products:home")
 
     def get_template_names(self):
         if self.request.htmx:
