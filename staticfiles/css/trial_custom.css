@@ -297,3 +297,13 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   color: var(--color-orange);
 }
 
+.helptext {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#id_phone { /*phone from Django form model just above the .helptext, no need for the margin*/
+  margin-bottom: 0;
+}

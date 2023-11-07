@@ -1,0 +1,57 @@
+{% load i18n static %}
+{% load django_htmx %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+
+
+<main class="container">
+	<div class="py-5 text-center">
+		<h2>Checkout form</h2>
+		<p class="lead">
+			Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.
+		</p>
+	</div>
+
+	<div class="row g-5">
+
+		<!--Cart Checkout Details -->
+		<div id="cart-checkout-details" class="col-md-5 col-lg-4 order-md-last">
+			<h4 class="d-flex justify-content-between align-items-center mb-3">
+				Cart Details
+			</h4>
+			<ul class="list-group mb-3">
+				{% for item in cart.cart_items.all %}
+				<li class="list-group-item d-flex justify-content-between lh-sm">
+					<div>
+						<h6 class="my-0">{{item.product.title}}</h6>
+						<small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
+					</div>
+					<span class="text-muted">{{item.sub_total}} m.</span>
+				</li>
+                {% endfor %}
+				<li class="list-group-item d-flex justify-content-between">
+					<span>TOTAL</span>
+					<strong>{{ cart.total_price }} m.</strong>
+				</li>
+			</ul>
+		</div>
+		<!--Cart Checkout Details -->
+
+        <!--Order Form -->
+		<div class="col-md-7 col-lg-8">
+			<h4 class="d-flex justify-content-between align-items-center mb-3">
+				<span class="text-primary">{% trans "Your Order" %}</span>
+				<span id="cartTotalQty" class="badge bg-primary rounded-pill">{% trans "No. of products" %}: {{ cart.total_quantity }}</span>
+			</h4>
+			<form class="list-group mb-3">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>    
+		</div>
+		<!--Order Form -->
+	</div>
+</main>

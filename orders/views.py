@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponse
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
 
@@ -14,14 +14,40 @@ from products.models import Category, Product
 class OrderCreateView(CreateView):
     model = Order
     form_class = OrderForm
-    template_name = "orders/order_form.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.cart = None
+        cart_id = self.request.session.get("cart_id")
+        if cart_id:
+            self.cart = get_object_or_404(Cart, id=cart_id)
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        if self.request.user:
+            form.instance.user = self.request.user
+        if self.cart:
+            form.instance.cart = self.cart
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse("product:home")
+
+    def get_template_names(self):
+        if self.request.htmx:
+            print("\n\norder: self.request.htmx:")
+            if self.cart and self.cart.total_quantity > 0:
+                return "orders/partial/order_form_partial.html"
+            return "orders/partial/order_not_allowed_partial.html"
+        if self.cart and self.cart.total_quantity > 0:
+            return "orders/order_form.html"
+        return "orders/order_not_allowed.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.cart:
+            context["cart"] = self.cart
+        print(context)
+        return context
 
 
 @require_POST
