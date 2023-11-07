@@ -36,8 +36,8 @@ class OrderCreateView(CreateView):
         if self.request.htmx:
             print("\n\norder: self.request.htmx:")
             if self.cart and self.cart.total_quantity > 0:
-                return "orders/partial/order_form_partial.html"
-            return "orders/partial/order_not_allowed_partial.html"
+                return "orders/partials/order_form_partial.html"
+            return "orders/partials/order_not_allowed_partial.html"
         if self.cart and self.cart.total_quantity > 0:
             return "orders/order_form.html"
         return "orders/order_not_allowed.html"

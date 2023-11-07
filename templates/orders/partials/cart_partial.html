@@ -6,8 +6,6 @@
 {% get_language_info_list for LANGUAGES as languages %}
 
 
-
-
 <main class="container">
 	<div class="py-5 text-center">
 		<h2>Checkout form</h2>
@@ -38,7 +36,14 @@
 					<strong>{{ cart.total_price }} m.</strong>
 				</li>
 			</ul>
-            <button class="btn btn-primary w-100">{% trans "Order" %}</button>
+            <button class="btn btn-primary w-100"
+            hx-get="{% url "orders:order" %}" 
+            hx-trigger="click" 
+            hx-target="#main-body" 
+            hx-swap="innerHTML"
+            hx-push-url="{% url 'orders:order' %}">
+                {% trans "Order" %}
+            </button>
 		</div>
 		<!--Cart Checkout Details -->
 
@@ -103,11 +108,6 @@
 
 
 <script>
-    console.log()
-    console.log("Start cart_partial.html")
-    console.log(window)
-    console.log(document)
-
     var navCartQtyPar = document.querySelector('#cart-qty');
     var cartTotalQtyPar = document.querySelector("#cartTotalQtyPar");
     console.log("navCartQtyPar =", navCartQtyPar)
