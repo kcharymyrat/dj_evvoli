@@ -142,7 +142,7 @@ def cart_view(request, *args, **kwargs):
     # del request.session["cart_qty"]
     request.session.save()
     if "cart_id" not in request.session:
-        return Http404()  # Better implement you don't have a cart yet
+        return render(request, "orders/partials/no_products_in_cart_partial.html")
     cart = get_object_or_404(Cart, id=request.session["cart_id"])
     print(f"cart = {cart}")
     print([items for items in cart.cart_items.all()])
@@ -163,7 +163,7 @@ def cart_checkout_details(request, *args, **kwargs):
     # del request.session["cart_qty"]
     request.session.save()
     if "cart_id" not in request.session:
-        return Http404()  # Better implement you don't have a cart yet
+        return render(request, "orders/partials/no_products_in_cart_partial.html")
     cart = get_object_or_404(Cart, id=request.session["cart_id"])
     print(f"cart = {cart}")
     print([items for items in cart.cart_items.all()])
