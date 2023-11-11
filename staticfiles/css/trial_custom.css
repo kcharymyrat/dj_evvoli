@@ -415,3 +415,32 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   pointer-events: none; /* This will make the overlay unclickable when it's invisible */
 }
 
+/* Footer */
+#footerHeader {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.footerLink {
+  color: whitesmoke;
+}
+
+.footerLink:hover {
+  color: var(--color-pink);
+}
+
+.fa-tiktok {
+  background-color: var(--color--purple);
+  font-size: 2rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.fa-instagram {
+  background-color: var(--color-pink);
+  font-size: 2rem;
+  padding: 0.5rem;
+  border-radius: 20%;
+}
+
+/* END OF FOOTER */
