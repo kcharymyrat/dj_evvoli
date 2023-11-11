@@ -2,6 +2,7 @@
 :root {
     --color-pink: rgb(236, 29, 137);
     --color-orange: rgb(251, 175, 61);
+    --color--purple: #9b51e0;
     --wp--preset--color--black: #000000;
     --wp--preset--color--cyan-bluish-gray: #abb8c3;
     --wp--preset--color--white: #ffffff;
@@ -127,7 +128,7 @@ input#search-input::-ms-input-placeholder {
   color: gray;
 }
 
-#header-search-btn:hover {
+#navbar-search-btn:hover {
   background: transparent;
   color: var(--color-pink);
 }
@@ -138,14 +139,12 @@ select#lang-select {
 }
 
 select#lang-select option {
-  /* color: var(--jeytun-yellow); */
-  color: red;
+  color: gray;
   border: none;
-  /* background-color: aqua; */
 }
 
 select#lang-select option:selected {
-  color: black;
+  color: gray;
 }
 
 /*-------------------------------------- END of header.html --------------------------------------------- */

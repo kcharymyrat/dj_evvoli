@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Additional Django app, apart form default provided ones
+    "django.contrib.humanize",
     # Third party
     "imagekit",
     "django_htmx",
