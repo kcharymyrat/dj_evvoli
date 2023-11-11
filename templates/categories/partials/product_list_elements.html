@@ -19,7 +19,7 @@
 			<div class="img-wrap">
 				<span class="badge badge-danger"> NEW </span>
 				<img src="{{product.image.url}}" alt="{{product.title}}" class="card-img img-fluid">
-				<a class="btn-overlay product-quick-view" href="#"
+				<a class="btn-overlay product-quick-view text-decoration-none" href=""
 				hx-get="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"
 				hx-swap="innerHTML" 
 				hx-trigger="click delay:0.5s" 
@@ -28,24 +28,24 @@
 					<i class="fa fa-search-plus"></i> {% trans "Quick view" %}
 				</a>
 			</div> <!-- img-wrap.// -->
-			<figcaption class="info-wrap">
+			<figcaption class="info-wrap mx-3">
 				<div class="fix-height">
-					<a href="#" class="title">{{product.title}}</a>
-					<p>{{product.type}}: {{product.description|linebreaksbr }}</p>
-					<div class="price-wrap mt-1">
-						<span class="price">${{product.sale_price}}</span>
-						{% if product.on_sale %}
-						<del class="price-old">${{product.price}}</del>
+					<a href="#" class="title text-decoration-none h3 text-bold">{{product.type}} {{product.title}}</a>
+					<p class="">{{product.description|linebreaksbr|truncatechars_html:50 }}</p>
+					<div class="price-wrap">
+						<span class="price h3">{{product.sale_price}} TMT</span>
+						{% if product.on_sale%}
+						<del class="price-old">{{product.price}} TMT</del>
 						{% endif %}
 					</div> <!-- price-wrap.// -->
 				</div>
-				<a href="#" class="btn btn-block btn-primary buy-now-btn"
+				<a href="#" class="btn buy-now-btn btn-evvoli-purple mt-2 block px-4"
 				hx-get="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"
 				hx-swap="innerHTML" 
 				hx-trigger="click delay:0.5s" 
 				hx-target="#main-body"
 				hx-push-url="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}">
-					{% trans "Buy Now" %}
+					{% trans "Details" %}
 				</a>
 			</figcaption>
 		</figure>

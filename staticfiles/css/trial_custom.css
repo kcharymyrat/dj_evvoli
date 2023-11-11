@@ -259,6 +259,39 @@ select#lang-select option:selected {
 
 /* ------------------------END of Basket----------------------------------------- */
 
+.evvoli-orange {
+  color: var(--color-orange);
+}
+
+.btn-evvoli-add  {
+  background-color: var(--color-pink);
+  color: white;
+  transition: all ease-in 0.5s;
+}
+
+.btn-evvoli-add:hover  {
+  background-color: var(--color--purple);
+  color: white;
+  opacity: 0.9;
+}
+
+
+
+
+.borderRoundEvvoli {
+  border-radius: 20%;
+}
+
+.btn-evvoli-purple  {
+  background-color: transparent;
+  color: var(--color--purple);
+  border: var(--color--purple) 1px solid;
+}
+
+.btn-evvoli-purple:hover  {
+  background-color: var(--color--purple);
+  color: white;
+}
 
 .btn-evvoli-pink  {
   background-color: transparent;

@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load i18n %}
+{% load humanize %}
 
 
 {% block title %}
@@ -9,14 +10,7 @@
 {% endblock %}
 {% block content %}
 
-<div id="product-detail-div" class="container-xxl mb-2">
-  {% if messages %}
-  <div class="alert alert-warning" alert="{{ message.tags }}" role="alert">
-  {% for message in messages  %}
-    {{message|safe}} - <a href="#" class="alert-link">Your Wishlist</a>.
-  {% endfor %}
-  </div>
-  {% endif %}
+<div id="product-detail-div" class="container-xxl mb-3">
   <div class="row g-3">
 
     <!--Details of Products, ADD to CARD, ADD to WISHLIST-->
@@ -25,19 +19,13 @@
         <div>
             <p class="h4">{{product.title}}</p>
             <p>Model: <span>{{product.model}}</span></p>
-            <p>{{product.description}}</p>
-            <p>Product Specification</p>
-            <ul>
-                {% for spec in product.specs.all %}
-                    <p>{{spec.title}}: {{spec.content}}</p>
-                {% endfor %}
-            </ul>
-               
+            <p class="fw-bold">Product Specifications:</p> 
+            <p class="">{{product.description|linebreaksbr }}</p>
         </div>
 
         <div class="d-flex d-flex-inline justify-content-between">
             <div class="price-wrap mt-1 h3">
-                <span class="price">{{product.sale_price}} m</span>
+                <span class="price">{{product.sale_price}} TMT</span>
                 {% if product.on_sale %}
                 <del class="price-old">${{product.price}}</del>
                 {% endif %}
@@ -46,7 +34,7 @@
         <hr>
 
           <!--CART BUTTONS-->
-          <button type="button" id="add-btn" class="btn btn-success col-lg-6 fw500" data-url='{% url "orders:add_to_cart" slug=product.slug %}' data-cart-qty='{{ request.session.cart_qty|default:0 }}' data-product-qty='{{ product_qty_in_cart|default:0 }}'>
+          <button type="button" id="add-btn" class="btn btn-evvoli-add col-lg-6 fw500" data-url='{% url "orders:add_to_cart" slug=product.slug %}' data-cart-qty='{{ request.session.cart_qty|default:0 }}' data-product-qty='{{ product_qty_in_cart|default:0 }}'>
             Add to Cart
           </button>
           <div id="d-none-div" 
