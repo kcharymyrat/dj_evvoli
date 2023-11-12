@@ -1,15 +1,15 @@
 {% load i18n static %}
 
-
 <!--NAVBAR-->
 <nav id="navBar" class="navbar navbar-expand-lg bg-light" aria-label="Offcanvas navbar large">
 	<div class="container-xxl">
 		<!--LOGO brand-->
 		<a class="navbar-brand mx-2 " href=""
 		hx-get="{% url "products:home" %}" 
-		hx-swap="outerHTML swap:1s" 
-		hx-trigger="click" 
+		hx-swap="outerHTML" 
+		hx-trigger="click delay:500ms"
 		hx-target="#main-body"
+		hx-throttle="500ms"
 		hx-push-url="{% url "products:home" %}"
 		hx-indicator="#spinner">
 			<img src="{% static 'img/logo/logo.png' %}" alt="logo" class="" width="70px">
@@ -36,9 +36,10 @@
 						<li class="nav-item">
 							<a id="category-{{category.slug}}" class="nav-link" aria-current="page"
 							hx-get="{% url 'products:category_list' category_slug=category.slug %}" 
-							hx-swap="outerHTML swap:1s" 
-							hx-trigger="click" 
+							hx-swap="outerHTML" 
+							hx-trigger="click delay:500ms" 
 							hx-target="#main-body"
+							hx-throttle="1s"
 							hx-push-url="{% url 'products:category_list' category_slug=category.slug %}"
 							hx-indicator="#spinner">
 								{% if LANGUAGE_CODE == "tk" %}
@@ -61,9 +62,10 @@
 								<li>
 									<a id="category-{{category.slug}}" class="dropdown-item" 
 									hx-get="{% url 'products:category_list' category_slug=category.slug %}" 
-									hx-swap="outerHTML swap:1s" 
-									hx-trigger="click" 
+									hx-swap="outerHTML" 
+									hx-trigger="click delay:500ms" 
 									hx-target="#main-body"
+									hx-throttle="1s"
 									hx-push-url="{% url 'products:category_list' category_slug=category.slug %}"
 									hx-indicator="#spinner">
 										{% if LANGUAGE_CODE == "tk" %}
@@ -87,7 +89,8 @@
 						hx-post="{% url 'products:search' %}"
 						hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
 						hx-swap="innerHTML" 
-						hx-trigger="keyup changed delay:500ms"
+						hx-trigger="keyup changed delay:500ms throttle:1s"
+						hx-throttle="1s"
 						hx-target="#main-body"
 						hx-indicator="#spinner">
 						<button id="navbar-search-btn" class="btn btn-outline-success border-0 rounded-circle" type="submit">
@@ -129,9 +132,10 @@
 			<a type="button" role="button" href="#" class="btn btn-outline-secondary border-0 basket-btn">
 				<div id="cart-qty" class="basket-qty" 
 				hx-get="{% url "orders:cart_view" %}" 
-				hx-trigger="click" 
+				hx-trigger="click delay:500ms throttle:1s"
 				hx-target="#main-body" 
 				hx-swap="innerHTML"
+				hx-throttle="1s"
 				hx-push-url="{% url 'orders:cart_view' %}"
 				hx-indicator="#spinner">
 					{{ request.session.cart_qty|default:0 }}
