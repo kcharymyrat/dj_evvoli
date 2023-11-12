@@ -7,7 +7,6 @@ from django.utils.html import mark_safe
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
-
 from django.conf.global_settings import LANGUAGE_CODE
 
 from products.models import Product
@@ -109,14 +108,6 @@ class Order(models.Model):
         (_("Card Terminal"), _("Card Terminal")),
     )
 
-    user = models.ForeignKey(
-        User,
-        verbose_name=_("user"),
-        on_delete=models.CASCADE,
-        related_name="order",
-        null=True,
-        blank=True,
-    )
     cart = models.ForeignKey(
         Cart,
         verbose_name=_("cart"),

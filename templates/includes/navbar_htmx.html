@@ -10,7 +10,8 @@
 		hx-swap="outerHTML swap:1s" 
 		hx-trigger="click" 
 		hx-target="#main-body"
-		hx-push-url="{% url "products:home" %}">
+		hx-push-url="{% url "products:home" %}"
+		hx-indicator="#spinner">
 			<img src="{% static 'img/logo/logo.png' %}" alt="logo" class="" width="70px">
 		</a>
 		<!--END of LOGO brand-->
@@ -38,7 +39,8 @@
 							hx-swap="outerHTML swap:1s" 
 							hx-trigger="click" 
 							hx-target="#main-body"
-							hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">
+							hx-push-url="{% url 'products:category_list' category_slug=category.slug %}"
+							hx-indicator="#spinner">
 								{% if LANGUAGE_CODE == "tk" %}
 								{{category.name}}
 								{% elif LANGUAGE_CODE == "en" %}
@@ -62,7 +64,8 @@
 									hx-swap="outerHTML swap:1s" 
 									hx-trigger="click" 
 									hx-target="#main-body"
-									hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">
+									hx-push-url="{% url 'products:category_list' category_slug=category.slug %}"
+									hx-indicator="#spinner">
 										{% if LANGUAGE_CODE == "tk" %}
 										{{category.name}}
 										{% elif LANGUAGE_CODE == "en" %}
@@ -85,7 +88,8 @@
 						hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
 						hx-swap="innerHTML" 
 						hx-trigger="keyup changed delay:500ms"
-						hx-target="#main-body">
+						hx-target="#main-body"
+						hx-indicator="#spinner">
 						<button id="navbar-search-btn" class="btn btn-outline-success border-0 rounded-circle" type="submit">
 							<i class="fa fa-fw fa-search"></i>
 						</button>
@@ -128,7 +132,8 @@
 				hx-trigger="click" 
 				hx-target="#main-body" 
 				hx-swap="innerHTML"
-				hx-push-url="{% url 'orders:cart_view' %}">
+				hx-push-url="{% url 'orders:cart_view' %}"
+				hx-indicator="#spinner">
 					{{ request.session.cart_qty|default:0 }}
 				</div>
 				<div>

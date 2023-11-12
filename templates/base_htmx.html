@@ -25,6 +25,18 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/trial_custom.css' %}" type="text/css">
 
+    <style>
+        .htmx-indicator{
+            display:none;
+        }
+        .htmx-request .htmx-indicator{
+            display:block;
+        }
+        .htmx-request.htmx-indicator{
+            display:block;
+        }
+    </style>
+
     <script src="{% static 'js/htmx/htmx.min.js' %}" defer></script>
 
     {% block css %}{% endblock css %}
@@ -35,6 +47,12 @@
     <div id="overlay"></div>
 
     {% include "includes/navbar_htmx.html" %}
+
+    {% comment %} <img id="spinner" class="htmx-indicator" src="{% static 'spinner.gif' %}" alt="logo" class="" width="70px"> {% endcomment %}
+
+    <div id="spinner" class="htmx-indicator mx-auto text-center">
+        <i class="fas fa-spinner fa-spin htmx-indicator"></i> Loading...
+    </div>
 
     <div id="main-body" class="mx-auto px-0">
         {% block content %}{% endblock content %}

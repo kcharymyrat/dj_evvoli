@@ -5,9 +5,8 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from PIL import Image
-from imagekit.admin import AdminThumbnail
 
-from .models import Product, Category, ProductImage, ProductSpecification, TV
+from .models import Product, Category, ProductImage, ProductSpecification
 
 
 class CategoryAdminForm(ModelForm):
@@ -15,58 +14,15 @@ class CategoryAdminForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["image"].help_text = mark_safe(
             '<span style="color:red; font-size:12px;">'
-            + _(f"Required resolution of the image are {Category.REQUIRED_RESOLUTIONS}")
+            + _(f"Required resolution of the image")
             + "</span>"
         )
-
-    def clean_image(self):
-        image = self.cleaned_data.get("image")
-        img = Image.open(image)
-        print(
-            "img.width =",
-            img.width,
-            "img.height =",
-            img.height,
-            "image.size =",
-            image.size,
-        )
-        # width, height = Category.REQUIRED_RESOLUTIONS
-        # if image.size > Category.MAX_IMAGE_SIZE:
-        #     raise ValidationError(
-        #         _(
-        #             f"Make sure that your image is less than {int(Category.REQUIRED_RESOLUTIONS / 1_000_000)} MB!"
-        #         )
-        #     )
-        # if img.width = width or img.height != height:
-        #     raise ValidationError(
-        #         _(
-        #             f"Please upload an image with correcr resolution: {Category.REQUIRED_RESOLUTIONS}!"
-        #         )
-        #     )
-        return image
-
-    def clean(self, *args, **kwargs):
-        if self.cleaned_data.get("video"):
-            if self.cleaned_data["video"].content_type not in [
-                "video/mp4",
-                "video/quicktime",
-                "video/x-matroska",
-            ]:
-                raise forms.ValidationError(
-                    _(
-                        "Unsupported file type. Only mp4, quicktime, and mkv are supported."
-                    )
-                )
-            if self.cleaned_data["video"].size > 20 * 1024 * 1024:
-                raise forms.ValidationError(
-                    _("Video file too large. Maximum size is 20MB.")
-                )
-        return super().clean(*args, **kwargs)
 
 
 class CategoryAdmin(admin.ModelAdmin):
     form = CategoryAdminForm
     list_display = ["name", "slug"]
+    readonly_fields = ["img_preview"]
     prepopulated_fields = {
         "slug": ("name_en",),
     }
@@ -110,53 +66,9 @@ class ProductAdminForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["image"].help_text = mark_safe(
             '<span style="color:red; font-size:12px;">'
-            + _(f"Required resolution of the image are {Product.REQUIRED_RESOLUTIONS}")
+            + _(f"Required resolution of the image are")
             + "</span>"
         )
-
-    def clean_image(self):
-        image = self.cleaned_data.get("image")
-        img = Image.open(image)
-        print(
-            "img.width =",
-            img.width,
-            "img.height =",
-            img.height,
-            "image.size =",
-            image.size,
-        )
-        # width, height = Category.REQUIRED_RESOLUTIONS
-        # if image.size > Category.MAX_IMAGE_SIZE:
-        #     raise ValidationError(
-        #         _(
-        #             f"Make sure that your image is less than {int(Category.REQUIRED_RESOLUTIONS / 1_000_000)} MB!"
-        #         )
-        #     )
-        # if img.width = width or img.height != height:
-        #     raise ValidationError(
-        #         _(
-        #             f"Please upload an image with correcr resolution: {Category.REQUIRED_RESOLUTIONS}!"
-        #         )
-        #     )
-        return image
-
-    def clean(self, *args, **kwargs):
-        if self.cleaned_data.get("video"):
-            if self.cleaned_data["video"].content_type not in [
-                "video/mp4",
-                "video/quicktime",
-                "video/x-matroska",
-            ]:
-                raise forms.ValidationError(
-                    _(
-                        "Unsupported file type. Only mp4, quicktime, and mkv are supported."
-                    )
-                )
-            if self.cleaned_data["video"].size > 20 * 1024 * 1024:
-                raise forms.ValidationError(
-                    _("Video file too large. Maximum size is 20MB.")
-                )
-        return super().clean(*args, **kwargs)
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -164,12 +76,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = [
         "type",
         "title",
-        "title_en",
         "model",
         "slug",
-        "created_at",
         "price",
         "sale_percent",
+        "sale_price",
     ]
     prepopulated_fields = {
         "slug": ("title_en",),
@@ -183,5 +94,3 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
-
-admin.site.register(TV, ProductAdmin)

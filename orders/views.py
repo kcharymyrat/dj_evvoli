@@ -29,8 +29,6 @@ class OrderCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        if self.request.user:
-            form.instance.user = self.request.user
         if self.cart:
             form.instance.cart = self.cart
         return super().form_valid(form)

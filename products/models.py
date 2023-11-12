@@ -1,6 +1,9 @@
 import uuid
 
 from decimal import Decimal
+from PIL import Image
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFit
 
 from django.db import models
 from django.db.models import CheckConstraint, Q
@@ -10,29 +13,15 @@ from django.utils.html import mark_safe
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.utils.translation import gettext_lazy as _
-
 from django.conf.global_settings import LANGUAGE_CODE
 
-from PIL import Image
+from .mixins import ImageValidationMixin, VideoValidationMixin
 
-from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFit
 
 User = settings.AUTH_USER_MODEL
 
 
-class ImageResolutionError(Exception):
-    pass
-
-
-class ImageSizeError(Exception):
-    pass
-
-
-class Category(models.Model):
-    REQUIRED_RESOLUTIONS = (600, 600)
-    MAX_IMAGE_SIZE = 12_900_000
-
+class Category(ImageValidationMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     name = models.CharField(_("name (Turkmen)"), max_length=50, unique=True)
@@ -46,6 +35,12 @@ class Category(models.Model):
     description_ru = models.TextField(_("description (Russian)"), null=True, blank=True)
 
     image = models.ImageField(_("image"), upload_to=f"images/categories/")
+    thumbnail = ImageSpecField(
+        source="image",
+        processors=[ResizeToFit(width=400)],
+        format="JPEG",
+        options={"quality": 80},
+    )
 
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     modified_at = models.DateTimeField(_("modified at"), auto_now=True)
@@ -58,50 +53,35 @@ class Category(models.Model):
         verbose_name_plural = _("categories")
         ordering = ["-created_at"]
 
+    @property
+    def img_preview(self):
+        return mark_safe(f'<img src = "{self.image.url}"/>')
+
     def __str__(self):
         return f"{self.name}"
 
     def get_absolute_url(self):
         return reverse("products:category_detail", kwargs={"slug": self.slug})
 
-    def save(self, *args, **kwargs):
-        """
-        Validation for the image, before saving.
-        """
-        image = self.image
-        img = Image.open(image)
-        print("img.width =", img.width, "img.height =", img.height)
-        # width, height = self.REQUIRED_RESOLUTIONS
-        # if image.size > Category.MAX_IMAGE_SIZE:
-        #     raise ImageSizeError(
-        #         _(
-        #             f"Make sure that your image is less than {int(self.REQUIRED_RESOLUTIONS / 1_000_000)} MB!"
-        #         )
-        #     )
-        # if img.width != width or img.height != height:
-        #     raise ImageResolutionError(
-        #         _(
-        #             f"Please upload an image with correcr resolution: {self.REQUIRED_RESOLUTIONS}!"
-        #         )
-        #     )
-        super().save(*args, **kwargs)
+    def clean(self):
+        """Validation for the image, before saving."""
+        super().clean()
+        self.clean_image()
 
 
 class ProductManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().all()[:2]
+        return super().get_queryset().all()[:10]
 
 
-class Product(models.Model):
-    REQUIRED_RESOLUTIONS = (600, 600)
-    MAX_IMAGE_SIZE = 12_900_000
-
+class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     category = models.ForeignKey(
         Category,
         verbose_name=_("category"),
         on_delete=models.CASCADE,
         related_name="products",
+        db_index=True,
     )
 
     type = models.CharField(_("type (Turkmen)"), max_length=50, null=True, blank=True)
@@ -112,7 +92,7 @@ class Product(models.Model):
         _("type (Russian)"), max_length=50, null=True, blank=True
     )
 
-    model = models.CharField(_("model"), max_length=100, unique=True)
+    model = models.CharField(_("model"), max_length=100, unique=True, db_index=True)
 
     title = models.CharField(_("title (Turkmen)"), max_length=100, unique=True)
     title_en = models.CharField(_("title (English)"), max_length=100, unique=True)
@@ -127,7 +107,7 @@ class Product(models.Model):
     sale_price = models.DecimalField(
         _("sale price"), max_digits=6, decimal_places=2, blank=True, null=True
     )
-    on_sale = models.BooleanField(_("on sale"), default=False)
+    on_sale = models.BooleanField(_("on sale"), default=False, db_index=True)
 
     description = models.TextField(_("description (Turkmen)"), null=True, blank=True)
     description_en = models.TextField(_("description (English)"), null=True, blank=True)
@@ -136,6 +116,12 @@ class Product(models.Model):
     in_stock = models.BooleanField(_("in stock"), default=True)
 
     image = models.ImageField(_("image"), upload_to=f"images/products/")
+    thumbnail = ImageSpecField(
+        source="image",
+        processors=[ResizeToFit(width=400)],
+        format="JPEG",
+        options={"quality": 80},
+    )
     video = models.FileField(
         _("video"), upload_to="videos/products/", null=True, blank=True
     )
@@ -164,6 +150,30 @@ class Product(models.Model):
     def img_preview(self):
         return mark_safe(f'<img src = "{self.image.url}"/>')
 
+    def clean(self):
+        """Validation for the image, before saving."""
+        super().clean()
+        self.clean_image()
+        if self.video:
+            self.clean_video()
+
+    def save(self, *args, **kwargs):
+        if self.sale_percent > 0:
+            self.on_sale = True
+            self.sale_price = Decimal(
+                "%.2f" % (self.price * (100 - self.sale_percent) / 100)
+            )
+        elif self.sale_percent == 0:
+            self.sale_price = self.price
+            self.on_sale = False
+        super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return f"Product: {self.title}, price: {self.price}"
+
+    # def get_absolute_url(self):
+    #     return reverse("products:product_detail", kwargs={"slug": self.slug})
+
     # def clean(self):
     #     """
     #     Validation for the video.
@@ -187,50 +197,8 @@ class Product(models.Model):
     #                 {"video": _("Video file too large. Maximum size is 20MB.")}
     #             )
 
-    def clean(self):
-        super().clean()
 
-        # Perform image validation
-        if self.image:
-            # Open the image using PIL
-            img = Image.open(self.image)
-
-            # Resize the image if needed
-            if img.width > 1000 or img.height > 1000:
-                img.thumbnail((1000, 1000))
-
-            # Save the resized image back to the model instance
-            img.save(self.image.path)
-
-    def save(self, *args, **kwargs):
-        if self.sale_percent > 0:
-            self.on_sale = True
-            self.sale_price = Decimal(
-                "%.2f" % (self.price * (100 - self.sale_percent) / 100)
-            )
-        elif self.sale_percent == 0:
-            self.sale_price = self.price
-            self.on_sale = False
-        super().save(*args, **kwargs)
-
-    # def get_absolute_url(self):
-    #     return reverse("products:product_detail", kwargs={"slug": self.slug})
-
-    def __str__(self) -> str:
-        return f"Product: {self.title}, price: {self.price}"
-
-
-class TV(Product):
-    display = models.IntegerField(_("display"))
-
-    def __str__(self) -> str:
-        return f"Product: {self.title}, price: {self.price}"
-
-
-class ProductImage(models.Model):
-    REQUIRED_RESOLUTIONS = (600, 600)
-    MAX_IMAGE_SIZE = 12_900_000
-
+class ProductImage(ImageValidationMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product = models.ForeignKey(
         Product,
@@ -241,7 +209,7 @@ class ProductImage(models.Model):
     image = models.ImageField(_("image"), upload_to="images/products/")
     thumbnail = ImageSpecField(
         source="image",
-        processors=[ResizeToFit(width=200)],
+        processors=[ResizeToFit(width=400)],
         format="JPEG",
         options={"quality": 80},
     )
@@ -257,27 +225,10 @@ class ProductImage(models.Model):
         verbose_name = _("product image")
         verbose_name_plural = _("product images")
 
-    def save(self, *args, **kwargs):
-        """
-        Validation for the image, before saving.
-        """
-        image = self.image
-        img = Image.open(image)
-        print("img.width =", img.width, "img.height =", img.height)
-        # width, height = self.REQUIRED_RESOLUTIONS
-        # if image.size > Category.MAX_IMAGE_SIZE:
-        #     raise ImageSizeError(
-        #         _(
-        #             f"Make sure that your image is less than {int(self.REQUIRED_RESOLUTIONS / 1_000_000)} MB!"
-        #         )
-        #     )
-        # if img.width != width or img.height != height:
-        #     raise ImageResolutionError(
-        #         _(
-        #             f"Please upload an image with correcr resolution: {self.REQUIRED_RESOLUTIONS}!"
-        #         )
-        #     )
-        super().save(*args, **kwargs)
+    def clean(self):
+        """Validation for the image, before saving."""
+        super().clean()
+        self.clean_image()
 
     def __str__(self) -> str:
         return f"{self.product.title}"

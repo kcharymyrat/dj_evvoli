@@ -11,52 +11,14 @@ from uuid import UUID
 
 from .models import Category, Product, ProductImage
 
-from orders.models import Cart, CartItem, Order
+from orders.models import Cart
 
 import time
 
 
-# def search_view(request):
-#     # time.sleep(3)
-
-#     query = request.POST.get("q").strip()
-#     page_number = request.GET.get("page") or 1
-#     print(f"page_number = {page_number}, {type(page_number)}")
-#     print("query =", query, len(query))
-#     if query is not None and query != "":
-#         categories = Category.objects.filter(
-#             Q(name__icontains=query)
-#             | Q(name_en__icontains=query)
-#             | Q(name_ru__icontains=query)
-#         )
-#         products = Product.objects.filter(
-#             Q(title__icontains=query)
-#             | Q(title_en__icontains=query)
-#             | Q(title_ru__icontains=query)
-#             | Q(model__icontains=query)
-#             | Q(category__in=categories)
-#             | Q(type__icontains=query)
-#             | Q(type_en__icontains=query)
-#             | Q(type_ru__icontains=query)
-#         ).distinct()
-#     else:
-#         products = Product.objects.all()
-
-#     paginator = Paginator(products, 3)
-#     page_obj = paginator.get_page(page_number)
-#     print("products =", products)
-#     print("page_obj =", page_obj)
-#     return render(
-#         request,
-#         "categories/partials/products_search.html",
-#         context={"products": products},
-#     )
-
-
-from django.core.paginator import Paginator
-
-
 def search_view(request):
+    # time.sleep(3)
+
     query = request.GET.get("q", "").strip()
     if request.method == "POST":
         query = request.POST.get("q", "").strip()
