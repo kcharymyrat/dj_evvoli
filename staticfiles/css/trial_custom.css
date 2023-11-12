@@ -276,8 +276,6 @@ select#lang-select option:selected {
 }
 
 
-
-
 .borderRoundEvvoli {
   border-radius: 20%;
 }
@@ -294,12 +292,19 @@ select#lang-select option:selected {
 }
 
 .btn-evvoli-pink  {
+  transition: all ease-in 0.10s;
   background-color: transparent;
   color: var(--color-pink);
   border: var(--color-pink) 1px solid;
 }
 
 .btn-evvoli-pink:hover  {
+  background-color: var(--color-pink);
+  color: white;
+}
+
+.btn-evvoli-pink:hover > p {
+  transition: all ease-in 0.25s;
   background-color: var(--color-pink);
   color: white;
 }

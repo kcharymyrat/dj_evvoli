@@ -6,6 +6,7 @@ from .views import (
     HomeListView,
     ProductDetailView,
     product_main_image_view,
+    search_view,
 )
 
 
@@ -14,6 +15,7 @@ urlpatterns = []
 
 htmxpatterns = [
     path("", HomeListView.as_view(), name="home"),
+    path("search/", search_view, name="search"),
     path(
         "categories/<slug:category_slug>/",
         category_list_view,
