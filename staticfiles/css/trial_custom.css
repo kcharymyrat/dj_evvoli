@@ -440,25 +440,6 @@ select#lang-select option:selected {
 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 }
 
-@media (max-width: 991px) {
-
-  .accordion-button {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-}
-
-
-/* -------------------------------------------END of product filter---------------------------------- */
-
-/* ---- My STyles for Product list page */
-#product-main-image {
-  height: 300px;
-}
-
-
 #filter-accordion {
   margin: 0;
   padding: 0;
@@ -472,6 +453,32 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 .hr-divider {
   color: #f8dfe6;
 }
+
+@media (max-width: 991px) {
+
+  .accordion-button {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  #filter-accordion {
+    margin: 0.5rem;
+    padding: 0;
+  }
+}
+
+
+/* -------------------------------------------END of product filter---------------------------------- */
+
+/* ---- My STyles for Product list page */
+#product-main-image {
+  height: 300px;
+}
+
+
+
 
 /* Product detail */
 .pointer-cursor {

@@ -21,43 +21,42 @@
 	</div>
 </div>
 
-{% endblock content %}
-
-
-{% block js %}
 <script>
-	// Function to toggle accordion based on screen width
-	function toggleAccordion() {
-		if (window.matchMedia('(max-width: 991px)').matches) {
-		// If the screen width is less than 992px, collapse the accordion
-		var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
-		var collapseList = collapseElementList.map(function (collapseEl) {
-			return new bootstrap.Collapse(collapseEl, {
-			toggle: false
+	document.addEventListener('DOMContentLoaded', function() {
+		// Function to toggle accordion based on screen width
+		function toggleAccordion() {
+			if (window.matchMedia('(max-width: 991px)').matches) {
+			// If the screen width is less than 992px, collapse the accordion
+			var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+			var collapseList = collapseElementList.map(function (collapseEl) {
+				return new bootstrap.Collapse(collapseEl, {
+				toggle: false
+				})
 			})
-		})
-		collapseList.forEach(function (collapseEl) {
-			collapseEl.hide()
-		})
-		} else {
-		// If the screen width is 992px or more, expand the accordion
-		var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
-		var collapseList = collapseElementList.map(function (collapseEl) {
-			return new bootstrap.Collapse(collapseEl, {
-			toggle: false
+			collapseList.forEach(function (collapseEl) {
+				collapseEl.hide()
 			})
-		})
-		collapseList.forEach(function (collapseEl) {
-			collapseEl.show()
-		})
+			} else {
+			// If the screen width is 992px or more, expand the accordion
+			var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+			var collapseList = collapseElementList.map(function (collapseEl) {
+				return new bootstrap.Collapse(collapseEl, {
+				toggle: false
+				})
+			})
+			collapseList.forEach(function (collapseEl) {
+				collapseEl.show()
+			})
+			}
 		}
-	}
-	
-	// Call function on page load
-	toggleAccordion();
-	
-	// Call function on window resize
-	window.addEventListener('resize', toggleAccordion);
+		
+		// Call function on page load
+		toggleAccordion();
+		
+		// Call function on window resize
+		window.addEventListener('resize', toggleAccordion);
   
+	});
 </script>
-{% endblock js %}
+
+{% endblock content %}

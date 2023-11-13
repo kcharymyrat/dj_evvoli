@@ -2,6 +2,7 @@
 {% load i18n %}
 
 <div id="main-body" class="mx-auto px-0">
+
 	<div class="row container-xxl mx-auto px-0">
 		<aside class="col-lg-2">
 			<div class="card">
@@ -13,4 +14,42 @@
 			{% include "categories/partials/product_list_elements.html" %}
 		</div>
 	</div>
+
+
+	<script>
+		console.log("partial accordion in script")
+		// Function to toggle accordion based on screen width
+		function toggleAccordionPartial() {
+			if (window.matchMedia('(max-width: 991px)').matches) {
+			// If the screen width is less than 992px, collapse the accordion
+			var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+			var collapseList = collapseElementList.map(function (collapseEl) {
+				return new bootstrap.Collapse(collapseEl, {
+				toggle: false
+				})
+			})
+			collapseList.forEach(function (collapseEl) {
+				collapseEl.hide()
+			})
+			} else {
+			// If the screen width is 992px or more, expand the accordion
+			var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+			var collapseList = collapseElementList.map(function (collapseEl) {
+				return new bootstrap.Collapse(collapseEl, {
+				toggle: false
+				})
+			})
+			collapseList.forEach(function (collapseEl) {
+				collapseEl.show()
+			})
+			}
+		}
+		
+		// Call function on page load
+		toggleAccordionPartial();
+		
+		// Call function on window resize
+		window.addEventListener('resize', toggleAccordionPartial);
+	</script>
 </div>
+
