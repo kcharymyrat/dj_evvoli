@@ -243,48 +243,6 @@ i.fas {
 
 
 /*-------------------------------------- products.html -------------------------------------------------- */
-/* Acccordion custom style */
-.accordion-button {
-    background-color: transparent !important;
-    color: var(--jeytun-green);
-    box-shadow: none;
-    outline: none;
-    border: none;
-}
-
-
-.accordion-button:focus {
-    box-shadow: none;
-    outline: none;
-    border: none;
-}
-
-.accordion-button:not(.collapsed) {
-    color: var(--jeytun-yellow);
-    box-shadow: none;
-    outline: none;
-    border: none;
-}
-
-.accordion-product-item {
-    color: var(--jeytun-cyprus);
-}
-
-.accordion-product-item:hover {
-    color: var(--jeytun-yellow);
-}
-
-.accordion-header {
-    box-shadow: none;
-    outline: none;
-    border: none;
-}
-
-.accordion-body {
-    box-shadow: none;
-    outline: none;
-    border: none;
-}
 
 
 /* .product-wap-border {

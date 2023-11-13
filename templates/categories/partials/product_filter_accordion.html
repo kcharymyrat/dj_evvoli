@@ -14,14 +14,14 @@
         <div class="accordion-item border-0">
             <p class="accordion-header" id="flush-heading-offers">
                 <button class="accordion-button px-0 product-filter-button-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-offers" aria-expanded="true" aria-controls="flush-collapse-offers">
-                    OFFERS
+                    {% trans "OFFERS" %}
                 </button>
             </p>
             <div id="flush-collapse-offers" class="accordion-collapse collapse show" aria-labelledby="flush-heading-offers">
                 <div class="accordion-body">
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="on_sale" hx-trigger="change">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">On sale</label>
+                        <label class="form-check-label" for="flexSwitchCheckDefault">{% trans "ON SALE" %}</label>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
         <div class="accordion-item border-0">
             <p class="accordion-header header-text-accordion" id="flush-heading-product-types">
                 <button class="accordion-button px-0 product-filter-button-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-product-types" aria-expanded="false" aria-controls="flush-collapse-product-types">
-                    PRODUCT TYPES
+                    {% trans "PRODUCT TYPES" %}
                 </button>
             </p>
             <div id="flush-collapse-product-types" class="accordion-collapse collapse show" aria-labelledby="flush-heading-product-types">
@@ -42,7 +42,7 @@
                         <div class="form-check mx-0">
                             <input class="form-check-input" type="radio" id="all_product_types" checked name="product_type" value="all" hx-trigger="change">
                             <label class="form-check-label" for="all_product_types">
-                            All products
+                            {% trans "All products" %}
                             </label>
                         </div>
 
@@ -66,7 +66,7 @@
         <div class="accordion-item border-0">
             <p class="accordion-header header-text-accordion" id="flush-heading-price-range">
                 <button class="accordion-button px-0 product-filter-button-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-price-range" aria-expanded="false" aria-controls="flush-collapse-price-range">
-                    PRICE RANGE
+                    {% trans "PRICE RANGE" %}
                 </button>
             </p>
             <div id="flush-collapse-price-range" class="accordion-collapse collapse show" aria-labelledby="flush-heading-price-range">
