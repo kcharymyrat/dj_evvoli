@@ -11,6 +11,7 @@
 	hx-get="{% url 'products:category_list' category_slug=category_slug %}?page={{ page_obj.number|add:1 }}" 
 	hx-trigger="revealed" 
 	hx-swap="beforeend"
+	hx-indicator="#spinner"
 	hx-target="#product_list_elements">
 	{% else %}
 	<div class="col-md-6 d-flex">
@@ -22,8 +23,10 @@
 				<a class="btn-overlay product-quick-view text-decoration-none" href=""
 				hx-get="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"
 				hx-swap="innerHTML" 
-				hx-trigger="click delay:0.5s" 
+				hx-trigger="click delay:0.5s"
+				hx-throttle="1s"
 				hx-target="#main-body"
+				hx-indicator="#spinner"
 				hx-push-url="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}">
 					<i class="fa fa-search-plus"></i> {% trans "Quick view" %}
 				</a>
@@ -34,7 +37,7 @@
 					<p class="">{{product.description|linebreaksbr|truncatechars_html:50 }}</p>
 					<div class="price-wrap">
 						<span class="price h3">{{product.sale_price}} TMT</span>
-						{% if product.on_sale%}
+						{% if product.on_sale %}
 						<del class="price-old">{{product.price}} TMT</del>
 						{% endif %}
 					</div> <!-- price-wrap.// -->
@@ -42,8 +45,10 @@
 				<a href="#" class="btn buy-now-btn btn-evvoli-purple mt-2 block px-4"
 				hx-get="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"
 				hx-swap="innerHTML" 
-				hx-trigger="click delay:0.5s" 
+				hx-trigger="click delay:0.5s"
+				hx-throttle="1s"
 				hx-target="#main-body"
+				hx-indicator="#spinner"
 				hx-push-url="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}">
 					{% trans "Details" %}
 				</a>

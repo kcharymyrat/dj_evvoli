@@ -5,7 +5,9 @@
 
     <form id="product_type_form" 
     hx-get="{% url "products:category_list" category_slug=category_slug  %}" 
-    hx-target="#product_list_elements" 
+    hx-target="#product_list_elements"
+    hx-indicator="#spinner"
+    hx-throttle="1s"
     hx-trigger="change">
 			
         <!--OFFERS FILTER-->

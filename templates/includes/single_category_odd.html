@@ -2,15 +2,24 @@
 
 <div class="row">
     <div class="col-md-6 order-md-2">
-        <h2 class="featurette-heading fw-normal lh-1">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">{{category.name}} from Evvoli</p>
-        <p class="lead">{{category.description}}</p>
-        <a id="link-to-{{category.slug}}" href="" class="btn btn-evvoli-pink btn-lg px-4 me-sm-3"
+        <h2 class="featurette-heading fw-normal lh-1">
+            {% if LANGUAGE_CODE == "tk" %}
+            {{category.name}}. 
+            <span class="text-muted">{{category.description|truncatechars:20}}.</span>
+            {% elif LANGUAGE_CODE == "en" %}
+            {{category.name_en}}. 
+            <span class="text-muted">{{category.description_en|truncatechars:20}}.</span>
+            {% else %}
+            {{category.name_ru}}. 
+            <span class="text-muted">{{category.description_ru|truncatechars:20}}.</span>
+            {% endif %} 
+        </h2>
+        <button id="link-to-{{category.slug}}" class="btn btn-evvoli-pink btn-lg px-4 me-sm-3"
         hx-get="{% url 'products:category_list' category_slug=category.slug %}" 
         hx-swap="outerHTML" 
         hx-trigger="click delay:1s" 
         hx-target="#main-body"
-        hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">{% trans "See More" %}</a>
+        hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">{% trans "See More" %}</button>
     </div>
     <div class="col-md-6 order-md-1">
         <img class="featurette-image img-fluid mx-auto" src = {{category.image.url}} width="500" height="500" aria-label="Placeholder: 500x500" alt="{{ category.name }}">

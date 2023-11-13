@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.contrib.sessions.models import Session
-
 from django.shortcuts import render, get_object_or_404
+from django.utils.translation import get_language
+
 from django.views.generic import ListView, DetailView
 
 from uuid import UUID
@@ -77,6 +78,8 @@ class HomeListView(ListView):
 
 
 def all_product_elements_list_view(request, kwargs):
+    current_language = get_language()
+
     category_slug = kwargs.get("category_slug")
     page_number = request.GET.get("page") or 1
 
@@ -85,7 +88,16 @@ def all_product_elements_list_view(request, kwargs):
     paginator = Paginator(category_products, 2)
     page_obj = paginator.get_page(page_number)
 
-    product_types = set(category.products.values_list("type", flat=True).distinct())
+    if current_language == "en":
+        product_types = set(
+            category.products.values_list("type_en", flat=True).distinct()
+        )
+    elif current_language == "ru":
+        product_types = set(
+            category.products.values_list("type_ru", flat=True).distinct()
+        )
+    else:
+        product_types = set(category.products.values_list("type", flat=True).distinct())
 
     context = {
         "products": paginator.get_page(page_number),
@@ -99,6 +111,8 @@ def all_product_elements_list_view(request, kwargs):
 
 def category_list_view(request, *args, **kwargs):
     if request.htmx:
+        current_language = get_language()
+
         category_slug = kwargs.get("category_slug")
         page_number = request.GET.get("page") or 1
 
@@ -107,7 +121,18 @@ def category_list_view(request, *args, **kwargs):
         paginator = Paginator(category_products, 2)
         page_obj = paginator.get_page(page_number)
 
-        product_types = set(category.products.values_list("type", flat=True).distinct())
+        if current_language == "en":
+            product_types = set(
+                category.products.values_list("type_en", flat=True).distinct()
+            )
+        elif current_language == "ru":
+            product_types = set(
+                category.products.values_list("type_ru", flat=True).distinct()
+            )
+        else:
+            product_types = set(
+                category.products.values_list("type", flat=True).distinct()
+            )
 
         context = {
             "products": page_obj,
@@ -133,7 +158,12 @@ def category_list_view(request, *args, **kwargs):
 
                 # Check if product_type exist:
                 if product_type and product_type != "all":
-                    products = category.products.filter(type=product_type)
+                    if current_language == "en":
+                        products = category.products.filter(type_en=product_type)
+                    elif current_language == "ru":
+                        products = category.products.filter(type_ru=product_type)
+                    else:
+                        products = category.products.filter(type=product_type)
 
                 # Check if all product types was chose
                 if product_type == "all":
@@ -167,7 +197,16 @@ def category_list_view(request, *args, **kwargs):
         elif request.htmx.trigger == "product_type_form":
             page_number = request.GET.get("page") or 1
             product_type = request.GET.get("product_type")
-            products = category.products.filter(type=product_type)
+            print("product_type =", product_type)
+
+            # Check if product_type exist:
+            if product_type and product_type != "all":
+                if current_language == "en":
+                    products = category.products.filter(type_en=product_type)
+                elif current_language == "ru":
+                    products = category.products.filter(type_ru=product_type)
+                else:
+                    products = category.products.filter(type=product_type)
 
             # Check if all product types was chose
             if product_type == "all":

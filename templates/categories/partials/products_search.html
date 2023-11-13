@@ -26,8 +26,24 @@
 					</div> <!-- img-wrap.// -->
 					<figcaption class="info-wrap mx-3">
 						<div class="fix-height">
-							<a href="#" class="title text-decoration-none h3 text-bold">{{product.type}} {{product.title}}</a>
-							<p class="">{{product.description|linebreaksbr|truncatechars_html:50 }}</p>
+							<a href="#" class="title text-decoration-none h3 text-bold">
+								{% if LANGUAGE_CODE == "tk" %}
+								{{product.type}} {{product.title}}
+								{% elif LANGUAGE_CODE == "en" %}
+								{{product.type_en}} {{product.title_en}}
+								{% else %}
+								{{product.type_ru}} {{product.title_ru}}
+								{% endif %}		
+							</a>
+							<p class="">
+								{% if LANGUAGE_CODE == "tk" %}
+								{{product.description|linebreaksbr|truncatechars_html:50 }}
+								{% elif LANGUAGE_CODE == "en" %}
+								{{product.description_en|linebreaksbr|truncatechars_html:50 }}
+								{% else %}
+								{{product.description_ru|linebreaksbr|truncatechars_html:50 }}
+								{% endif %}	
+							</p>
 							<div class="price-wrap">
 								<span class="price h3">{{product.sale_price}} TMT</span>
 								{% if product.on_sale%}

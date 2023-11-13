@@ -1,4 +1,6 @@
 {% load static i18n %}
+{% load django_htmx %}
+
 
 <main id="main-body" class="mx-auto px-0">
 
@@ -86,5 +88,15 @@
 		{% include "includes/category_list_elements_htmx.html" %}
 	</div>
 	<!-- End of Categories  -->
+
+	{% comment %} {% django_htmx_script %}
+    <script>
+        try {
+            htmx.logAll();
+            console.log("Yo")
+        } catch(e) {
+            console.log("No htmx, so no htmx.logAll()")
+        }
+    </script> {% endcomment %}
 
 </main>
