@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # Additional Django app, apart form default provided ones
     "django.contrib.humanize",
     # Third party
+    "rest_framework",
     "imagekit",
     "django_htmx",
     # Local
@@ -158,3 +159,9 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 # If for some reason imagekit thumbnail does not show on admin panel then it is going to work.
 # IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10,
+}
