@@ -99,7 +99,6 @@ def remove_from_cart_json(request, *args, **kwargs):
 
         with transaction.atomic():
             # If the cart item exists and its quantity is greater than 0, decrease the quantity
-            print("cart_item.quantity =", cart_item.quantity)
             if cart_item.quantity > 0:
                 cart_item.quantity -= 1
                 print("cart_item.quantity =", cart_item.quantity)

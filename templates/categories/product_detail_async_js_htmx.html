@@ -4,6 +4,10 @@
 {% load i18n %}
 {% load humanize %}
 
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
 
 {% block title %}
 {% if product %}{{ product.title }}{% else %}{% trans "Önüm" %}{% endif %}

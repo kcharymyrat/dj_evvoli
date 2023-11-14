@@ -2,6 +2,10 @@
 {% load i18n %}
 {% load humanize %}
 
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
 
 <div id="product-detail-div" class="container-xxl mb-3">
   <div class="row g-3">

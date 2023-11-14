@@ -1,6 +1,10 @@
 {% load static i18n %}
 {% load django_htmx %}
 
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
 
 <main id="main-body" class="mx-auto px-0">
 
