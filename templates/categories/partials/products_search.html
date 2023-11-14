@@ -13,9 +13,9 @@
 			<div class="col d-flex">
 				<figure class="card card-product-grid">
 					<div class="img-wrap">
-						<span class="badge badge-danger"> NEW </span>
+						<span class="badge badge-danger">{% trans "NEW" %}</span>
 						<img src="{{product.image.url}}" alt="{{product.title}}" width="100%" height="225" class="card-img img-fluid">
-						<a class="btn-overlay product-quick-view text-decoration-none" href="" 
+						<a class="btn-overlay product-quick-view text-decoration-none pointer-cursor rounded-5" 
 						hx-get="{% url "products:product_detail" category_slug=product.category.slug slug=product.slug %}" 
 						hx-swap="innerHTML" 
 						hx-trigger="click delay:0.5s" 
@@ -26,7 +26,7 @@
 					</div> <!-- img-wrap.// -->
 					<figcaption class="info-wrap mx-3">
 						<div class="fix-height">
-							<a href="#" class="title text-decoration-none h3 text-bold">
+							<p class="title h3 text-bold">
 								{% if LANGUAGE_CODE == "tk" %}
 								{{product.type}} {{product.title}}
 								{% elif LANGUAGE_CODE == "en" %}
@@ -34,7 +34,7 @@
 								{% else %}
 								{{product.type_ru}} {{product.title_ru}}
 								{% endif %}		
-							</a>
+							</p>
 							<p class="">
 								{% if LANGUAGE_CODE == "tk" %}
 								{{product.description|linebreaksbr|truncatechars_html:50 }}
@@ -51,14 +51,14 @@
 								{% endif %}
 							</div> <!-- price-wrap.// -->
 						</div>
-						<a href="#" class="btn buy-now-btn btn-evvoli-purple mt-2 block px-4" 
+						<button class="btn buy-now-btn btn-evvoli-purple mt-2 block px-4 rounded-5" 
 						hx-get="{% url "products:product_detail" category_slug=product.category.slug slug=product.slug %}" 
 						hx-swap="innerHTML" 
 						hx-trigger="click delay:0.5s" 
 						hx-target="#main-body" 
 						hx-push-url="{% url "products:product_detail" category_slug=product.category.slug slug=product.slug %}">
 							{% trans "Details" %}
-						</a>
+						</button>
 					</figcaption>
 				</figure>
 			</div> <!-- col.// -->

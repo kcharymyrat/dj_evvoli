@@ -1,8 +1,7 @@
 from django.db import transaction
-from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.http import Http404, JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.views.generic.edit import CreateView
 from django.views.decorators.http import require_POST
 from django.utils.translation import gettext_lazy as _
@@ -10,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import Cart, CartItem, Order
 from .forms import OrderForm
 
-from products.models import Category, Product
+from products.models import Product
 
 
 class OrderCreateView(CreateView):
@@ -18,9 +17,6 @@ class OrderCreateView(CreateView):
     form_class = OrderForm
 
     def dispatch(self, request, *args, **kwargs):
-        print(
-            "session =", [{key: value} for key, value in self.request.session.items()]
-        )
         self.cart = None
         cart_id = self.request.session.get("cart_id")
         if cart_id:
@@ -37,15 +33,11 @@ class OrderCreateView(CreateView):
         for key in list(self.request.session.keys()):
             if key.startswith("cart"):
                 del self.request.session[key]
-        print(
-            "session =", [{key: value} for key, value in self.request.session.items()]
-        )
         self.request.session.modified = True
         return reverse("products:home")
 
     def get_template_names(self):
         if self.request.htmx:
-            print("\n\norder: self.request.htmx:")
             if self.cart and self.cart.total_quantity > 0:
                 return "orders/partials/order_form_partial.html"
             return "orders/partials/order_not_allowed_partial.html"
@@ -57,7 +49,6 @@ class OrderCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         if self.cart:
             context["cart"] = self.cart
-        print(context)
         return context
 
 
@@ -133,42 +124,22 @@ def remove_from_cart_json(request, *args, **kwargs):
 
 
 def cart_view(request, *args, **kwargs):
-    print("\n\n\ncart_view(request, *args, **kwargs)")
-    for k, v in request.session.items():
-        print(f"{k}: {v}")
-    # del request.session["cart_id"]
-    # del request.session["cart_qty"]
     request.session.save()
     if "cart_id" not in request.session:
         if request.htmx:
-            print('"cart_id" not in request.session: - htmx')
             return render(request, "orders/partials/no_products_in_cart_partial.html")
-        print('"cart_id" not in request.session: - NOT htmx')
         return render(request, "orders/no_products_in_cart.html")
     cart = get_object_or_404(Cart, id=request.session["cart_id"])
-    print(f"cart = {cart}")
-    print([items for items in cart.cart_items.all()])
     context = {"cart": cart}
-    print(context)
     if request.htmx:
-        print("htmx cart_view(request, *args, **kwargs)")
         return render(request, "orders/partials/cart_partial.html", context)
-    print("not htmx cart_view(request, *args, **kwargs)")
     return render(request, "orders/cart.html", context)
 
 
 def cart_checkout_details(request, *args, **kwargs):
-    print("\n\n\ncart_checkout_details(request, *args, **kwargs)")
-    for k, v in request.session.items():
-        print(f"{k}: {v}")
-    # del request.session["cart_id"]
-    # del request.session["cart_qty"]
     request.session.save()
     if "cart_id" not in request.session:
         return render(request, "orders/partials/no_products_in_cart_partial.html")
     cart = get_object_or_404(Cart, id=request.session["cart_id"])
-    print(f"cart = {cart}")
-    print([items for items in cart.cart_items.all()])
     context = {"cart": cart}
-    print(context)
     return render(request, "orders/partials/cart_checkout_details.html", context)

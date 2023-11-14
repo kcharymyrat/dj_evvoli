@@ -14,7 +14,7 @@
             <span class="text-muted">{{category.description_ru|truncatechars:20}}.</span>
             {% endif %} 
         </h2>
-        <button id="link-to-{{category.slug}}" class="btn btn-evvoli-orange  btn-lg px-4"
+        <button id="link-to-{{category.slug}}" class="btn btn-evvoli-orange btn-lg px-4 rounded-5"
         hx-get="{% url 'products:category_list' category_slug=category.slug %}" 
         hx-swap="outerHTML" 
         hx-trigger="click delay:1s" 

@@ -8,9 +8,9 @@
 
 <main class="container">
 	<div class="py-5 text-center">
-		<h2>Checkout form</h2>
+		<h2>{% trans "Checkout form" %}</h2>
 		<p class="lead">
-			Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.
+			{% trans "Kindly fill out the checkout form below to conclude your order. We are dedicated to ensuring the most efficient and timely delivery service for your convenience." %}
 		</p>
 	</div>
 
@@ -19,20 +19,35 @@
 		<!--Cart Checkout Details -->
 		<div id="cart-checkout-details" class="col-md-5 col-lg-4 order-md-last">
 			<h4 class="d-flex justify-content-between align-items-center mb-3">
-				Cart Details
+				{% trans "Order Details" %}
 			</h4>
 			<ul class="list-group mb-3">
 				{% for item in cart.cart_items.all %}
 				<li class="list-group-item d-flex justify-content-between lh-sm">
 					<div>
-						<h6 class="my-0">{{item.product.title}}</h6>
+						<h6 class="my-0 pointer-cursor"
+						hx-get="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}"
+						hx-swap="innerHTML" 
+						hx-trigger="click delay:0.5s"
+						hx-throttle="1s"
+						hx-target="#main-body"
+						hx-indicator="#spinner"
+						hx-push-url="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}">
+							{% if LANGUAGE_CODE == "tk" %}
+							{{item.product.title}}
+							{% elif LANGUAGE_CODE == "en" %}
+							{{item.product.title_en}}
+							{% else %}
+							{{item.product.title_ru}}
+							{% endif %}
+						</h6>
 						<small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
 					</div>
 					<span class="text-muted">{{item.sub_total}} m.</span>
 				</li>
-                {% endfor %}
+				{% endfor %}
 				<li class="list-group-item d-flex justify-content-between">
-					<span>TOTAL</span>
+					<span>{% trans "TOTAL" %}</span>
 					<strong>{{ cart.total_price }} m.</strong>
 				</li>
 			</ul>
@@ -42,13 +57,13 @@
         <!--Order Form -->
 		<div class="col-md-7 col-lg-8">
 			<h4 class="d-flex justify-content-between align-items-center mb-3">
-				<span class="text-primary">{% trans "Your Order" %}</span>
-				<span id="cartTotalQty" class="badge bg-primary rounded-pill">{% trans "No. of products" %}: {{ cart.total_quantity }}</span>
+				<span class="evvoli-pink">{% trans "Your Order" %}</span>
+				<span id="cartTotalQty" class="badge evvoli-bg-pink rounded-pill">{% trans "No. of products" %}: {{ cart.total_quantity }}</span>
 			</h4>
 			<form method="POST" class="list-group mb-3">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn evvoli-btn-secondary rounded-5">{% trans "Checkout" %}</button>
             </form>    
 		</div>
 		<!--Order Form -->

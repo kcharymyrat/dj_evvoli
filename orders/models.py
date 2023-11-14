@@ -1,10 +1,5 @@
-import uuid
-
 from django.db import models
 from django.conf import settings
-from django.urls import reverse
-from django.utils.html import mark_safe
-from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 from django.conf.global_settings import LANGUAGE_CODE
@@ -97,12 +92,13 @@ class CartItem(models.Model):
 
 class Order(models.Model):
     ORDER_STATUSES = (
-        (_("Created"), _("Created")),
-        (_("Ordered"), _("Ordered")),
-        (_("Shipped"), _("Shipped")),
-        (_("Completed"), _("Completed")),
-        (_("Cancelled"), _("Cancelled")),
+        ("Created", "Created"),
+        ("Ordered", "Ordered"),
+        ("Shipped", "Shipped"),
+        ("Completed", "Completed"),
+        ("Cancelled", "Cancelled"),
     )
+
     PAYMENT_CHOICES = (
         (_("Cash"), _("Cash")),
         (_("Card Terminal"), _("Card Terminal")),

@@ -8,22 +8,44 @@
 
 <div id="cart-checkout-details" class="col-md-5 col-lg-4 order-md-last">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
-        Cart Details
+        {% trans "Cart Details" %}
     </h4>
     <ul class="list-group mb-3">
         {% for item in cart.cart_items.all %}
         <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-                <h6 class="my-0">{{item.product.title}}</h6>
+                <h6 class="my-0 pointer-cursor"
+                hx-get="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}"
+                hx-swap="innerHTML" 
+                hx-trigger="click delay:0.5s"
+                hx-throttle="1s"
+                hx-target="#main-body"
+                hx-indicator="#spinner"
+                hx-push-url="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}">
+                    {% if LANGUAGE_CODE == "tk" %}
+                    {{item.product.title}}
+                    {% elif LANGUAGE_CODE == "en" %}
+                    {{item.product.title_en}}
+                    {% else %}
+                    {{item.product.title_ru}}
+                    {% endif %}
+                </h6>
                 <small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
             </div>
             <span class="text-muted">{{item.sub_total}} m.</span>
         </li>
         {% endfor %}
         <li class="list-group-item d-flex justify-content-between">
-            <span>TOTAL</span>
+            <span>{% trans "TOTAL" %}</span>
             <strong>{{ cart.total_price }} m.</strong>
         </li>
     </ul>
-    <button class="btn btn-primary w-100">{% trans "Order" %}</button>
+    <button class="btn evvoli-btn-primary w-100 rounded-5"
+    hx-get="{% url "orders:order" %}" 
+    hx-trigger="click" 
+    hx-target="#main-body" 
+    hx-swap="innerHTML"
+    hx-push-url="{% url 'orders:order' %}">
+        {% trans "Proceed to Checkout" %}
+    </button>
 </div>

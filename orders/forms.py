@@ -38,14 +38,15 @@ class OrderForm(BootstrapFormMixin, forms.ModelForm):
                 "required": "True",
             }
         ),
-        label="Delivery Time",
+        label=_("Delivery Time*"),
+        required=True,
     )
     payment_option = forms.ChoiceField(
+        label=_("Payment Options"),
         choices=[
             ("Cash", "Cash"),
             ("Card Terminal", "Card Terminal"),
         ],
-        required=True,
     )
 
     class Meta:
@@ -62,13 +63,16 @@ class OrderForm(BootstrapFormMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["customer_name"].widget.attrs.update(
-            {"placeholder": _("Full Name")}
+            {"placeholder": _("Full Name*"), "autocomplete": "name"}
         )
-        self.fields["phone"].widget.attrs.update({"placeholder": _("Phone")})
-        self.fields["email"].widget.attrs.update({"placeholder": _("E-mail")})
+        self.fields["phone"].widget.attrs.update(
+            {"placeholder": _("Phone*"), "autocomplete": "tel"}
+        )
+        self.fields["email"].widget.attrs.update(
+            {"placeholder": _("E-mail"), "autocomplete": "email"}
+        )
         self.fields["shipping_address"].widget.attrs.update(
-            {"placeholder": _("Address")}
+            {"placeholder": _("Address*"), "autocomplete": "shipping street-address"}
         )
-        self.fields["payment_option"].widget.attrs.update(
-            {"placeholder": _("Select Payment Option")}
-        )
+        self.fields["payment_option"].widget.attrs.update({"autocomplete": "off"})
+        self.fields["delivery_time"].widget.attrs.update({"autocomplete": "off"})

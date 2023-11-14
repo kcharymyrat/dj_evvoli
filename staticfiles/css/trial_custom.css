@@ -274,6 +274,47 @@ select#lang-select option:selected {
   color: var(--color-orange);
 }
 
+.evvoli-pink {
+  color: var(--color-pink);
+}
+
+.evvoli-purple {
+  color: var(--color--purple);
+}
+
+.evvoli-bg-orange {
+  background-color: var(--color-orange);
+}
+
+.evvoli-bg-pink {
+  background-color: var(--color-pink);
+}
+
+.evvoli-bg-purple {
+  background-color: var(--color--purple);
+}
+
+.evvoli-btn-primary {
+  background-color: var(--color-pink);
+  color: white;
+}
+
+
+.evvoli-btn-primary:hover {
+  background-color: var(--color--purple);
+  color: white;
+}
+
+.evvoli-btn-secondary {
+  background-color: var(--color--purple);
+  color: white;
+}
+
+.evvoli-btn-secondary:hover {
+  background-color: var(--color-pink);
+  color: white;
+}
+
 .btn-evvoli-add  {
   background-color: var(--color-pink);
   color: white;

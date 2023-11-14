@@ -5,11 +5,23 @@
 {% get_language_info_list for LANGUAGES as languages %}
 
 
-<main class="container">
+<main class="container d-flex justify-content-center align-items-center" style="height: 50vh;">
 	<div class="py-5 text-center">
-		<h2>{% trans "Order is not allowed!" %}</h2>
+		<h2>{% trans "Unable to Proceed with Order" %}</h2>
 		<p class="lead">
-			{% trans "Your cart is empty. Seems that you have not added anything to your cart. Please add the products you want to buy to the cart." %}
+			{% trans "Your shopping cart is currently empty. It appears that no items have been added to your basket yet. Please select the products you wish to purchase and add them to your basket to continue." %}
 		</p>
+		<div>
+			<button class="navbar-brand m-2 p-2 btn btn-evvoli-purple rounded-5"
+			hx-get="{% url "products:home" %}" 
+			hx-swap="outerHTML" 
+			hx-trigger="click delay:500ms"
+			hx-target="#main-body"
+			hx-throttle="500ms"
+			hx-push-url="{% url "products:home" %}"
+			hx-indicator="#spinner">
+				{% trans "Home Page" %}
+			</button>
+		</div>
 	</div>
 </main>

@@ -1,20 +1,13 @@
-from django.db.models import Q
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.core.paginator import Paginator
-from django.contrib.sessions.models import Session
-from django.shortcuts import render, get_object_or_404
-from django.utils.translation import get_language
-
-from django.views.generic import ListView, DetailView
-
 from uuid import UUID
 
+from django.db.models import Q
+from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404
+from django.utils.translation import get_language
+from django.views.generic import ListView, DetailView
+
 from .models import Category, Product, ProductImage
-
 from orders.models import Cart
-
-import time
 
 
 def search_view(request):
@@ -255,7 +248,6 @@ class ProductDetailView(DetailView):
 
     def get_template_names(self):
         if self.request.htmx:
-            print("\n\nif self.request.htmx:")
             return "categories/partials/product_detail_async_js_htmx_partial.html"
         return "categories/product_detail_async_js_htmx.html"
 
@@ -272,9 +264,6 @@ class ProductDetailView(DetailView):
         cart = get_object_or_404(Cart, id=cart_id)
         if cart:
             for cart_item in cart.cart_items.all():
-                print(
-                    f"cart_item = {cart_item}, {cart_item.product} {context['object']} {cart_item.quantity}"
-                )
                 if context["object"] == cart_item.product and cart_item.quantity > 0:
                     product_qty_in_cart = cart_item.quantity
         context["product_qty_in_cart"] = product_qty_in_cart
