@@ -1,7 +1,6 @@
 import uuid
 
 from decimal import Decimal
-from PIL import Image
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
 
@@ -10,10 +9,8 @@ from django.db.models import CheckConstraint, Q
 from django.conf import settings
 from django.urls import reverse
 from django.utils.html import mark_safe
-from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.utils.translation import gettext_lazy as _
-from django.conf.global_settings import LANGUAGE_CODE
 
 from .mixins import ImageValidationMixin, VideoValidationMixin
 
@@ -170,32 +167,6 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
 
     def __str__(self) -> str:
         return f"Product: {self.title}, price: {self.price}"
-
-    # def get_absolute_url(self):
-    #     return reverse("products:product_detail", kwargs={"slug": self.slug})
-
-    # def clean(self):
-    #     """
-    #     Validation for the video.
-    #     """
-    #     super().clean()
-    #     if self.video:
-    #         if self.video.file.content_type not in [
-    #             "video/mp4",
-    #             "video/quicktime",
-    #             "video/x-matroska",
-    #         ]:
-    #             raise ValidationError(
-    #                 {
-    #                     "video": _(
-    #                         "Unsupported file type. Only mp4, quicktime, and mkv are supported."
-    #                     )
-    #                 }
-    #             )
-    #         if self.video.size > 20 * 1024 * 1024:
-    #             raise ValidationError(
-    #                 {"video": _("Video file too large. Maximum size is 20MB.")}
-    #             )
 
 
 class ProductImage(ImageValidationMixin, models.Model):

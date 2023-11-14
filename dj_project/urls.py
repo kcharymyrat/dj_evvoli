@@ -31,6 +31,7 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     path("", include("products.urls", namespace="products")),
     path("", include("orders.urls", namespace="orders")),
+    path("api/", include("api.urls", namespace="api")),
     prefix_default_language=False,
 )
 
