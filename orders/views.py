@@ -21,7 +21,12 @@ class OrderCreateView(CreateView):
         cart_id = self.request.session.get("cart_id")
         if cart_id:
             self.cart_id = cart_id
-            self.cart = get_object_or_404(Cart, id=cart_id)
+            self.cart = (
+                Cart.objects.filter(id=request.session["cart_id"])
+                .prefetch_related("cart_items__product__category")
+                .first()
+            )
+            context = {"self.cart": self.cart}
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -61,13 +66,24 @@ def add_to_cart_json(request, slug):
 
     cart_id = request.session.get("cart_id")
     if cart_id:
-        cart = Cart.objects.get(id=cart_id)
+        # Prefetch the related CartItem instances
+        cart = get_object_or_404(
+            Cart.objects.prefetch_related("cart_items__product"), id=cart_id
+        )
     else:
         cart = Cart.objects.create()
         request.session["cart_id"] = cart.id
 
-    with transaction.atomic():
+    cart_items = cart.cart_items.filter(product=product)
+    if cart_items:
+        print("cart.cart_items.filter(product=product) =", cart_items)
+        cart_item = cart_items.first()
+        cart_item.quantity += 1
+        cart_item.save()
+
+    else:
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+        print("in else, cart_item =", cart_item)
         if not created:
             cart_item.quantity += 1
             cart_item.save()
@@ -93,10 +109,16 @@ def remove_from_cart_json(request, *args, **kwargs):
         # Get the product and cart from the database
         slug = kwargs["slug"]  # slug is product slug
         product = get_object_or_404(Product, slug=slug)
-        cart = get_object_or_404(Cart, id=request.session["cart_id"])
+        # cart = get_object_or_404(Cart, id=request.session["cart_id"])
+        cart_id = request.session["cart_id"]
+        cart = get_object_or_404(
+            Cart.objects.prefetch_related("cart_items__product"), id=cart_id
+        )
 
         # Get the cart item for the product
-        cart_item = get_object_or_404(CartItem, cart=cart, product=product)
+        # cart_item = get_object_or_404(CartItem, cart=cart, product=product)
+        cart_items = cart.cart_items.filter(product=product)
+        cart_item = cart_items.first()
 
         with transaction.atomic():
             # If the cart item exists and its quantity is greater than 0, decrease the quantity
@@ -129,8 +151,14 @@ def cart_view(request, *args, **kwargs):
         if request.htmx:
             return render(request, "orders/partials/no_products_in_cart_partial.html")
         return render(request, "orders/no_products_in_cart.html")
-    cart = get_object_or_404(Cart, id=request.session["cart_id"])
+    # cart = get_object_or_404(Cart, id=request.session["cart_id"])
+    cart = (
+        Cart.objects.filter(id=request.session["cart_id"])
+        .prefetch_related("cart_items__product__category")
+        .first()
+    )
     context = {"cart": cart}
+    print(context)
     if request.htmx:
         return render(request, "orders/partials/cart_partial.html", context)
     return render(request, "orders/cart.html", context)
@@ -140,6 +168,11 @@ def cart_checkout_details(request, *args, **kwargs):
     # request.session.save()
     if "cart_id" not in request.session:
         return render(request, "orders/partials/no_products_in_cart_partial.html")
-    cart = get_object_or_404(Cart, id=request.session["cart_id"])
+    cart = (
+        Cart.objects.filter(id=request.session["cart_id"])
+        .prefetch_related("cart_items__product__category")
+        .first()
+    )
     context = {"cart": cart}
+    print(context)
     return render(request, "orders/partials/cart_checkout_details.html", context)

@@ -41,11 +41,11 @@ class Cart(models.Model):
 
     def update_total_price(self):
         self.total_price = sum(item.sub_total for item in self.cart_items.all())
-        self.save()
+        self.save(update_fields=["total_price"])
 
     def update_is_ordered(self):
         self.is_ordered = True
-        self.save()
+        self.save(update_fields=["is_ordered"])
 
     def __str__(self):
         return f"Cart {self.id}: {self.total_price} manats"

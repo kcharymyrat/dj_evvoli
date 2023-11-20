@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.translation import get_language
 from django.views.generic import ListView, DetailView
 
-from .models import Category, Product, ProductImage
+from .models import Category, Product
 from orders.models import Cart
 
 
@@ -22,18 +22,22 @@ def search_view(request):
             | Q(name_en__icontains=query)
             | Q(name_ru__icontains=query)
         )
-        products = Product.objects.filter(
-            Q(title__icontains=query)
-            | Q(title_en__icontains=query)
-            | Q(title_ru__icontains=query)
-            | Q(model__icontains=query)
-            | Q(category__in=categories)
-            | Q(type__icontains=query)
-            | Q(type_en__icontains=query)
-            | Q(type_ru__icontains=query)
-        ).distinct()
+        products = (
+            Product.objects.filter(
+                Q(title__icontains=query)
+                | Q(title_en__icontains=query)
+                | Q(title_ru__icontains=query)
+                | Q(model__icontains=query)
+                | Q(category__in=categories)
+                | Q(type__icontains=query)
+                | Q(type_en__icontains=query)
+                | Q(type_ru__icontains=query)
+            )
+            .distinct()
+            .prefetch_related("category")
+        )
     else:
-        products = Product.objects.all()
+        products = Product.objects.all().prefetch_related("category")
 
     paginator = Paginator(products, 3)
     page_obj = paginator.get_page(page_number)
@@ -77,25 +81,23 @@ def all_product_elements_list_view(request, kwargs):
     page_number = request.GET.get("page") or 1
 
     category = (
-        Category.objects.prefetch_related("products").filter(slug=category_slug).first()
+        Category.objects.filter(slug=category_slug).prefetch_related("products").first()
     )
-    category_products = category.products.all()
+    category_products = (
+        category.products.all()
+    )  # This won't hit the database again because of prefetch_related
     paginator = Paginator(category_products, 2)
     page_obj = paginator.get_page(page_number)
 
     if current_language == "en":
-        product_types = set(
-            category.products.values_list("type_en", flat=True).distinct()
-        )
+        product_types = set([product.type_en for product in category_products])
     elif current_language == "ru":
-        product_types = set(
-            category.products.values_list("type_ru", flat=True).distinct()
-        )
+        product_types = set([product.type_ru for product in category_products])
     else:
-        product_types = set(category.products.values_list("type", flat=True).distinct())
+        product_types = set([product.type for product in category_products])
 
     context = {
-        "products": paginator.get_page(page_number),
+        "products": page_obj,
         "category_slug": category_slug,
         "types": product_types,
         "page_obj": page_obj,
@@ -112,8 +114,8 @@ def category_list_view(request, *args, **kwargs):
         page_number = request.GET.get("page") or 1
 
         category = (
-            Category.objects.prefetch_related("products")
-            .filter(slug=category_slug)
+            Category.objects.filter(slug=category_slug)
+            .prefetch_related("products")
             .first()
         )
         category_products = category.products.all()
@@ -121,17 +123,11 @@ def category_list_view(request, *args, **kwargs):
         page_obj = paginator.get_page(page_number)
 
         if current_language == "en":
-            product_types = set(
-                category.products.values_list("type_en", flat=True).distinct()
-            )
+            product_types = set([product.type_en for product in category_products])
         elif current_language == "ru":
-            product_types = set(
-                category.products.values_list("type_ru", flat=True).distinct()
-            )
+            product_types = set([product.type_ru for product in category_products])
         else:
-            product_types = set(
-                category.products.values_list("type", flat=True).distinct()
-            )
+            product_types = set([product.type for product in category_products])
 
         context = {
             "products": page_obj,
@@ -237,7 +233,7 @@ def category_list_view(request, *args, **kwargs):
             for key, value in request.GET.items():
                 filter_dict[key] = value
             request.session["filter_dict"] = filter_dict
-            request.session.save()
+            request.session.modified = True
 
             return render(
                 request, "categories/partials/product_list_elements.html", context
@@ -267,7 +263,12 @@ class ProductDetailView(DetailView):
             context["product_qty_in_cart"] = product_qty_in_cart
             return context
 
-        cart = get_object_or_404(Cart, id=cart_id)
+        # cart = get_object_or_404(Cart, id=cart_id)
+        cart = (
+            Cart.objects.filter(id=cart_id)
+            .prefetch_related("cart_items__product")
+            .first()
+        )
         if cart:
             for cart_item in cart.cart_items.all():
                 if context["object"] == cart_item.product and cart_item.quantity > 0:
@@ -278,11 +279,11 @@ class ProductDetailView(DetailView):
 
 def product_main_image_view(request, *args, **kwargs):
     product_id = UUID(request.GET.get("product_id"))
-    product = Product.objects.filter(id=product_id).first()
+    product = Product.objects.filter(id=product_id).prefetch_related("images").first()
     image_id = request.GET.get("image_id")
     if image_id:
         image_id = UUID(request.GET.get("image_id"))
-        image = ProductImage.objects.filter(id=image_id).first()
+        image = product.images.filter(id=image_id).first()
         context = {"product": product, "image": image}
     else:
         image = "main"

@@ -16,7 +16,7 @@ urlpatterns = [
     path("", include("products.urls", namespace="products")),
     path("", include("orders.urls", namespace="orders")),
     path("api/", include("api.urls", namespace="api")),
-    # path("__debug__/", include("debug_toolbar.urls")),  # only when testing
+    path("__debug__/", include("debug_toolbar.urls")),  # only when testing
     prefix_default_language=False,
 )
 
