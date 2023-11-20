@@ -21,9 +21,15 @@ User = settings.AUTH_USER_MODEL
 class Category(ImageValidationMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    name = models.CharField(_("name (Turkmen)"), max_length=50, unique=True)
-    name_en = models.CharField(_("name (English)"), max_length=50, unique=True)
-    name_ru = models.CharField(_("name (Russian)"), max_length=50, unique=True)
+    name = models.CharField(
+        _("name (Turkmen)"), max_length=50, unique=True, db_index=True
+    )
+    name_en = models.CharField(
+        _("name (English)"), max_length=50, unique=True, db_index=True
+    )
+    name_ru = models.CharField(
+        _("name (Russian)"), max_length=50, unique=True, db_index=True
+    )
 
     slug = models.SlugField(_("slug"), unique=True)
 
@@ -81,12 +87,14 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
         db_index=True,
     )
 
-    type = models.CharField(_("type (Turkmen)"), max_length=50, null=True, blank=True)
+    type = models.CharField(
+        _("type (Turkmen)"), max_length=50, null=True, blank=True, db_index=True
+    )
     type_en = models.CharField(
-        _("type (English)"), max_length=50, null=True, blank=True
+        _("type (English)"), max_length=50, null=True, blank=True, db_index=True
     )
     type_ru = models.CharField(
-        _("type (Russian)"), max_length=50, null=True, blank=True
+        _("type (Russian)"), max_length=50, null=True, blank=True, db_index=True
     )
 
     model = models.CharField(_("model"), max_length=100, unique=True, db_index=True)
@@ -97,14 +105,16 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
 
     slug = models.SlugField(_("slug"), unique=True)
 
-    price = models.DecimalField(_("price"), max_digits=6, decimal_places=2)
+    price = models.DecimalField(
+        _("price"), max_digits=6, decimal_places=2, db_index=True
+    )
     sale_percent = models.PositiveIntegerField(
         _("sale percentage"), default=0, validators=[MaxValueValidator(100)]
     )
     sale_price = models.DecimalField(
         _("sale price"), max_digits=6, decimal_places=2, blank=True, null=True
     )
-    on_sale = models.BooleanField(_("on sale"), default=False, db_index=True)
+    on_sale = models.BooleanField(_("on sale"), default=False)
 
     description = models.TextField(_("description (Turkmen)"), null=True, blank=True)
     description_en = models.TextField(_("description (English)"), null=True, blank=True)

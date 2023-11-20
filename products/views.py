@@ -76,7 +76,9 @@ def all_product_elements_list_view(request, kwargs):
     category_slug = kwargs.get("category_slug")
     page_number = request.GET.get("page") or 1
 
-    category = Category.objects.filter(slug=category_slug).first()
+    category = (
+        Category.objects.prefetch_related("products").filter(slug=category_slug).first()
+    )
     category_products = category.products.all()
     paginator = Paginator(category_products, 2)
     page_obj = paginator.get_page(page_number)
@@ -109,7 +111,11 @@ def category_list_view(request, *args, **kwargs):
         category_slug = kwargs.get("category_slug")
         page_number = request.GET.get("page") or 1
 
-        category = Category.objects.filter(slug=category_slug).first()
+        category = (
+            Category.objects.prefetch_related("products")
+            .filter(slug=category_slug)
+            .first()
+        )
         category_products = category.products.all()
         paginator = Paginator(category_products, 2)
         page_obj = paginator.get_page(page_number)

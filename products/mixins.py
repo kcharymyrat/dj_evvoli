@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 class ImageValidationMixin:
     MAX_IMAGE_SIZE = 12 * 1024 * 1024  # 12 MB
     MIN_RESOLUTIONS = (200, 200)
-    MAX_RESOLUTIONS = (1000, 1000)
+    MAX_RESOLUTIONS = (1400, 1000)
 
     def clean_image(self):
         print("clean_image: self.image =", self.image)

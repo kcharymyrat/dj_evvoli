@@ -109,51 +109,51 @@
   </div>
 
   <script type="text/javascript">
-      // console.log("cart_asyn_post.js")
+      console.log("in product detail partial")
       console.log("window.addEventListener")
 
-      var navCart = document.querySelector('#cart-qty');
-      console.log("navCart =", navCart);
+      var cartDetailPartial = document.querySelector('#cart-qty');
+      // console.log("cartDetailPartial =", cartDetailPartial);
 
-      var addBtn = document.querySelector('#add-btn');
-      var minusBtn = document.querySelector('#d-none-minus-btn');
-      var plusBtn = document.querySelector('#d-none-plus-btn');
-      var qtyDisplay = document.querySelector(`#d-none-product-qty`);
-      var dNoneDiv = document.querySelector('#d-none-div');
+      var addBtnDetailPartial = document.querySelector('#add-btn');
+      var minusBtnDetailPartial = document.querySelector('#d-none-minus-btn');
+      var plusBtnDetailPartial = document.querySelector('#d-none-plus-btn');
+      var qtyDisplayDetailPartial = document.querySelector(`#d-none-product-qty`);
+      var dNoneDivDetailPartial = document.querySelector('#d-none-div');
 
-      var addURL = addBtn.dataset.url;
-      var removeURL = minusBtn.dataset.url;
+      var addURLDetailPartial = addBtnDetailPartial.dataset.url;
+      var removeURLDetailPartial = minusBtnDetailPartial.dataset.url;
 
-      var productQty = addBtn.dataset.productQty;
-      var cartQty = addBtn.dataset.cartQty;
+      var productQtyDetailPartial = addBtnDetailPartial.dataset.productQty;
+      var cartQtyDetailPartial = addBtnDetailPartial.dataset.cartQty;
 
-      // console.log(addURL, removeURL)
-      // console.log("cartQty =", cartQty, "productQty =", productQty)
+      // console.log(addURLDetailPartial, removeURLDetailPartial)
+      // console.log("cartQtyDetailPartial =", cartQtyDetailPartial, "productQtyDetailPartial =", productQtyDetailPartial)
 
       // Function to update the display and button visibility
-      var updateDisplay = (qty) => {
-          // console.log("qty =", qty)
+      var updateDisplayDetailPartial = (qty) => {
+          console.log("qty =", qty)
           if (qty > 0) {
-              addBtn.classList.add('d-none');
-              dNoneDiv.classList.remove('d-none');
-              qtyDisplay.textContent = qty;
+              addBtnDetailPartial.classList.add('d-none');
+              dNoneDivDetailPartial.classList.remove('d-none');
+              qtyDisplayDetailPartial.textContent = qty;
           } else {
-              addBtn.classList.remove('d-none');
-              dNoneDiv.classList.add('d-none');
+              addBtnDetailPartial.classList.remove('d-none');
+              dNoneDivDetailPartial.classList.add('d-none');
           }
       };
 
-      var updateNavCart = (qty) => {
-          navCart.textContent = qty;
+      var updateNavCartDetailPartial = (qty) => {
+          cartDetailPartial.textContent = qty;
       };
 
       // Initial update
-      updateDisplay(productQty);
+      updateDisplayDetailPartial(productQtyDetailPartial);
 
       // Add to cart function
-      var addToCart = async () => {
+      var addToCartDetailPartial = async () => {
           try {
-              const response = await fetch(addURL, {
+              const response = await fetch(addURLDetailPartial, {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json',
@@ -162,10 +162,10 @@
               });
 
               if(response.ok) {
-                  console.log(response.json)
                   const jsonData = await response.json();
-                  updateDisplay(jsonData.productQty);
-                  updateNavCart(jsonData.cartQty);
+                  updateDisplayDetailPartial(jsonData.productQty);
+                  updateNavCartDetailPartial(jsonData.cartQty);
+                  console.log("jsonData =", jsonData)
               } else {
                   console.log(response.json)
                   console.error('Failed to add item to cart');
@@ -176,9 +176,9 @@
       };
 
       // Remove from cart function
-      var removeFromCart = async () => {
+      var removeFromCartDetailPartial = async () => {
           try {
-              const response = await fetch(removeURL, {
+              const response = await fetch(removeURLDetailPartial, {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json',
@@ -188,8 +188,8 @@
               if(response.ok) {
                   console.log(response.json)
                   const jsonData = await response.json();
-                  updateDisplay(jsonData.productQty);
-                  updateNavCart(jsonData.cartQty);
+                  updateDisplayDetailPartial(jsonData.productQty);
+                  updateNavCartDetailPartial(jsonData.cartQty);
               } else {
                   console.log(response.json)
                   console.error('Failed to add item to cart');
@@ -200,9 +200,9 @@
       };
 
       // Event handlers
-      addBtn.addEventListener('click', addToCart);
-      minusBtn.addEventListener('click', removeFromCart);
-      plusBtn.addEventListener('click', addToCart);
+      addBtnDetailPartial.addEventListener('click', addToCartDetailPartial);
+      minusBtnDetailPartial.addEventListener('click', removeFromCartDetailPartial);
+      plusBtnDetailPartial.addEventListener('click', addToCartDetailPartial);
 
       console.log("END OF SCRIPT")
   </script>

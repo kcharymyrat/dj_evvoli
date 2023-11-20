@@ -99,3 +99,24 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
+// window.addEventListener('popstate', function(event) {
+//     console.log("in popstate", event)
+
+//     // Refresh your page elements here
+//     navCart = document.querySelector('#cart-qty');
+//     addBtn = document.querySelector('#add-btn');
+//     minusBtn = document.querySelector('#d-none-minus-btn');
+//     plusBtn = document.querySelector('#d-none-plus-btn');
+//     qtyDisplay = document.querySelector(`#d-none-product-qty`);
+//     dNoneDiv = document.querySelector('#d-none-div');
+
+//     addURL = addBtn.dataset.url;
+//     removeURL = minusBtn.dataset.url;
+
+//     productQty = addBtn.dataset.productQty;
+//     cartQty = addBtn.dataset.cartQty;
+
+//     updateDisplay(productQty);
+// });
+
+// console.log("END OF cart_async_post.js SCRIPT")

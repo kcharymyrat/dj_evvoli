@@ -59,22 +59,23 @@ def add_to_cart_json(request, slug):
     except Exception:
         return JsonResponse({"error": "No such product"}, status=404)
 
-    with transaction.atomic():
-        if "cart_id" not in request.session:
-            cart = Cart.objects.create()
-            request.session["cart_id"] = cart.id
-        else:
-            cart = Cart.objects.get(id=request.session["cart_id"])
+    cart_id = request.session.get("cart_id")
+    if cart_id:
+        cart = Cart.objects.get(id=cart_id)
+    else:
+        cart = Cart.objects.create()
+        request.session["cart_id"] = cart.id
 
+    with transaction.atomic():
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
         if not created:
             cart_item.quantity += 1
             cart_item.save()
 
-        cart.refresh_from_db()
+    # cart.refresh_from_db()
 
-        request.session["cart_qty"] = cart.total_quantity
-        request.session.save()
+    request.session["cart_qty"] = cart.total_quantity
+    request.session.modified = True
 
     cart_qty = request.session["cart_qty"]
     product_qty = cart_item.quantity
@@ -123,7 +124,7 @@ def remove_from_cart_json(request, *args, **kwargs):
 
 
 def cart_view(request, *args, **kwargs):
-    request.session.save()
+    # request.session.save()
     if "cart_id" not in request.session:
         if request.htmx:
             return render(request, "orders/partials/no_products_in_cart_partial.html")
@@ -136,7 +137,7 @@ def cart_view(request, *args, **kwargs):
 
 
 def cart_checkout_details(request, *args, **kwargs):
-    request.session.save()
+    # request.session.save()
     if "cart_id" not in request.session:
         return render(request, "orders/partials/no_products_in_cart_partial.html")
     cart = get_object_or_404(Cart, id=request.session["cart_id"])
