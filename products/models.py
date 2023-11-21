@@ -31,7 +31,7 @@ class Category(ImageValidationMixin, models.Model):
         _("name (Russian)"), max_length=50, unique=True, db_index=True
     )
 
-    slug = models.SlugField(_("slug"), unique=True)
+    slug = models.SlugField(_("slug"), unique=True, db_index=True)
 
     description = models.TextField(_("description (Turkmen)"), null=True, blank=True)
     description_en = models.TextField(_("description (English)"), null=True, blank=True)
@@ -103,7 +103,7 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
     title_en = models.CharField(_("title (English)"), max_length=100, unique=True)
     title_ru = models.CharField(_("title (Russian)"), max_length=100, unique=True)
 
-    slug = models.SlugField(_("slug"), unique=True)
+    slug = models.SlugField(_("slug"), unique=True, db_index=True)
 
     price = models.DecimalField(
         _("price"), max_digits=6, decimal_places=2, db_index=True

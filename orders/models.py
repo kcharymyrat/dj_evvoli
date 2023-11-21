@@ -87,7 +87,7 @@ class CartItem(models.Model):
         self.cart.update_total_price()  # Update the cart's total price after deletion.
 
     def __str__(self):
-        return f"{self.quantity}-{self.product.title} = {self.sub_total}"
+        return f"{self.quantity}-{self.product.title}"
 
 
 class Order(models.Model):

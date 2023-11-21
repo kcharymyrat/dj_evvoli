@@ -59,44 +59,53 @@ class OrderCreateView(CreateView):
 
 @require_POST
 def add_to_cart_json(request, slug):
+    # for key in list(request.session.keys()):
+    #     if key.startswith("cart"):
+    #         del request.session[key]
+    #     request.session.modified = True
+
     try:
         product = get_object_or_404(Product, slug=slug)
+
+        cart_id = request.session.get("cart_id")
+        if cart_id:
+            # Prefetch the related CartItem instances
+            cart = get_object_or_404(
+                Cart.objects.prefetch_related("cart_items__product"), id=cart_id
+            )
+        else:
+            cart = Cart.objects.create()
+            request.session["cart_id"] = cart.id
+
+        cart_item_as_lst = [
+            item for item in cart.cart_items.all() if item.product == product
+        ]
+        if cart_item_as_lst:
+            cart_item = cart_item_as_lst[0]
+            if cart_item.quantity < 100:
+                cart_item.quantity += 1
+                cart_item.save()
+
+        else:
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=cart, product=product
+            )
+            if not created:
+                cart_item.quantity += 1
+                cart_item.save()
+
+        cart.refresh_from_db()
+
+        request.session["cart_qty"] = cart.total_quantity
+        request.session.modified = True
+
+        cart_qty = request.session["cart_qty"]
+        product_qty = cart_item.quantity
+
+        return JsonResponse({"cartQty": cart_qty, "productQty": product_qty})
+
     except Exception:
         return JsonResponse({"error": "No such product"}, status=404)
-
-    cart_id = request.session.get("cart_id")
-    if cart_id:
-        # Prefetch the related CartItem instances
-        cart = get_object_or_404(
-            Cart.objects.prefetch_related("cart_items__product"), id=cart_id
-        )
-    else:
-        cart = Cart.objects.create()
-        request.session["cart_id"] = cart.id
-
-    cart_items = cart.cart_items.filter(product=product)
-    if cart_items:
-        print("cart.cart_items.filter(product=product) =", cart_items)
-        cart_item = cart_items.first()
-        cart_item.quantity += 1
-        cart_item.save()
-
-    else:
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-        print("in else, cart_item =", cart_item)
-        if not created:
-            cart_item.quantity += 1
-            cart_item.save()
-
-    # cart.refresh_from_db()
-
-    request.session["cart_qty"] = cart.total_quantity
-    request.session.modified = True
-
-    cart_qty = request.session["cart_qty"]
-    product_qty = cart_item.quantity
-
-    return JsonResponse({"cartQty": cart_qty, "productQty": product_qty})
 
 
 @require_POST
@@ -109,35 +118,35 @@ def remove_from_cart_json(request, *args, **kwargs):
         # Get the product and cart from the database
         slug = kwargs["slug"]  # slug is product slug
         product = get_object_or_404(Product, slug=slug)
-        # cart = get_object_or_404(Cart, id=request.session["cart_id"])
         cart_id = request.session["cart_id"]
         cart = get_object_or_404(
             Cart.objects.prefetch_related("cart_items__product"), id=cart_id
         )
 
         # Get the cart item for the product
-        # cart_item = get_object_or_404(CartItem, cart=cart, product=product)
-        cart_items = cart.cart_items.filter(product=product)
-        cart_item = cart_items.first()
+        cart_item_as_lst = [
+            item for item in cart.cart_items.all() if item.product == product
+        ]
+        cart_item = cart_item_as_lst[0]
 
         with transaction.atomic():
             # If the cart item exists and its quantity is greater than 0, decrease the quantity
             if cart_item.quantity > 0:
                 cart_item.quantity -= 1
-                print("cart_item.quantity =", cart_item.quantity)
-
                 # If the quantity is now 0, delete the cart item
                 if cart_item.quantity == 0:
                     cart_item.delete()
                 else:
                     cart_item.save()
 
-            # Calculate the total quantity of items in the cart and the quantity of the product
-            cart_qty = sum(item.quantity for item in cart.cart_items.all())
-            product_qty = cart_item.quantity if cart_item.pk else 0
+        cart.refresh_from_db()
 
-            # Save the total quantity in the session
-            request.session["cart_qty"] = cart_qty
+        # Calculate the total quantity of items in the cart and the quantity of the product
+        cart_qty = cart.total_quantity
+        product_qty = cart_item.quantity if cart_item.pk else 0
+
+        # Save the total quantity in the session
+        request.session["cart_qty"] = cart_qty
 
         return JsonResponse({"cartQty": cart_qty, "productQty": product_qty})
 
@@ -146,26 +155,34 @@ def remove_from_cart_json(request, *args, **kwargs):
 
 
 def cart_view(request, *args, **kwargs):
-    # request.session.save()
+    # for key in list(request.session.keys()):
+    #     if key.startswith("cart"):
+    #         del request.session[key]
+    #     request.session.modified = True
+
     if "cart_id" not in request.session:
         if request.htmx:
             return render(request, "orders/partials/no_products_in_cart_partial.html")
         return render(request, "orders/no_products_in_cart.html")
-    # cart = get_object_or_404(Cart, id=request.session["cart_id"])
+
     cart = (
         Cart.objects.filter(id=request.session["cart_id"])
         .prefetch_related("cart_items__product__category")
         .first()
     )
+
+    if not cart.cart_items.all():
+        if request.htmx:
+            return render(request, "orders/partials/no_products_in_cart_partial.html")
+        return render(request, "orders/no_products_in_cart.html")
     context = {"cart": cart}
-    print(context)
+
     if request.htmx:
         return render(request, "orders/partials/cart_partial.html", context)
     return render(request, "orders/cart.html", context)
 
 
 def cart_checkout_details(request, *args, **kwargs):
-    # request.session.save()
     if "cart_id" not in request.session:
         return render(request, "orders/partials/no_products_in_cart_partial.html")
     cart = (
