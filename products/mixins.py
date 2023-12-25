@@ -1,3 +1,5 @@
+import os
+
 from PIL import Image
 
 from django.core.exceptions import ValidationError
@@ -45,20 +47,18 @@ class VideoValidationMixin:
     )
 
     def clean_video(self):
-        print("clean_video: self.video =", self.video)
-        video = self.video
+        video = getattr(self, "video", None)
+        print("clean_video: video =", video)
 
-        if self.video:
-            if video.file.content_type not in self.VIDEO_TYPES:
+        if video:
+            file_extension = os.path.splitext(self.video.name)[1][1:].lower()
+            print("file_extension =", file_extension)
+            file_size = self.video.size
+            if file_extension not in ["mp4", "mov", "mkv"]:
                 raise ValidationError(
-                    {
-                        "video": _(
-                            "Unsupported file type. Only mp4, quicktime, and mkv are supported."
-                        )
-                    }
+                    _("Unsupported file type. Only mp4, mov, and mkv are supported.")
                 )
-            if video.size > self.MAX_VIDEO_SIZE:
-                message = _("Make sure that your video less than")
+            if file_size > self.MAX_VIDEO_SIZE:  # 20 MB
                 raise ValidationError(
-                    {"video": f"{message} {self.MAX_VIDEO_SIZE / (1024 * 1024)} MB!"}
+                    _("Make sure that your video is less than 20 MB.")
                 )

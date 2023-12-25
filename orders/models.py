@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 from django.conf.global_settings import LANGUAGE_CODE
+from django.db.models import Sum
 
 from products.models import Product
 

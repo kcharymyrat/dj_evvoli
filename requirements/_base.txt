@@ -7,3 +7,4 @@ black==23.9.1
 django-htmx==1.17.0
 Markdown==3.5.1
 django-filter==23.3
+django-cors-headers==4.3.1
