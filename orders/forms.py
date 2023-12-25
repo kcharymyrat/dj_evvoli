@@ -44,8 +44,8 @@ class OrderForm(BootstrapFormMixin, forms.ModelForm):
     payment_option = forms.ChoiceField(
         label=_("Payment Options"),
         choices=[
-            ("Cash", "Cash"),
-            ("Card Terminal", "Card Terminal"),
+            (_("cash"), _("cash")),
+            (_("card terminal"), _("card terminal")),
         ],
     )
 

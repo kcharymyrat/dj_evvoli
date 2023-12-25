@@ -151,6 +151,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 class OrderCreateSerializer(serializers.Serializer):
     customer_name = serializers.CharField(max_length=255)
     phone = serializers.CharField(max_length=8)
+    shipping_address = serializers.CharField()
     delivery_time = serializers.DateTimeField()
     payment_option = serializers.ChoiceField(choices=Order.PAYMENT_CHOICES)
     cart = serializers.DictField(child=serializers.IntegerField())
