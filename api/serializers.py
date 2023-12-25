@@ -148,28 +148,24 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         return None
 
 
-class CartItemProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ["id"]
+class OrderCreateSerializer(serializers.Serializer):
+    customer_name = serializers.CharField(max_length=255)
+    phone = serializers.CharField(max_length=8)
+    delivery_time = serializers.DateTimeField()
+    payment_option = serializers.ChoiceField(choices=Order.PAYMENT_CHOICES)
+    cart = serializers.DictField(child=serializers.IntegerField())
 
+    def create(self, validated_data):
+        cart_data = validated_data.pop("cart")
+        cart = Cart.objects.create()
 
-class CartItemSerializer(serializers.ModelSerializer):
-    product_id = serializers.UUIDField(source="product.id", read_only=True)
-
-    class Meta:
-        model = CartItem
-        fields = [
-            "product_id",
-            "quantity",
-        ]
-
-
-class CartSerializer(serializers.ModelSerializer):
-    cart_items = CartItemSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Cart
-        fields = [
-            "cart_items",
-        ]
+        for product_id, quantity in cart_data.items():
+            product = Product.objects.filter(id=product_id).first()
+            if not product:
+                raise serializers.ValidationError(
+                    f"Product with ID {product_id} does not exist"
+                )
+            CartItem.objects.create(cart=cart, product=product, quantity=quantity)
+        print("validated_data =", validated_data)
+        order = Order.objects.create(cart=cart, **validated_data)
+        return order

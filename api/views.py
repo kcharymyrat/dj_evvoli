@@ -10,9 +10,7 @@ from .serializers import (
     CategorySerializer,
     ProductSerializer,
     ProductDetailSerializer,
-    CartItemProductSerializer,
-    CartItemSerializer,
-    CartSerializer,
+    OrderCreateSerializer,
 )
 
 from products.models import Category, Product
@@ -41,39 +39,16 @@ class ProductDetailAPIView(RetrieveAPIView):
     serializer_class = ProductDetailSerializer
 
 
-class EmptyCategoryListAPIView(ListAPIView):
-    queryset = Category.objects.filter(name="Yoyo")
-    serializer_class = CategorySerializer
-
-
-class CartDetailAPIView(RetrieveAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
-
-
-class AddProductToCartAPIView(APIView):
+class OrderCreateAPIView(APIView):
     def post(self, request, *args, **kwargs):
-        product_id = request.data.get("product_id")
-        quantity = request.data.get("quantity", 1)
-
-        if not product_id:
+        serializer = OrderCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            order = serializer.save()
             return Response(
-                {"message": "Product ID is required"},
-                status=status.HTTP_400_BAD_REQUEST,
+                {"message": "Order created successfully", "order_id": order.id},
+                status=status.HTTP_201_CREATED,
             )
-
-        product = get_object_or_404(Product, pk=product_id)
-
-        cart, created = Cart.objects.get_or_create(is_ordered=False)
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-
-        cart_item.quantity += int(quantity)
-        cart_item.save()
-        cart.update_total_price()
-
-        return Response(
-            {"message": "Product added to cart successfully"}, status=status.HTTP_200_OK
-        )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProductSearchListAPIView(ListAPIView):

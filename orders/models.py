@@ -101,8 +101,8 @@ class Order(models.Model):
     )
 
     PAYMENT_CHOICES = (
-        (_("Cash"), _("Cash")),
-        (_("Card Terminal"), _("Card Terminal")),
+        (_("cash"), _("cash")),
+        (_("card terminal"), _("card terminal")),
     )
 
     cart = models.ForeignKey(
@@ -143,10 +143,11 @@ class Order(models.Model):
     def all_cart_items(self):
         return [cart_item for cart_item in self.cart.cart_items.all()]
 
-    def save(self) -> None:
+    def save(self, *args, **kwargs) -> None:
         self.total_order_price = self.cart.total_price
         self.cart.update_is_ordered()
-        return super().save()
+        # return super().save()
+        super(Order, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.id}, order_price = {self.total_order_price}"
