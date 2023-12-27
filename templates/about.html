@@ -1,0 +1,75 @@
+{% extends 'base_htmx.html' %}
+{% load static i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+{% block title %}{% trans 'Biz Barada' %}{% endblock title %}
+
+{% block content %}
+
+    <!-- Header Section -->
+    <div class="header text-center">
+        <h1>About Us</h1>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-section container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>Our Company</h2>
+                <p>
+                    {% blocktrans %}
+                    Evvoli is a brand built on a unique positioning – the idea of design by evolution, 
+                    where we can make things better with our vision and the concept of growth by innovation, 
+                    where we can redefine the future. Evvoli is a brand added to a portfolio of strong brands 
+                    powered by MASA Trading.
+                    In the world of consumer electronics, we run a different game, one where we are proactive 
+                    with our innovative approach to reinvent the path of everyday comfort. We talk to the dynamic 
+                    youth and those youthful at heart who need more than function and look beyond the norm.
+                    We strive to offer our range of home appliances that continue to grow with the goal of covering 
+                    every corner of every home around the world.
+                    For the new generation of free and smart buyers who are seeking a brand that reflects 
+                    their own individuality and dynamic lifestyle, Evvoli is a Consumer electronics brand that
+                    blends Human-Centric technology & Neo-modern designs with excellent value. Our diversified 
+                    range of electronics and technology products will inspire you to evolve for life.
+                    {% endblocktrans %}
+                    
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <img src="{% static 'img/logo/logo_b_footer.png' %}" alt="Company Image" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-section container">
+        <div class="row">
+            <div class="col">
+                <h2>{% trans "Contact Information" %}</h2>
+                <p>{% trans "Address: Your address here" %}</p>
+                <p>{% trans "Phone: Your phone number here" %}</p>
+                <p>{% trans "Email: contact@example.com" %}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maps Section -->
+    <div class="maps-section">
+        <div class="container">
+            <h2>Our Locations</h2>
+            <div class="row">
+                <!-- Replace with your Google Maps embed code -->
+                <div class="col-md-6">
+                    <iframe src="your_google_maps_link_here" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="col-md-6">
+                    <iframe src="another_google_maps_link_here" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

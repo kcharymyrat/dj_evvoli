@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import get_language
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from .models import Category, Product
 from orders.models import Cart
@@ -400,3 +400,10 @@ def product_main_image_view(request, *args, **kwargs):
                     product_qty_in_cart = cart_item.quantity
         context["product_qty_in_cart"] = product_qty_in_cart
         return context
+
+
+class AboutView(TemplateView):
+    def get_template_names(self):
+        if self.request.htmx:
+            return "about_partial.html"
+        return "about.html"
