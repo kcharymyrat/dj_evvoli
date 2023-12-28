@@ -9,17 +9,12 @@
 
 {% block content %}
 
-    <!-- Header Section -->
-    <div class="header text-center">
-        <h1>About Us</h1>
-    </div>
-
-    <!-- About Section -->
-    <div class="about-section container">
+     <!-- Company Information Section -->
+     <section class="container my-5">
         <div class="row">
-            <div class="col-lg-8">
-                <h2>Our Company</h2>
-                <p>
+            <div class="col">
+                <h1 class="text-center mb-4">{% trans "About Evvoli Turkmenistan" %}</h1>
+                <p class="text-center">
                     {% blocktrans %}
                     Evvoli is a brand built on a unique positioning – the idea of design by evolution, 
                     where we can make things better with our vision and the concept of growth by innovation, 
@@ -35,41 +30,56 @@
                     blends Human-Centric technology & Neo-modern designs with excellent value. Our diversified 
                     range of electronics and technology products will inspire you to evolve for life.
                     {% endblocktrans %}
-                    
                 </p>
             </div>
-            <div class="col-lg-4">
-                <img src="{% static 'img/logo/logo_b_footer.png' %}" alt="Company Image" class="img-fluid">
-            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Contact Section -->
-    <div class="contact-section container">
+    <!-- Physical Stores Section -->
+    <section class="container my-5">
+        <h2 class="text-center mb-4">{% trans "Our Stores" %}</h2>
         <div class="row">
-            <div class="col">
-                <h2>{% trans "Contact Information" %}</h2>
-                <p>{% trans "Address: Your address here" %}</p>
-                <p>{% trans "Phone: Your phone number here" %}</p>
-                <p>{% trans "Email: contact@example.com" %}</p>
+            <!-- Store 1 -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{% trans "Evvoli - Ashgabat" %}</h5>
+                        <p class="card-text">{% trans "Hoja Ahmet Yasawy St, Ashgabat 744000, Turkmenistan" %}</p>
+                        <p class="card-text">{% trans "Phone: +993 65 726468" %}</p>
+                        <p class="card-text">{% trans "Email: contact@example.com" %}</p>
+                    </div>
+                </div>
             </div>
+            <!-- Store 2 -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{% trans "Evvoli - Mary" %}</h5>
+                        <p class="card-text">{% trans "HVXF+V7F, Mary, Turkmenistan" %}</p>
+                        <p class="card-text">{% trans "Phone: +993 61 004770" %}</p>
+                        <p class="card-text">{% trans "Email: contact@example.com" %}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more stores as needed -->
         </div>
-    </div>
+    </section>
 
     <!-- Maps Section -->
-    <div class="maps-section">
-        <div class="container">
-            <h2>Our Locations</h2>
-            <div class="row">
-                <!-- Replace with your Google Maps embed code -->
-                <div class="col-md-6">
-                    <iframe src="your_google_maps_link_here" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-                <div class="col-md-6">
-                    <iframe src="another_google_maps_link_here" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
+    <section class="container my-5">
+        <h2 class="text-center mb-4">Find Us Here</h2>
+        <div class="row">
+            <!-- Map for Store 1 -->
+            <div class="col-md-6 mb-4">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3146.581459473504!2d58.421198810923585!3d37.940207171827076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6ffdca5b629927%3A0x8cb9fbf82901c34a!2sEvvoli!5e0!3m2!1sen!2s!4v1703742055383!5m2!1sen!2s"  width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+            <!-- Map for Store 2 -->
+            <div class="col-md-6 mb-4">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3161.1048044541944!2d61.8705827109051!3d37.59969237191327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f418fbc8208c931%3A0xd0800e0595148ebf!2sEvvoli!5e0!3m2!1sen!2s!4v1703743379408!5m2!1sen!2s" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <!-- Add more maps as needed -->
         </div>
-    </div>
+    </section>
+
 
 {% endblock content %}
