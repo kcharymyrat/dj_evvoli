@@ -173,7 +173,7 @@ select#lang-select option:selected {
   /* Since positioning the image, we need to help out the caption */
   .carousel-caption {
     bottom: 3rem;
-    z-index: 10;
+    z-index: 2;
   }
   
   /* Declare heights because of positioning of img element */
@@ -196,6 +196,18 @@ select#lang-select option:selected {
     margin-left: .75rem;
   }
   /* rtl:end:ignore */
+
+  #myCarousel {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 1480px) {
+    #myCarousel {
+        text-align: center;
+        margin: auto;
+        width: 1480px;
+    }
+  }
   
   
   /* Featurettes
@@ -588,5 +600,17 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   padding: 0.5rem;
   border-radius: 20%;
 }
+
+#footerContainer {
+  width: 100%;
+}
+
+/* @media screen and (min-width: 1480px) {
+  #footerContainer {
+      text-align: center;
+      margin: auto;
+      width: 1480px;
+  }
+} */
 
 /* END OF FOOTER */

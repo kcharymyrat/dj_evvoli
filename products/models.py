@@ -54,7 +54,7 @@ class Category(ImageValidationMixin, models.Model):
     class Meta:
         verbose_name = _("category")
         verbose_name_plural = _("categories")
-        ordering = ["-created_at"]
+        ordering = ["created_at"]
 
     @property
     def img_preview(self):
