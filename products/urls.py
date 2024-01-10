@@ -7,6 +7,7 @@ from .views import (
     product_main_image_view,
     search_view,
     AboutView,
+    ProductVideoView,
 )
 
 
@@ -28,9 +29,14 @@ htmxpatterns = [
         name="product_detail",
     ),
     path(
-        "products/<slug:category_slug>/<slug:slug>/product_main_image/",
+        "products/<slug:category_slug>/<slug:slug>/product-main-image/",
         product_main_image_view,
         name="product_main_image",
+    ),
+    path(
+        "product-video/<slug:slug>/",
+        ProductVideoView.as_view(),
+        name="product_video",
     ),
 ]
 

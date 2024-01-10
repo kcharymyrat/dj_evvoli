@@ -1,7 +1,7 @@
 {% load static i18n %}
 
 {% if image %}
-<img id="product-main-image"  class="mx-auto d-block" alt="Responsive image" src="{{ image.image.url}}" alt="{{ image.description }}">
+<img id="product-main-image"  class="image-fluid mx-auto d-block" alt="{% trans 'product image' %}" src="{{ image.image.url}}" alt="{{ image.description }}">
 {% else %}
-<img id="product-main-image"  class="mx-auto d-block" alt="Responsive image" src="{{ product.image.url}}" alt="{{ product.title }}">
+<img id="product-main-image"  class="image-fluid mx-auto d-block" alt="{% trans 'product image' %}" src="{{ product.image.url}}" alt="{{ product.title }}">
 {% endif %}

@@ -410,6 +410,8 @@ select#lang-select option:selected {
   color: white;
 }
 
+
+
 /* --------------------------product filter 1 --------------------- */
 .icon-control {
   margin-top: 5px;
@@ -551,15 +553,28 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 /* -------------------------------------------END of product filter---------------------------------- */
 
-/* ---- My STyles for Product list page */
+/* Product Detail */
 #product-main-image {
-  height: 300px;
+  max-width: 100%;
+  height: auto;
+}
+
+.video-player {
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  max-height: 500px; 
+  object-fit: cover; 
+}
+
+.video-thumbnail {
+  width: 100px; 
+  height: auto; 
+  border-radius: 5px; 
 }
 
 
+/* End of Product Detail */
 
-
-/* Product detail */
 .pointer-cursor {
   cursor: pointer;
 }

@@ -49,7 +49,7 @@
             <div class="price-wrap mt-1 h3">
                 <span class="price">{{product.sale_price}} TMT</span>
                 {% if product.on_sale %}
-                <del class="price-old">${{product.price}}</del>
+                <del class="price-old">{{product.price}} TMT</del>
                 {% endif %}
             </div>
         </div>
@@ -57,7 +57,7 @@
 
           <!--CART BUTTONS-->
           <button type="button" id="add-btn" class="btn btn-evvoli-add col-lg-6 fw500 rounded-5" data-url='{% url "orders:add_to_cart" slug=product.slug %}' data-cart-qty='{{ request.session.cart_qty|default:0 }}' data-product-qty='{{ product_qty_in_cart|default:0 }}'>
-            Add to Cart
+            {% trans "Add to Cart" %}
           </button>
           <div id="d-none-div" 
           class="d-flex col-lg-6 align-items-center justify-content-around btn-evvoli-pink rounded-5">
@@ -79,6 +79,7 @@
           <div class="col-md-12">
 
             <div class="card-body p-1">
+
               <h1 class="mb-0 h2 pe-4 pb-4">
                 {% if LANGUAGE_CODE == "tk" %}
                 {{product.title}}
@@ -88,26 +89,63 @@
                 {{product.title_ru}}
                 {% endif %}
               </h1>
-              <div class="text-center">
 
-                <img id="product-main-image" class="image-fluid mx-auto d-block" alt="Responsive image" src="{{ product.image.url}}"
-                  alt="{{ product.title }}">
-               
-                {% for image in product.images.all %}
-                <img id="{{image.id}}" class="other-images img-fluid d-block-inline pt-3" width="100px" alt="Responsive image"
-                  src="{{ image.thumbnail.url }}" alt="{{ image.image.alt_text }}" 
-                  hx-get="{% url "products:product_main_image" category_slug=product.category.slug slug=product.slug %}?product_id={{ product.id }}&image_id={{image.id}}"
-                  hx-trigger="click"
-                  hx-target="#product-main-image"
-                  hx-swap="outerHTML">
-                {% endfor %}
-                <img id="{{image.id}}" class="other-images img-fluid d-block-inline pt-3" width="100px" alt="Responsive image"
-                src="{{ product.image.url}}" alt="{{ product.title}}" 
-                  hx-get="{% url "products:product_main_image" category_slug=product.category.slug slug=product.slug %}?product_id={{ product.id }}"
-                  hx-trigger="click"
-                  hx-target="#product-main-image"
-                  hx-swap="outerHTML">
+              <div class="mb-0 text-center pe-4 pb-4">
+
+                <div class="card card-product-grid text-center">
+                  <div id="product-main-image-wrap" class="text-center">
+                    {% if product.video %}
+                    <div id="product-main-image" class="container mt-3">
+                      <div class="row">
+                          <div class="col">
+                              <video class="video-player w-100" controls>
+                                  <source src="{{ product.video.url }}" type="video/mp4">
+                                  Your browser does not support the video tag.
+                              </video>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <img id="product-main-image" class="image-fluid mx-auto d-block" alt="{% trans 'product image' %}" src="{{ product.image.url}}"
+                    alt="{{ product.title }}">
+                    {% endif %}
+                  </div>
+                  <div>
+                    {% for image in product.images.all %}
+                    <img id="{{image.id}}" class="other-images img-fluid d-block-inline pt-3" width="100px" alt="Responsive image" src="{{ image.thumbnail.url }}" alt="{{ image.image.alt_text }}" 
+                    hx-get="{% url "products:product_main_image" category_slug=product.category.slug slug=product.slug %}?product_id={{ product.id }}&image_id={{image.id}}"
+                    hx-trigger="click"
+                    hx-target="#product-main-image"
+                    hx-swap="outerHTML">
+                    {% endfor %}
+
+                    <img id="{{image.id}}" class="other-images img-fluid d-block-inline pt-3" width="100px" alt="Responsive image" src="{{ product.image.url}}" alt="{{ product.title}}" 
+                    hx-get="{% url "products:product_main_image" category_slug=product.category.slug slug=product.slug %}?product_id={{ product.id }}"
+                    hx-trigger="click"
+                    hx-target="#product-main-image"
+                    hx-swap="outerHTML">
+                    
+                    {% if product.video %}
+                    <div class="container mt-3">
+                      <div class="row">
+                          <div class="col">
+                            <video class="video-thumbnail" width="100"
+                            hx-get="{% url 'products:product_video' slug=product.slug %}"
+                            hx-trigger="click"
+                            hx-target="#product-main-image"
+                            hx-swap="outerHTML">
+                              <source src="{{ product.video.url }}" type="video/mp4">
+                              Your browser does not support the video tag.
+                            </video>
+                      </div>
+                    </div>
+                    {% endif %}
+
+                  </div>
+                </div>
+                 
               </div>
+
             </div>
 
           </div>
