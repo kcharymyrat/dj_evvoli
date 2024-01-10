@@ -118,21 +118,24 @@
                       hx-target="#product-main-image"
                       hx-swap="outerHTML">
 
+                    <!--Product Video-->
                     {% if product.video %}
                     <div class="container mt-3">
                       <div class="row">
                           <div class="col">
                             <video class="video-thumbnail" width="100"
-                            hx-get="{% url 'products:product_video' slug=product.slug %}"
-                            hx-trigger="click"
-                            hx-target="#product-main-image"
-                            hx-swap="outerHTML">
+                              hx-get="{% url 'products:product_video' slug=product.slug %}"
+                              hx-trigger="click"
+                              hx-target="#product-main-image"
+                              hx-swap="outerHTML">
                               <source src="{{ product.video.url }}" type="video/mp4">
                               Your browser does not support the video tag.
                             </video>
+                          <div>
                       </div>
                     </div>
                     {% endif %}
+                    <!--End Product Video-->
 
                   </div>
                 </div>

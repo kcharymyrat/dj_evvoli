@@ -72,7 +72,7 @@
     <!--END OF Details of Products, ADD to CARD, ADD to WISHLIST-->
 
 
-    <!--Product Images-->
+    <!--Product Images and Video-->
     <div class="col-md-7 col-lg-7 p-0">
       <div class="card mb-3 border-0 text-center">
         <div class="row g-0">
@@ -90,9 +90,13 @@
                 {% endif %}
               </h1>
 
+
               <div class="mb-0 text-center pe-4 pb-4">
 
+                <!--START of <div class="card card-product-grid text-center">-->
                 <div class="card card-product-grid text-center">
+
+                  <!--Product Main Image or Video-->
                   <div id="product-main-image-wrap" class="text-center">
                     {% if product.video %}
                     <div id="product-main-image" class="container mt-3">
@@ -102,15 +106,18 @@
                                   <source src="{{ product.video.url }}" type="video/mp4">
                                   Your browser does not support the video tag.
                               </video>
-                            </div>
-                        </div>
+                          </div>
+                      </div>
                     </div>
                     {% else %}
-                    <img id="product-main-image" class="image-fluid mx-auto d-block" alt="{% trans 'product image' %}" src="{{ product.image.url}}"
-                    alt="{{ product.title }}">
+                    <img id="product-main-image" class="image-fluid mx-auto d-block" alt="{% trans 'product image' %}" src="{{ product.image.url}}" alt="{{ product.title }}">
                     {% endif %}
                   </div>
-                  <div>
+                  <!--End Product Main Image or Video-->
+
+                  <!--Start of <div id="product-image-video-thumbnails">-->
+                  <div id="product-image-video-thumbnails">
+                    <!--Product Images-->
                     {% for image in product.images.all %}
                     <img id="{{image.id}}" class="other-images img-fluid d-block-inline pt-3" width="100px" alt="Responsive image" src="{{ image.thumbnail.url }}" alt="{{ image.image.alt_text }}" 
                     hx-get="{% url "products:product_main_image" category_slug=product.category.slug slug=product.slug %}?product_id={{ product.id }}&image_id={{image.id}}"
@@ -124,25 +131,32 @@
                     hx-trigger="click"
                     hx-target="#product-main-image"
                     hx-swap="outerHTML">
+                    <!--END of Product Images-->
                     
+                    <!--Product Video-->
                     {% if product.video %}
                     <div class="container mt-3">
                       <div class="row">
                           <div class="col">
                             <video class="video-thumbnail" width="100"
-                            hx-get="{% url 'products:product_video' slug=product.slug %}"
-                            hx-trigger="click"
-                            hx-target="#product-main-image"
-                            hx-swap="outerHTML">
+                              hx-get="{% url 'products:product_video' slug=product.slug %}"
+                              hx-trigger="click"
+                              hx-target="#product-main-image"
+                              hx-swap="outerHTML">
                               <source src="{{ product.video.url }}" type="video/mp4">
                               Your browser does not support the video tag.
                             </video>
+                          <div>
                       </div>
                     </div>
                     {% endif %}
+                    <!--End Product Video-->
 
-                  </div>
+                  </div>  
+                  <!--END of <div id="product-image-video-thumbnails">-->
+
                 </div>
+                <!--END of <div class="card card-product-grid text-center">-->
                  
               </div>
 
@@ -155,15 +169,17 @@
     <!--END OF Product Images-->
 
   </div>
+</div>
+</div>
+</div>
 
-  <script type="text/javascript">
-    var csrfToken = '{{ csrf_token }}';
-  </script>
-  <script src='{% static "js/cart_async_post.js" %}'></script>
-  
-</div>  <!-- END of <div id="product-detail-div" class="container-xxl mb-3"> -->
+<script type="text/javascript">
+  var csrfToken = '{{ csrf_token }}';
+</script>
+<script src='{% static "js/cart_async_post.js" %}'></script>
+ <!-- END of <div id="product-detail-div" class="container-xxl mb-3"> -->
 
-  {% endblock content %}
+{% endblock content %}
 
 
 
