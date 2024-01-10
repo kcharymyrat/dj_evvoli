@@ -10,6 +10,24 @@ from .models import Category, Product
 from orders.models import Cart
 
 
+class HomeListView(ListView):
+    model = Category
+    paginate_by = 2
+    context_object_name = "cats"
+
+    def get_template_names(self):
+        if self.request.htmx:
+            if self.request.htmx.target == "main-body":
+                return "index_partial.html"
+            else:
+                return "includes/category_list_elements.html"
+        return "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
 def search_view(request):
     query = request.GET.get("q", "").strip()
     if request.method == "POST":
@@ -56,54 +74,11 @@ def search_view(request):
     )
 
 
-class HomeListView(ListView):
-    model = Category
-    paginate_by = 2
-    context_object_name = "cats"
-
+class AboutView(TemplateView):
     def get_template_names(self):
         if self.request.htmx:
-            if self.request.htmx.target == "main-body":
-                return "index_htmx_partial.html"
-            else:
-                return "includes/category_list_elements_htmx.html"
-        return "index_htmx.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
-def all_product_elements_list_view(request, kwargs):
-    current_language = get_language()
-
-    category_slug = kwargs.get("category_slug")
-    page_number = request.GET.get("page") or 1
-
-    category = (
-        Category.objects.filter(slug=category_slug).prefetch_related("products").first()
-    )
-    category_products = (
-        category.products.all()
-    )  # This won't hit the database again because of prefetch_related
-    paginator = Paginator(category_products, 2)
-    page_obj = paginator.get_page(page_number)
-
-    if current_language == "en":
-        product_types = set([product.type_en for product in category_products])
-    elif current_language == "ru":
-        product_types = set([product.type_ru for product in category_products])
-    else:
-        product_types = set([product.type for product in category_products])
-
-    context = {
-        "products": page_obj,
-        "category_slug": category_slug,
-        "types": product_types,
-        "page_obj": page_obj,
-    }
-
-    return render(request, "categories/categories_htmx.html", context)
+            return "about_partial.html"
+        return "about.html"
 
 
 def category_list_view(request, *args, **kwargs):
@@ -140,7 +115,7 @@ def category_list_view(request, *args, **kwargs):
             if request.session.get("filter_dict"):
                 del request.session["filter_dict"]
             return render(
-                request, "categories/partials/categories_partial_htmx.html", context
+                request, "categories/partials/categories_partial.html", context
             )
 
         if request.htmx.trigger == "last_product_page":
@@ -245,13 +220,45 @@ def category_list_view(request, *args, **kwargs):
     return all_product_elements_list_view(request, kwargs)
 
 
+def all_product_elements_list_view(request, kwargs):
+    current_language = get_language()
+
+    category_slug = kwargs.get("category_slug")
+    page_number = request.GET.get("page") or 1
+
+    category = (
+        Category.objects.filter(slug=category_slug).prefetch_related("products").first()
+    )
+    category_products = (
+        category.products.all()
+    )  # This won't hit the database again because of prefetch_related
+    paginator = Paginator(category_products, 2)
+    page_obj = paginator.get_page(page_number)
+
+    if current_language == "en":
+        product_types = set([product.type_en for product in category_products])
+    elif current_language == "ru":
+        product_types = set([product.type_ru for product in category_products])
+    else:
+        product_types = set([product.type for product in category_products])
+
+    context = {
+        "products": page_obj,
+        "category_slug": category_slug,
+        "types": product_types,
+        "page_obj": page_obj,
+    }
+
+    return render(request, "categories/categories.html", context)
+
+
 class ProductDetailView(DetailView):
     model = Product
 
     def get_template_names(self):
         if self.request.htmx:
-            return "categories/partials/product_detail_async_js_htmx_partial.html"
-        return "categories/product_detail_async_js_htmx.html"
+            return "categories/partials/product_detail_partial.html"
+        return "categories/product_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -400,10 +407,3 @@ def product_main_image_view(request, *args, **kwargs):
                     product_qty_in_cart = cart_item.quantity
         context["product_qty_in_cart"] = product_qty_in_cart
         return context
-
-
-class AboutView(TemplateView):
-    def get_template_names(self):
-        if self.request.htmx:
-            return "about_partial.html"
-        return "about.html"

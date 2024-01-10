@@ -1,4 +1,4 @@
-{% extends 'base_htmx.html' %}
+{% extends 'base.html' %}
 {% load static i18n %}
 
 {% get_current_language as LANGUAGE_CODE %}
@@ -77,7 +77,9 @@
 	<h1 class="display-4 fw-bold">{% trans "evvoli is..." %}</h1>
 	<div class="col-lg-6 mx-auto">
 		<p class="lead mb-4">
-			{% trans "a consumer electronics brand that blends human-centric technology and neo-modern designs with excellent value. Our diversified range of electronics and technology products will inspire you to evolve for life." %}
+			{% blocktrans %}
+			a consumer electronics brand that blends human-centric technology and neo-modern designs with excellent value. Our diversified range of electronics and technology products will inspire you to evolve for life.
+			{% endblocktrans %}
 		</p>
 		<div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
 			<button type="button" class="btn btn-evvoli-pink btn-lg px-4 me-sm-3 rounded-5">{% trans "Read more" %}</button>
@@ -98,13 +100,11 @@
 <div id="category-list-wrapper" class="container">
 	<div class="row justify-content-center">
         <div class="col-lg-10">
-			{% include "includes/category_list_elements_htmx.html" %}
+			{% include "includes/category_list_elements.html" %}
         </div>
     </div>
 </div>
 <!-- End of Categories  -->
-
-
 
 
 {% endblock content %}

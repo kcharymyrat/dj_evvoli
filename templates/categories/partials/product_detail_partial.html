@@ -8,6 +8,7 @@
 
 
 <div id="product-detail-div" class="container-xxl mb-3">
+
   <div class="row g-3">
 
     <!--Details of Products, ADD to CARD, ADD to WISHLIST-->
@@ -106,104 +107,120 @@
       </div>
     </div>
     <!--END OF Product Images-->
+
   </div>
+  
+</div>  <!-- END of <div id="product-detail-div" class="container-xxl mb-3"> -->
 
-  <script type="text/javascript">
-      console.log("in product detail partial")
-      console.log("window.addEventListener")
+<script type="text/javascript">
+    console.log("in product detail partial")
+    console.log("window.addEventListener")
 
-      var cartDetailPartial = document.querySelector('#cart-qty');
-      // console.log("cartDetailPartial =", cartDetailPartial);
+    var cartDetailPartial = document.querySelector('#cart-qty');
+    // console.log("cartDetailPartial =", cartDetailPartial);
 
-      var addBtnDetailPartial = document.querySelector('#add-btn');
-      var minusBtnDetailPartial = document.querySelector('#d-none-minus-btn');
-      var plusBtnDetailPartial = document.querySelector('#d-none-plus-btn');
-      var qtyDisplayDetailPartial = document.querySelector(`#d-none-product-qty`);
-      var dNoneDivDetailPartial = document.querySelector('#d-none-div');
+    var addBtnDetailPartial = document.querySelector('#add-btn');
+    var minusBtnDetailPartial = document.querySelector('#d-none-minus-btn');
+    var plusBtnDetailPartial = document.querySelector('#d-none-plus-btn');
+    var qtyDisplayDetailPartial = document.querySelector(`#d-none-product-qty`);
+    var dNoneDivDetailPartial = document.querySelector('#d-none-div');
 
-      var addURLDetailPartial = addBtnDetailPartial.dataset.url;
-      var removeURLDetailPartial = minusBtnDetailPartial.dataset.url;
+    var addURLDetailPartial = addBtnDetailPartial.dataset.url;
+    var removeURLDetailPartial = minusBtnDetailPartial.dataset.url;
 
-      var productQtyDetailPartial = addBtnDetailPartial.dataset.productQty;
-      var cartQtyDetailPartial = addBtnDetailPartial.dataset.cartQty;
+    var productQtyDetailPartial = addBtnDetailPartial.dataset.productQty;
+    var cartQtyDetailPartial = addBtnDetailPartial.dataset.cartQty;
 
-      // console.log(addURLDetailPartial, removeURLDetailPartial)
-      // console.log("cartQtyDetailPartial =", cartQtyDetailPartial, "productQtyDetailPartial =", productQtyDetailPartial)
+    // console.log(addURLDetailPartial, removeURLDetailPartial)
+    // console.log("cartQtyDetailPartial =", cartQtyDetailPartial, "productQtyDetailPartial =", productQtyDetailPartial)
 
-      // Function to update the display and button visibility
-      var updateDisplayDetailPartial = (qty) => {
-          console.log("qty =", qty)
-          if (qty > 0) {
-              addBtnDetailPartial.classList.add('d-none');
-              dNoneDivDetailPartial.classList.remove('d-none');
-              qtyDisplayDetailPartial.textContent = qty;
-          } else {
-              addBtnDetailPartial.classList.remove('d-none');
-              dNoneDivDetailPartial.classList.add('d-none');
-          }
-      };
+    var isClickAllowedProductDetailPartial = true;
+    function preventClicksTemporarilyProductDetailPartial() {
+      isClickAllowedProductDetailPartial = false;
+        setTimeout(() => {
+          isClickAllowedProductDetailPartial = true;
+        }, 1000);
+    }
 
-      var updateNavCartDetailPartial = (qty) => {
-          cartDetailPartial.textContent = qty;
-      };
 
-      // Initial update
-      updateDisplayDetailPartial(productQtyDetailPartial);
+    // Function to update the display and button visibility
+    var updateDisplayDetailPartial = (qty) => {
+        console.log("qty =", qty)
+        if (qty > 0) {
+            addBtnDetailPartial.classList.add('d-none');
+            dNoneDivDetailPartial.classList.remove('d-none');
+            qtyDisplayDetailPartial.textContent = qty;
+        } else {
+            addBtnDetailPartial.classList.remove('d-none');
+            dNoneDivDetailPartial.classList.add('d-none');
+        }
+    };
 
-      // Add to cart function
-      var addToCartDetailPartial = async () => {
-          try {
-              const response = await fetch(addURLDetailPartial, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'X-CSRFToken': '{{ csrf_token }}'
-                  }
-              });
+    var updateNavCartDetailPartial = (qty) => {
+        cartDetailPartial.textContent = qty;
+    };
 
-              if(response.ok) {
-                  const jsonData = await response.json();
-                  updateDisplayDetailPartial(jsonData.productQty);
-                  updateNavCartDetailPartial(jsonData.cartQty);
-                  console.log("jsonData =", jsonData)
-              } else {
-                  console.log(response.json)
-                  console.error('Failed to add item to cart');
-              }
-          } catch (error) {
-              console.error('Failed to connect to server', error);
-          }
-      };
+    // Initial update
+    updateDisplayDetailPartial(productQtyDetailPartial);
 
-      // Remove from cart function
-      var removeFromCartDetailPartial = async () => {
-          try {
-              const response = await fetch(removeURLDetailPartial, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'X-CSRFToken': '{{ csrf_token }}'
-                  }
-              });
-              if(response.ok) {
-                  console.log(response.json)
-                  const jsonData = await response.json();
-                  updateDisplayDetailPartial(jsonData.productQty);
-                  updateNavCartDetailPartial(jsonData.cartQty);
-              } else {
-                  console.log(response.json)
-                  console.error('Failed to add item to cart');
-              }
-          } catch (error) {
-              console.error('Failed to connect to server', error);
-          }  
-      };
+    // Add to cart function
+    var addToCartDetailPartial = async () => {
+        if (!isClickAllowedProductDetailPartial) return;
+        preventClicksTemporarilyProductDetailPartial();
+        try {
+            const response = await fetch(addURLDetailPartial, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            });
 
-      // Event handlers
-      addBtnDetailPartial.addEventListener('click', addToCartDetailPartial);
-      minusBtnDetailPartial.addEventListener('click', removeFromCartDetailPartial);
-      plusBtnDetailPartial.addEventListener('click', addToCartDetailPartial);
+            if(response.ok) {
+                const jsonData = await response.json();
+                updateDisplayDetailPartial(jsonData.productQty);
+                updateNavCartDetailPartial(jsonData.cartQty);
+                console.log("jsonData =", jsonData)
+            } else {
+                console.log(response.json)
+                console.error('Failed to add item to cart');
+            }
+        } catch (error) {
+            console.error('Failed to connect to server', error);
+        }
+    };
 
-      console.log("END OF SCRIPT")
-  </script>
+    // Remove from cart function
+    var removeFromCartDetailPartial = async () => {
+        if (!isClickAllowedProductDetailPartial) return;
+        preventClicksTemporarilyProductDetailPartial();
+        try {
+            const response = await fetch(removeURLDetailPartial, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            });
+            if(response.ok) {
+                console.log(response.json)
+                const jsonData = await response.json();
+                updateDisplayDetailPartial(jsonData.productQty);
+                updateNavCartDetailPartial(jsonData.cartQty);
+            } else {
+                console.log(response.json)
+                console.error('Failed to add item to cart');
+            }
+        } catch (error) {
+            console.error('Failed to connect to server', error);
+        }  
+    };
+
+    // Event handlers
+    addBtnDetailPartial.addEventListener('click', addToCartDetailPartial);
+    minusBtnDetailPartial.addEventListener('click', removeFromCartDetailPartial);
+    plusBtnDetailPartial.addEventListener('click', addToCartDetailPartial);
+
+    console.log("END OF SCRIPT")
+</script>
 

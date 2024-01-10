@@ -21,6 +21,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // console.log(addURL, removeURL)
     // console.log("cartQty =", cartQty, "productQty =", productQty)
 
+    var isClickAllowedProductDetail = true;
+    function preventClicksTemporarilyProductDetail() {
+        isClickAllowedProductDetail = false;
+        setTimeout(() => {
+            isClickAllowedProductDetail = true;
+        }, 1000);
+    }
+
     // Function to update the display and button visibility
     const updateDisplay = (qty) => {
         // console.log("qty =", qty)
@@ -43,6 +51,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     // Add to cart function
     const addToCart = async () => {
+        if (!isClickAllowedProductDetail) return;
+        preventClicksTemporarilyProductDetail();
         try {
             const response = await fetch(addURL, {
                 method: 'POST',
@@ -68,6 +78,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     // Remove from cart function
     const removeFromCart = async () => {
+        if (!isClickAllowedProductDetail) return;
+        preventClicksTemporarilyProductDetail();
         try {
             const response = await fetch(removeURL, {
                 method: 'POST',

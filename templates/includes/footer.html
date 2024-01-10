@@ -8,7 +8,7 @@
 <div id="footerContainer" class="bg-black mt-3">
   <div class="container">
     <footer class="py-3 text-light">
-      <p id="footerHeader" class="text-center text-light my-3">Evolve for life.</p>
+      <p id="footerHeader" class="text-center text-light my-3">{% trans "Evolve for life" %}</p>
       <ul class="nav justify-content-center my-3">
         {% for category in categories %}
             <li class="nav-item">
@@ -24,8 +24,15 @@
             </li>
         {% endfor %}
         <li class="nav-item">
-          <a href="{% url 'products:about' %}" class="nav-link px-2 footerLink">
-            {% trans "About Us" %}
+          <a id="navnar-about" class="nav-link px-2 footerLink" aria-current="page"
+							hx-get="{% url 'products:about' %}"
+							hx-swap="innerHTML" 
+							hx-trigger="click delay:500ms" 
+							hx-target="#main-body"
+							hx-throttle="1s"
+							hx-push-url="{% url 'products:about' %}"
+							hx-indicator="#spinner">
+								{% trans "About Us" %}
           </a>
       </li>
       </ul>
@@ -37,4 +44,20 @@
     </footer>
   </div>
 </div>
+
+<script>
+  // Function to scroll to the top of the document
+  function footerTopFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+  }
+
+  // Get all the buttons with the class 'footerLink'
+  var footerLinks = document.querySelectorAll(".footerLink");
+
+  // Add event listener to each button
+  footerLinks.forEach(function(button) {
+    button.addEventListener('click', footerTopFunction);
+  });
+</script>
 <!-- End Footer -->

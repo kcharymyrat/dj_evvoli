@@ -34,6 +34,19 @@
 
 				<div class="offcanvas-body ">
 					<ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+						<!-- About Us-->
+						<li class="nav-item">
+							<a id="navnar-about" class="nav-link" aria-current="page"
+							hx-get="{% url 'products:about' %}"
+							hx-swap="innerHTML" 
+							hx-trigger="click delay:500ms" 
+							hx-target="#main-body"
+							hx-throttle="1s"
+							hx-push-url="{% url 'products:about' %}"
+							hx-indicator="#spinner">
+								{% trans "About Us" %}
+							</a>
+						</li>
 						{% for category in categories %}
 						{% if forloop.counter < 5 %}
 						<!--FIX aria-current and learn how to do it-->

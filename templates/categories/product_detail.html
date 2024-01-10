@@ -1,4 +1,4 @@
-{% extends 'base_htmx.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 {% load i18n %}
@@ -12,9 +12,11 @@
 {% block title %}
 {% if product %}{{ product.title }}{% else %}{% trans "Önüm" %}{% endif %}
 {% endblock %}
+
 {% block content %}
 
 <div id="product-detail-div" class="container-xxl mb-3">
+
   <div class="row g-3">
 
     <!--Details of Products, ADD to CARD, ADD to WISHLIST-->
@@ -116,13 +118,14 @@
 
   </div>
 
+  <script type="text/javascript">
+    var csrfToken = '{{ csrf_token }}';
+  </script>
+  <script src='{% static "js/cart_async_post.js" %}'></script>
+  
+</div>  <!-- END of <div id="product-detail-div" class="container-xxl mb-3"> -->
+
   {% endblock content %}
 
 
-  {% block js %}
-  <script type="text/javascript">
-      var csrfToken = '{{ csrf_token }}';
-  </script>
-  <script src='{% static "js/cart_async_post.js" %}'></script>
-  {% endblock js %}
 

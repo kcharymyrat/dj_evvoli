@@ -1,13 +1,10 @@
-{% extends 'base.html' %}
 {% load static i18n %}
 
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as languages %}
 
-{% block title %}{% trans 'Biz Barada' %}{% endblock title %}
 
-{% block content %}
 
      <!-- Company Information Section -->
      <section class="container my-5">
@@ -80,6 +77,3 @@
             <!-- Add more maps as needed -->
         </div>
     </section>
-
-
-{% endblock content %}
