@@ -8,8 +8,6 @@ INSTALLED_APPS += [
     # "silk",
 ]
 
-# MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware"] + MIDDLEWARE
-
 MIDDLEWARE += [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]

@@ -297,7 +297,6 @@ def product_main_image_view(request, *args, **kwargs):
         context = {"product": product}
     return render(request, "categories/partials/product_main_image.html", context)
 
-    ############################### OLD Views that were corrected above############################
     # class OldHomeView(ListView):
     #     model = Category
     #     paginate_by = 2

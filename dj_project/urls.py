@@ -16,7 +16,6 @@ urlpatterns = [
     path("", include("products.urls", namespace="products")),
     path("", include("orders.urls", namespace="orders")),
     path("api/", include("api.urls", namespace="api")),
-    path("__debug__/", include("debug_toolbar.urls")),  # only when testing
     prefix_default_language=False,
 )
 
@@ -25,5 +24,6 @@ urlpatterns = [
 # print(type(settings))
 if settings.DEBUG:
     # urlpatterns += [path("silk/", include("silk.urls", namespace="silk"))]
+    urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
