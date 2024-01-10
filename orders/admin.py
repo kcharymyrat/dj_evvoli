@@ -5,7 +5,7 @@ from .models import CartItem, Cart, Order
 
 class CartAdmin(admin.ModelAdmin):
     list_display = ["id", "total_price", "is_ordered", "get_cart_items"]
-    list_display_links = ["get_cart_items"]
+    list_display_links = ["id", "get_cart_items"]
     readonly_fields = ["total_price", "is_ordered", "get_cart_items"]
 
     def get_cart_items(self, instance):

@@ -7,6 +7,14 @@ from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 
+from products.views import (
+    PageNotFoundView,
+    BadRequestView,
+    ForbiddenView,
+    ServerErrorView,
+    PageNotFoundView,
+)
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -19,7 +27,12 @@ urlpatterns = [
     prefix_default_language=False,
 )
 
-# handler404 = "products.views.my_custom_page_not_found_view"
+handler404 = PageNotFoundView.as_view()
+handler400 = BadRequestView.as_view()
+handler403 = ForbiddenView.as_view()
+handler404 = PageNotFoundView.as_view()
+handler500 = ServerErrorView.as_view()
+
 
 # print(type(settings))
 if settings.DEBUG:

@@ -301,3 +301,32 @@ def product_main_image_view(request, *args, **kwargs):
 class ProductVideoView(DetailView):
     model = Product
     template_name = "categories/partials/product_video.html"
+
+
+class PageNotFoundView(TemplateView):
+    template_name = "errors/404.html"
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context, status=404)
+
+
+class BadRequestView(TemplateView):
+    template_name = "errors/400.html"
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response({}, status=400)
+
+
+class ForbiddenView(TemplateView):
+    template_name = "errors/403.html"
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response({}, status=403)
+
+
+class ServerErrorView(TemplateView):
+    template_name = "errors/500.html"
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response({}, status=500)

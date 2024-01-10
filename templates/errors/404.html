@@ -2,7 +2,7 @@
 {% load static i18n %}
 
 
-{% block title %}{% trans "Baş Sahypa" %}{% endblock title %}
+{% block title %}{% trans "Page Not Found" %}{% endblock title %}
 
 
 {% block content %}
@@ -10,11 +10,11 @@
     <div class="d-flex align-items-center justify-content-center vh-100">
         <div class="text-center">
             <h1 class="display-1 fw-bold">404</h1>
-            <p class="fs-3"> <span class="text-danger">Opps!</span> Page not found.</p>
+            <p class="fs-3"> <span class="text-danger">Opps!</span>{% trans "Page not found." %}</p>
             <p class="lead">
-                The page you’re looking for doesn’t exist.
+                {% trans "The page you’re looking for doesn’t exist." %}
             </p>
-            <a href="{% url 'products:home' %}" class="btn btn-primary">Go Home</a>
+            <a href="{% url 'products:home' %}" class="btn btn-primary">{% trans "Go Home" %}</a>
         </div>
     </div>
 

@@ -176,7 +176,9 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return f"Product: {self.title}, price: {self.price}"
+        return (
+            _("Product model") + f": {self.model}, " + _("price") + f": {self.price} m."
+        )
 
 
 class ProductImage(ImageValidationMixin, models.Model):
