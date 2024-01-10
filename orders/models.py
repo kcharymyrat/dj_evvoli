@@ -69,7 +69,7 @@ class CartItem(models.Model):
 
     @property
     def sub_total(self):
-        return self.product.price * self.quantity
+        return self.product.sale_price * self.quantity
 
     class Meta:
         verbose_name = _("cart item")

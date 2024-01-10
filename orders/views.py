@@ -12,51 +12,6 @@ from .forms import OrderForm
 from products.models import Product
 
 
-class OrderCreateView(CreateView):
-    model = Order
-    form_class = OrderForm
-
-    def dispatch(self, request, *args, **kwargs):
-        self.cart = None
-        cart_id = self.request.session.get("cart_id")
-        if cart_id:
-            self.cart_id = cart_id
-            self.cart = (
-                Cart.objects.filter(id=request.session["cart_id"])
-                .prefetch_related("cart_items__product__category")
-                .first()
-            )
-            context = {"self.cart": self.cart}
-        return super().dispatch(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        if self.cart:
-            form.instance.cart = self.cart
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        for key in list(self.request.session.keys()):
-            if key.startswith("cart"):
-                del self.request.session[key]
-        self.request.session.modified = True
-        return reverse("products:home")
-
-    def get_template_names(self):
-        if self.request.htmx:
-            if self.cart and self.cart.total_quantity > 0:
-                return "orders/partials/order_form_partial.html"
-            return "orders/partials/order_not_allowed_partial.html"
-        if self.cart and self.cart.total_quantity > 0:
-            return "orders/order_form.html"
-        return "orders/order_not_allowed.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.cart:
-            context["cart"] = self.cart
-        return context
-
-
 @require_POST
 def add_to_cart_json(request, slug):
     # for key in list(request.session.keys()):
@@ -111,6 +66,7 @@ def add_to_cart_json(request, slug):
 @require_POST
 def remove_from_cart_json(request, *args, **kwargs):
     # If there's no cart in the session, return an error
+    print("kwargs =", kwargs)
     if "cart_id" not in request.session:
         return JsonResponse({"error": "No cart found"}, status=404)
 
@@ -155,11 +111,6 @@ def remove_from_cart_json(request, *args, **kwargs):
 
 
 def cart_view(request, *args, **kwargs):
-    # for key in list(request.session.keys()):
-    #     if key.startswith("cart"):
-    #         del request.session[key]
-    #     request.session.modified = True
-
     if "cart_id" not in request.session:
         if request.htmx:
             return render(request, "orders/partials/no_products_in_cart_partial.html")
@@ -170,6 +121,16 @@ def cart_view(request, *args, **kwargs):
         .prefetch_related("cart_items__product__category")
         .first()
     )
+
+    if not cart:
+        for key in list(request.session.keys()):
+            if key.startswith("cart"):
+                del request.session[key]
+            request.session.modified = True
+
+        if request.htmx:
+            return render(request, "orders/partials/no_products_in_cart_partial.html")
+        return render(request, "orders/no_products_in_cart.html")
 
     if not cart.cart_items.all():
         if request.htmx:
@@ -191,5 +152,49 @@ def cart_checkout_details(request, *args, **kwargs):
         .first()
     )
     context = {"cart": cart}
-    print(context)
     return render(request, "orders/partials/cart_checkout_details.html", context)
+
+
+class OrderCreateView(CreateView):
+    model = Order
+    form_class = OrderForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.cart = None
+        cart_id = self.request.session.get("cart_id")
+        if cart_id:
+            self.cart_id = cart_id
+            self.cart = (
+                Cart.objects.filter(id=request.session["cart_id"])
+                .prefetch_related("cart_items__product__category")
+                .first()
+            )
+            context = {"self.cart": self.cart}
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        if self.cart:
+            form.instance.cart = self.cart
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        for key in list(self.request.session.keys()):
+            if key.startswith("cart"):
+                del self.request.session[key]
+        self.request.session.modified = True
+        return reverse("products:home")
+
+    def get_template_names(self):
+        if self.request.htmx:
+            if self.cart and self.cart.total_quantity > 0:
+                return "orders/partials/order_form_partial.html"
+            return "orders/partials/order_not_allowed_partial.html"
+        if self.cart and self.cart.total_quantity > 0:
+            return "orders/order_form.html"
+        return "orders/order_not_allowed.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.cart:
+            context["cart"] = self.cart
+        return context

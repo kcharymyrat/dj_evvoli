@@ -12,7 +12,9 @@
 	<div class="py-5 text-center">
 		<h2>{% trans "Your Shopping Cart" %}</h2>
 		<p class="lead">
-            {% trans "Kindly review the items in your basket and proceed to checkout at your earliest convenience. You may also adjust the quantity of your selected products as needed." %}
+            {% blocktrans %}
+            Kindly review the items in your basket and proceed to checkout at your earliest convenience. You may also adjust the quantity of your selected products as needed.
+            {% endblocktrans %}
 		</p>
 	</div>
 
@@ -79,7 +81,7 @@
 					<div class="col-9 card mb-3 border-0 product-item" data-index="{{product.id}}">
 						<div class="row g-0">
 							<div class="col-md-6 col-lg-4">
-								<img class="img-fluid pointer-cursor" src="{{ product.image.url }}" 
+								<img class="img-fluid pointer-cursor" src="{{ product.thumbnail.url }}" 
                                 alt="{{ product.title }}"
                                 hx-get="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}"
                                 hx-swap="innerHTML" 
@@ -150,24 +152,21 @@
 
 {% block js %}
 <script>
-    console.log()
-    console.log("Start cart.html")
-    console.log(window)
-    console.log(document)
-
     const csrfCartToken = '{{ csrf_token }}';
     const navCartQty = document.querySelector('#cart-qty');
     const cartTotalQty = document.querySelector("#cartTotalQty");
-    console.log("navCartQty =", navCartQty)
-    console.log("cartTotalQty =", cartTotalQty)
-
 
     // Get all plus and minus buttons
     const minusButtons = document.querySelectorAll('.minusBtn');
     const plusButtons = document.querySelectorAll('.plusBtn');
 
-    console.log("minusButtons =", minusButtons)
-    console.log("plusButtons =", plusButtons)
+    var isClickAllowedCart = true;
+    function preventClicksTemporarilyCart() {
+        isClickAllowedCart = false;
+        setTimeout(() => {
+            isClickAllowedCart = true;
+        }, 1000);
+    }
 
     const updateNavCartInCart = (element, qty) => {
         element.textContent = qty;
@@ -182,9 +181,8 @@
     const removeProductFromDisplay = (element, qty) => {
         if (qty == 0) {
             setTimeout(() => {
-                console.log("This message will display after 3 seconds");
                 element.remove();
-            }, 1000);
+            }, 500);
         };
     };
 
@@ -199,11 +197,8 @@
             const currentQuantity = parseInt(pProductQty.textContent);
             const url = button.dataset.url;
 
-            console.log("productId =", productId, "productQtyId =", productQtyId, `#li-${productId}`);
-            console.log("liProduct =", liProduct)
-            console.log("pProductQty =", pProductQty)
-            console.log("currentQuantity =", currentQuantity, typeof currentQuantity)
-            console.log("url =", url)
+            if (!isClickAllowedCart) return;
+            preventClicksTemporarilyCart();
 
             try {
                 const response = await fetch(url, {
@@ -214,14 +209,12 @@
                     }
                 });
                 if(response.ok) {
-                    console.log(response.json)
                     const jsonData = await response.json();
                     updateDisplayCart(pProductQty, jsonData.productQty);
                     removeProductFromDisplay(liProduct, jsonData.productQty);
                     updateNavCartInCart(cartTotalQty, jsonData.cartQty);
                     updateNavCartInCart(navCartQty, jsonData.cartQty);
                 } else {
-                    console.lof(response.json)
                     console.error('Failed to add item to cart');
                 }
             } catch (error) {
@@ -241,11 +234,8 @@
             const currentQuantity = parseInt(pProductQty.textContent);
             const url = button.dataset.url;
 
-            console.log("productId =", productId, "productQtyId =", productQtyId, `#li-${productId}`);
-            console.log("liProduct =", liProduct)
-            console.log("pProductQty =", pProductQty)
-            console.log("currentQuantity =", currentQuantity, typeof currentQuantity)
-            console.log("url =", url)
+            if (!isClickAllowedCart) return;
+            preventClicksTemporarilyCart();
 
             try {
                 const response = await fetch(url, {
@@ -256,13 +246,11 @@
                     }
                 });
                 if(response.ok) {
-                    console.log(response.json)
                     const jsonData = await response.json();
                     updateDisplayCart(pProductQty, jsonData.productQty);
                     updateNavCartInCart(cartTotalQty, jsonData.cartQty);
                     updateNavCartInCart(navCartQty, jsonData.cartQty);
                 } else {
-                    console.lof(response.json)
                     console.error('Failed to add item to cart');
                 }
             } catch (error) {
@@ -271,7 +259,7 @@
         });
     });
     
-	console.log("END")
+	console.log("END CART")
 </script>
 {% endblock js %}
 

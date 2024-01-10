@@ -1,7 +1,6 @@
 from django.urls import path
 
 from .views import (
-    # HTMX
     category_list_view,
     HomeListView,
     ProductDetailView,

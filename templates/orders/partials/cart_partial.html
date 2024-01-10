@@ -75,7 +75,7 @@
 					<div class="col-9 card mb-3 border-0 product-item" data-index="{{product.id}}">
 						<div class="row g-0">
 							<div class="col-md-6 col-lg-4">
-								<img class="img-fluid pointer-cursor" src="{{ product.image.url }}" 
+								<img class="img-fluid pointer-cursor" src="{{ product.thumbnail.url }}" 
                                 alt="{{ product.title }}"
                                 hx-get="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}"
                                 hx-swap="innerHTML" 
@@ -147,16 +147,19 @@
 <script>
     var navCartQtyPar = document.querySelector('#cart-qty');
     var cartTotalQtyPar = document.querySelector("#cartTotalQtyPar");
-    console.log("navCartQtyPar =", navCartQtyPar)
-    console.log("cartTotalQtyPar =", cartTotalQtyPar)
 
 
     // Get all plus and minus buttons
     var minusButtonsPar = document.querySelectorAll('.minusBtn');
     var plusButtonsPar = document.querySelectorAll('.plusBtn');
 
-    console.log("minusButtonsPar =", minusButtonsPar)
-    console.log("plusButtonsPar =", plusButtonsPar)
+    var isClickAllowedCartPartial = true;
+    function preventClicksTemporarilyCartPartial() {
+        isClickAllowedCartPartial = false;
+        setTimeout(() => {
+            isClickAllowedCartPartial = true;
+        }, 1000);
+    }
 
     var updateNavCartPar = (element, qty) => {
         element.textContent = qty;
@@ -171,9 +174,8 @@
     var removeProductFromDisplayPar = (element, qty) => {
         if (qty == 0) {
             setTimeout(() => {
-                console.log("This message will display after 3 seconds");
                 element.remove();
-            }, 1000);
+            }, 500);
         };
     };
 
@@ -188,11 +190,8 @@
             const currentQuantity = parseInt(pProductQty.textContent);
             const url = button.dataset.url;
 
-            console.log("productId =", productId, "productQtyId =", productQtyId, `#li-${productId}`);
-            console.log("liProduct =", liProduct)
-            console.log("pProductQty =", pProductQty)
-            console.log("currentQuantity =", currentQuantity, typeof currentQuantity)
-            console.log("url =", url)
+            if (!isClickAllowedCartPartial) return;
+            preventClicksTemporarilyCartPartial();
 
             try {
                 const response = await fetch(url, {
@@ -210,8 +209,7 @@
                     updateNavCartPar(cartTotalQtyPar, jsonData.cartQty);
                     updateNavCartPar(navCartQtyPar, jsonData.cartQty);
                 } else {
-                    console.lof(response.json)
-                    console.error('Failed to add item to cart');
+                    console.error('Failed to add item to cart', response.json);
                 }
             } catch (error) {
                 console.error('Failed to connect to server', error);
@@ -230,11 +228,8 @@
             const currentQuantity = parseInt(pProductQty.textContent);
             const url = button.dataset.url;
 
-            console.log("productId =", productId, "productQtyId =", productQtyId, `#li-${productId}`);
-            console.log("liProduct =", liProduct)
-            console.log("pProductQty =", pProductQty)
-            console.log("currentQuantity =", currentQuantity, typeof currentQuantity)
-            console.log("url =", url)
+            if (!isClickAllowedCartPartial) return;
+            preventClicksTemporarilyCartPartial();
 
             try {
                 const response = await fetch(url, {
@@ -251,8 +246,7 @@
                     updateNavCartPar(cartTotalQtyPar, jsonData.cartQty);
                     updateNavCartPar(navCartQtyPar, jsonData.cartQty);
                 } else {
-                    console.lof(response.json)
-                    console.error('Failed to add item to cart');
+                    console.error('Failed to add item to cart', response.json);
                 }
             } catch (error) {
                 console.error('Failed to connect to server', error);
@@ -260,7 +254,7 @@
         });
     });
     
-	console.log("END")
+	console.log("END CART PARTTIAL")
 </script>
 
 
