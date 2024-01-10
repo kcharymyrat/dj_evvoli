@@ -21,11 +21,17 @@ class CategoryAdminForm(ModelForm):
 
 class CategoryAdmin(admin.ModelAdmin):
     form = CategoryAdminForm
-    list_display = ["name", "slug"]
+    list_display = ["name", "slug", "products_count"]
     readonly_fields = ["img_preview"]
     prepopulated_fields = {
         "slug": ("name_en",),
     }
+
+    def products_count(self, obj):
+        # Assuming 'products' is a reverse relation from a Product model
+        return obj.products.count()
+
+    products_count.short_description = _("Number of Products")
 
 
 admin.site.register(Category, CategoryAdmin)
@@ -33,7 +39,7 @@ admin.site.register(Category, CategoryAdmin)
 
 class ProductImageAdmin(admin.ModelAdmin):
     list_display = ["id", "product"]
-    search_fields = ["product"]
+    search_fields = ["product__model"]
     readonly_fields = ["img_preview"]
 
 
@@ -48,7 +54,7 @@ class ProductImageInline(admin.TabularInline):
 
 class ProductSpecificationAdmin(admin.ModelAdmin):
     list_display = ["id", "product"]
-    search_fields = ["product"]
+    search_fields = ["product__model"]
     readonly_fields = ["title", "title_en", "title_ru"]
 
 
@@ -74,10 +80,9 @@ class ProductAdminForm(ModelForm):
 class ProductAdmin(admin.ModelAdmin):
     form = ProductAdminForm
     list_display = [
+        "category",
         "type",
-        "title",
         "model",
-        "slug",
         "price",
         "sale_percent",
         "sale_price",
@@ -85,8 +90,17 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ("title_en",),
     }
-    list_filter = ["type", "title", "model", "price", "created_by"]
-    search_fields = ["type", "created_by"]
+    list_filter = [
+        "category__name",
+        "type",
+    ]
+    search_fields = [
+        "type",
+        "model",
+        "category__name",
+        "category__name_en",
+        "category__name_ru",
+    ]
     inlines = (ProductImageInline, ProductSpecificationTitleInline)
 
     def get_readonly_fields(self, request, obj=None):
