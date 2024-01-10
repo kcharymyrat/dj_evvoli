@@ -78,6 +78,10 @@ body {
 /* REFACTOR from custom.css */
 
 /*-------------------------------------- navbar.html --------------------------------------------------- */
+.nav-link {
+  cursor: pointer;
+}
+
 .nav-link:hover {
   color: var(--color-pink);
 }
