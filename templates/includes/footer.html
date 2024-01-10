@@ -40,7 +40,14 @@
         <li class="nav-item"><a href="#" class="nav-link px-2 text-light"><i class="fa-brands fa-tiktok"></i></a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-light"><i class="fa-brands fa-instagram"></i></a></li>
       </ul>
-      <p class="text-center text-light">&copy; {% trans "2023 Evvoli Turkmenistan. All rights reserved." %}</p>
+      <div id="footer-copy-google-play">
+        <p class="text-center text-light">&copy; {% trans "2023 Evvoli Turkmenistan. All rights reserved." %}</p>
+        <div id="google-play-badge">
+          <a href="https://play.google.com/store/apps/details?id=your.package.name" target="_blank">
+              <img src="{% static "img/google-play-badge.png" %}" alt="Get it on Google Play" />
+          </a>
+        </div>
+      </div>
     </footer>
   </div>
 </div>

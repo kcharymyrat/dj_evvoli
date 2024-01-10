@@ -605,6 +605,22 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   width: 100%;
 }
 
+#footer-copy-google-play {
+  text-align: center;
+}
+
+#google-play-badge img {
+  height: 50px; /* Adjust as needed */
+  margin-top: 10px; /* Space above the badge */
+}
+
+/* For responsive design */
+@media screen and (max-width: 768px) {
+  #google-play-badge img {
+      height: 30px;
+  }
+}
+
 /* @media screen and (min-width: 1480px) {
   #footerContainer {
       text-align: center;
