@@ -32,14 +32,26 @@
 			</div> <!-- img-wrap.// -->
 			<figcaption class="info-wrap mx-3">
 				<div class="fix-height">
+					{% if product.type %}
+					<p class="title h3 text-bold evvoli-pink">
+						{% if LANGUAGE_CODE == "tk" %}
+						{{product.type}}
+						{% elif LANGUAGE_CODE == "en" %}
+						{{product.type_en}}
+						{% else %}
+						{{product.type_ru}}
+						{% endif %}	
+					</p>
+					{% endif %}
+
 					<p class="title h3 text-bold">
 						{% if LANGUAGE_CODE == "tk" %}
-						{{product.type}} {{product.title}}
+						{{product.title}}
 						{% elif LANGUAGE_CODE == "en" %}
-						{{product.type_en}} {{product.title_en}}
+						{{product.title_en}}
 						{% else %}
-						{{product.type_ru}} {{product.title_ru}}
-						{% endif %}		
+						{{product.title_ru}}
+						{% endif %}	
 					</p>
 					<p class="">
 						{% if LANGUAGE_CODE == "tk" %}

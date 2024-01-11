@@ -55,10 +55,111 @@
   margin: 0;
 }
 
-
 /* HTMX Transitions */
 body {
   transition: opacity 1s ease;
+}
+
+.evvoli-orange {
+  color: var(--color-orange);
+}
+
+.evvoli-pink {
+  color: var(--color-pink);
+}
+
+.evvoli-purple {
+  color: var(--color--purple);
+}
+
+.evvoli-bg-orange {
+  background-color: var(--color-orange);
+}
+
+.evvoli-bg-pink {
+  background-color: var(--color-pink);
+}
+
+.evvoli-bg-purple {
+  background-color: var(--color--purple);
+}
+
+.evvoli-btn-primary {
+  background-color: var(--color-pink);
+  color: white;
+}
+
+
+.evvoli-btn-primary:hover {
+  background-color: var(--color--purple);
+  color: white;
+}
+
+.evvoli-btn-secondary {
+  background-color: var(--color--purple);
+  color: white;
+}
+
+.evvoli-btn-secondary:hover {
+  background-color: var(--color-pink);
+  color: white;
+}
+
+.btn-evvoli-add  {
+  background-color: var(--color-pink);
+  color: white;
+  transition: all ease-in 0.5s;
+}
+
+.btn-evvoli-add:hover  {
+  background-color: var(--color--purple);
+  color: white;
+  opacity: 0.9;
+}
+
+
+.borderRoundEvvoli {
+  border-radius: 20%;
+}
+
+.btn-evvoli-purple  {
+  background-color: transparent;
+  color: var(--color--purple);
+  border: var(--color--purple) 1px solid;
+}
+
+.btn-evvoli-purple:hover  {
+  background-color: var(--color--purple);
+  color: white;
+}
+
+.btn-evvoli-pink  {
+  transition: all ease-in 0.10s;
+  background-color: transparent;
+  color: var(--color-pink);
+  border: var(--color-pink) 1px solid;
+}
+
+.btn-evvoli-pink:hover  {
+  background-color: var(--color-pink);
+  color: white;
+}
+
+.btn-evvoli-pink:hover > p {
+  transition: all ease-in 0.25s;
+  background-color: var(--color-pink);
+  color: white;
+}
+
+.btn-evvoli-orange  {
+  background-color: transparent;
+  color: var(--color-orange);
+  border: var(--color-orange) 1px solid;
+}
+
+.btn-evvoli-orange:hover  {
+  background-color: var(--color-orange);
+  color: white;
 }
 
 #main-body.htmx-added {
@@ -311,108 +412,6 @@ select#lang-select option:selected {
 }
 
 /* ------------------------END of Basket----------------------------------------- */
-
-.evvoli-orange {
-  color: var(--color-orange);
-}
-
-.evvoli-pink {
-  color: var(--color-pink);
-}
-
-.evvoli-purple {
-  color: var(--color--purple);
-}
-
-.evvoli-bg-orange {
-  background-color: var(--color-orange);
-}
-
-.evvoli-bg-pink {
-  background-color: var(--color-pink);
-}
-
-.evvoli-bg-purple {
-  background-color: var(--color--purple);
-}
-
-.evvoli-btn-primary {
-  background-color: var(--color-pink);
-  color: white;
-}
-
-
-.evvoli-btn-primary:hover {
-  background-color: var(--color--purple);
-  color: white;
-}
-
-.evvoli-btn-secondary {
-  background-color: var(--color--purple);
-  color: white;
-}
-
-.evvoli-btn-secondary:hover {
-  background-color: var(--color-pink);
-  color: white;
-}
-
-.btn-evvoli-add  {
-  background-color: var(--color-pink);
-  color: white;
-  transition: all ease-in 0.5s;
-}
-
-.btn-evvoli-add:hover  {
-  background-color: var(--color--purple);
-  color: white;
-  opacity: 0.9;
-}
-
-
-.borderRoundEvvoli {
-  border-radius: 20%;
-}
-
-.btn-evvoli-purple  {
-  background-color: transparent;
-  color: var(--color--purple);
-  border: var(--color--purple) 1px solid;
-}
-
-.btn-evvoli-purple:hover  {
-  background-color: var(--color--purple);
-  color: white;
-}
-
-.btn-evvoli-pink  {
-  transition: all ease-in 0.10s;
-  background-color: transparent;
-  color: var(--color-pink);
-  border: var(--color-pink) 1px solid;
-}
-
-.btn-evvoli-pink:hover  {
-  background-color: var(--color-pink);
-  color: white;
-}
-
-.btn-evvoli-pink:hover > p {
-  transition: all ease-in 0.25s;
-  background-color: var(--color-pink);
-  color: white;
-}
-
-.btn-evvoli-orange  {
-  background-color: transparent;
-  color: var(--color-orange);
-  border: var(--color-orange) 1px solid;
-}
-
-.btn-evvoli-orange:hover  {
-  background-color: var(--color-orange);
-  color: white;
-}
 
 
 

@@ -71,6 +71,17 @@
           <div class="col-md-12">
 
             <div class="card-body p-1">
+              {% if product.type %}
+              <p class="title h3 text-bold evvoli-pink">
+                {% if LANGUAGE_CODE == "tk" %}
+                {{product.type}} <span class="h2">{{product.title}}</span>
+                {% elif LANGUAGE_CODE == "en" %}
+                {{product.type_en}} <span class="h2">{{product.title_en}}</span>
+                {% else %}
+                {{product.type_ru}} <span class="h2">{{product.title_ru}}</span>
+                {% endif %}	
+              </p>
+              {% else %}
               <h1 class="mb-0 h2 pe-4 pb-4">
                 {% if LANGUAGE_CODE == "tk" %}
                 {{product.title}}
@@ -80,6 +91,7 @@
                 {{product.title_ru}}
                 {% endif %}
               </h1>
+              {% endif %}
 
               <div class="mb-0 text-center pe-4 pb-4">
                 <div class="card card-product-grid text-center">

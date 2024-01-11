@@ -11,9 +11,9 @@ from django.views.generic import ListView, DetailView, TemplateView
 from .models import Category, Product
 from orders.models import Cart
 
-logger = logging.getLogger(__name__)  # For general application logging (console)
-django_logger = logging.getLogger("django")  # For DJANGO-specific logging
-api_logger = logging.getLogger("api")  # For API-specific logging
+# logger = logging.getLogger(__name__)  # For general application logging (console)
+# django_logger = logging.getLogger("django")  # For DJANGO-specific logging
+# api_logger = logging.getLogger("api")  # For API-specific logging
 
 
 class HomeListView(ListView):
@@ -48,10 +48,7 @@ def search_view(request):
         )
         products = (
             Product.objects.filter(
-                Q(title__icontains=query)
-                | Q(title_en__icontains=query)
-                | Q(title_ru__icontains=query)
-                | Q(model__icontains=query)
+                Q(model__icontains=query)
                 | Q(category__in=categories)
                 | Q(type__icontains=query)
                 | Q(type_en__icontains=query)

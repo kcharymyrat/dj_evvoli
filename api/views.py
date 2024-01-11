@@ -71,10 +71,7 @@ def get_filetered_products(query):
             | Q(name_ru__icontains=query)
         )
         products = Product.objects.filter(
-            Q(title__icontains=query)
-            | Q(title_en__icontains=query)
-            | Q(title_ru__icontains=query)
-            | Q(model__icontains=query)
+            Q(model__icontains=query)
             | Q(category__in=categories)
             | Q(type__icontains=query)
             | Q(type_en__icontains=query)
