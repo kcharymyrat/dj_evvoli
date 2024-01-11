@@ -217,7 +217,6 @@ class OrderSuccessDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         order_id = self.kwargs["order_id"]
-        # Use get_object_or_404 to retrieve the order or raise Http404 if not found
         order = get_object_or_404(Order, id=order_id)
         context["order"] = order
         return context
