@@ -6,6 +6,7 @@ from .views import (
     cart_view,
     cart_checkout_details,
     OrderCreateView,
+    OrderSuccessDetailView,
 )
 
 
@@ -22,4 +23,9 @@ urlpatterns = [
         name="cart_checkout_details",
     ),
     path("order/", OrderCreateView.as_view(), name="order"),
+    path(
+        "order-success/<int:order_id>/",
+        OrderSuccessDetailView.as_view(),
+        name="order_success",
+    ),
 ]

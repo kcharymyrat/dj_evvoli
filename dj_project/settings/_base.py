@@ -181,52 +181,54 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "formatters": {
-#         "verbose": {
-#             "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-#             "style": "{",
-#         },
-#         "simple": {
-#             "format": "{levelname} {message}",
-#             "style": "{",
-#         },
-#     },
-#     "handlers": {
-#         "file": {
-#             "level": "ERROR",
-#             "class": "logging.handlers.RotatingFileHandler",
-#             "filename": os.path.join(BASE_DIR, "logs/django_error.log"),
-#             "maxBytes": 1024 * 1024 * 5,  # 5 MB
-#             "backupCount": 5,
-#             "formatter": "verbose",
-#         },
-#         "api_file": {
-#             "level": "ERROR",
-#             "class": "logging.handlers.RotatingFileHandler",
-#             "filename": os.path.join(BASE_DIR, "logs/api_error.log"),
-#             "maxBytes": 1024 * 1024 * 5,  # 5 MB
-#             "backupCount": 5,
-#             "formatter": "verbose",
-#         },
-#         "console": {
-#             "level": "DEBUG",
-#             "class": "logging.StreamHandler",
-#             "formatter": "simple",
-#         },
-#     },
-#     "loggers": {
-#         "django": {
-#             "handlers": ["file", "console"],
-#             "level": "ERROR",
-#             "propagate": True,
-#         },
-#         "api": {
-#             "handlers": ["api_file"],
-#             "level": "ERROR",
-#             "propagate": False,
-#         },
-#     },
-# }
+LOG_LEVEL = "INFO"  # LATER NEED TO FIX
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "file": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "logs/django_error.log"),
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "api_file": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "logs/api_error.log"),
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file", "console"],
+            "level": LOG_LEVEL,
+            "propagate": True,
+        },
+        "api": {
+            "handlers": ["api_file"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+    },
+}

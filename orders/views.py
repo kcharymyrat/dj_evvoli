@@ -1,8 +1,10 @@
+import logging
+
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.http import JsonResponse
-from django.views.generic.edit import CreateView
+from django.views.generic import CreateView, TemplateView
 from django.views.decorators.http import require_POST
 from django.utils.translation import gettext_lazy as _
 
@@ -10,6 +12,10 @@ from .models import Cart, CartItem, Order
 from .forms import OrderForm
 
 from products.models import Product
+
+logger = logging.getLogger(__name__)  # For general application logging (console)
+django_logger = logging.getLogger("django")  # For DJANGO-specific logging
+api_logger = logging.getLogger("api")  # For API-specific logging
 
 
 @require_POST
@@ -182,7 +188,7 @@ class OrderCreateView(CreateView):
             if key.startswith("cart"):
                 del self.request.session[key]
         self.request.session.modified = True
-        return reverse("products:home")
+        return reverse("orders:order_success", kwargs={"order_id": self.object.id})
 
     def get_template_names(self):
         if self.request.htmx:
@@ -197,4 +203,21 @@ class OrderCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         if self.cart:
             context["cart"] = self.cart
+        return context
+
+
+class OrderSuccessDetailView(TemplateView):
+    model = Order
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return "orders/partials/order_success_partial.html"
+        return "orders/order_success.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order_id = self.kwargs["order_id"]
+        # Use get_object_or_404 to retrieve the order or raise Http404 if not found
+        order = get_object_or_404(Order, id=order_id)
+        context["order"] = order
         return context

@@ -1,6 +1,7 @@
 from ._base import *
 
 DEBUG = True
+LOG_LEVEL = "INFO"
 
 
 INSTALLED_APPS += [
