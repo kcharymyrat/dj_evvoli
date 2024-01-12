@@ -1,4 +1,6 @@
 -r _base.txt
 
+psycopg2==2.9.9
+
 # Use the following command to install necessary system dependencies - maybe if needed in Docker setup may not be needed
 # sudo apt install python3-dev libpq-dev
