@@ -157,3 +157,8 @@ GitHub.sublime-settings
 
 # Custom gitignore for the evvolli project
 .media/*
+
+logs
+logs/
+.logs/
+.logs
