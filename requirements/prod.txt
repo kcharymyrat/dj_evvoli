@@ -1,0 +1,4 @@
+-r _base.txt
+
+# Use the following command to install necessary system dependencies - maybe if needed in Docker setup may not be needed
+# sudo apt install python3-dev libpq-dev

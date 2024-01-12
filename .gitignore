@@ -99,14 +99,29 @@ celerybeat-schedule.*
 # Environments 
 .env 
 .venv
-.testvenv 
+.testvenv
+.dev_venv
+.prod_venv
+.stage_venv
 env/ 
 venv/
+.env/
 .venv/
-.testvenv/ 
+.testvenv/
+.dev_venv/
+.prod_venv/
+.stage_venv/
 ENV/ 
 env.bak/ 
 venv.bak/ 
+.env.dev
+.env.testing
+.env.prod
+.env.stage
+.env.dev/
+.env.testing/
+.env.prod/
+.env.stage/
 
 # mkdocs documentation 
 /site 
