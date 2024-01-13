@@ -1,5 +1,6 @@
 -r _base.txt
 
+gunicorn==21.2.0
 psycopg2==2.9.9
 
 # Use the following command to install necessary system dependencies - maybe if needed in Docker setup may not be needed

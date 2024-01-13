@@ -1,6 +1,6 @@
 from ._base import *
 
-DEBUG = False
+DEBUG = True
 
 str(os.getenv("DATABASE_USER"))
 
@@ -14,3 +14,5 @@ DATABASES = {
         "PORT": os.getenv("SQL_PORT", "5432"),
     }
 }
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]

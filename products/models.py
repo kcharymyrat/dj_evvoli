@@ -1,6 +1,7 @@
 import uuid
 
 from decimal import Decimal
+from PIL import Image
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
 
@@ -175,6 +176,45 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
         )
 
 
+class ProductSpecification(models.Model):
+    product = models.ForeignKey(
+        Product,
+        verbose_name=_("product"),
+        on_delete=models.CASCADE,
+        related_name="specs",
+    )
+    title = models.CharField(_("title (Turkmen)"), max_length=255)
+    title_en = models.CharField(_("title (English)"), max_length=255)
+    title_ru = models.CharField(_("title (Russian)"), max_length=255)
+    content = models.CharField(_("content (Turkmen)"), max_length=255)
+    content_en = models.CharField(_("content (English)"), max_length=255)
+    content_ru = models.CharField(_("content (Russian)"), max_length=255)
+
+    class Meta:
+        verbose_name = _("product specification")
+        verbose_name_plural = _("product specifications")
+
+
+import logging
+
+logger = logging.getLogger(__name__)  # For general application logging (console)
+django_logger = logging.getLogger("django")  # For DJANGO-specific logging
+api_logger = logging.getLogger("api")  # For API-specific logging
+
+
+class PreserveTransparency(ResizeToFit):
+    def process(self, img):
+        print("\n\n\nIN Preserver", "img.mode =", img.mode)
+        if img.mode == "P":
+            img = img.convert("RGBA")
+        print("\n\n\nIN Preserver", "img.mode =", img.mode)
+        if img.mode in ("RGBA", "LA"):
+            background = Image.new(img.mode[:-1], img.size, "#FFFFFF")
+            background.paste(img, img.split()[-1])
+            img = background
+        return super().process(img)
+
+
 class ProductImage(ImageValidationMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product = models.ForeignKey(
@@ -186,8 +226,8 @@ class ProductImage(ImageValidationMixin, models.Model):
     image = models.ImageField(_("image"), upload_to="images/products/")
     thumbnail = ImageSpecField(
         source="image",
-        processors=[ResizeToFit(width=400)],
-        format="JPEG",
+        processors=[PreserveTransparency(width=400)],
+        format="PNG",
         options={"quality": 80},
     )
     description = models.CharField(
@@ -209,22 +249,3 @@ class ProductImage(ImageValidationMixin, models.Model):
 
     def __str__(self) -> str:
         return f"{self.product.title}"
-
-
-class ProductSpecification(models.Model):
-    product = models.ForeignKey(
-        Product,
-        verbose_name=_("product"),
-        on_delete=models.CASCADE,
-        related_name="specs",
-    )
-    title = models.CharField(_("title (Turkmen)"), max_length=255)
-    title_en = models.CharField(_("title (English)"), max_length=255)
-    title_ru = models.CharField(_("title (Russian)"), max_length=255)
-    content = models.CharField(_("content (Turkmen)"), max_length=255)
-    content_en = models.CharField(_("content (English)"), max_length=255)
-    content_ru = models.CharField(_("content (Russian)"), max_length=255)
-
-    class Meta:
-        verbose_name = _("product specification")
-        verbose_name_plural = _("product specifications")

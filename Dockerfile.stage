@@ -1,0 +1,83 @@
+
+###########
+# BUILDER #
+###########
+
+# pull official base image
+FROM python:3.11.1-bullseye AS builder
+
+# set work directory
+WORKDIR /usr/src/app
+
+# install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc
+
+# Install system dependencies required for psycopg2
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install dependencies
+RUN pip install --no-cache-dir pip==23.3.1
+
+# Copy the requirements directory
+COPY requirements /usr/src/app/requirements
+
+# Install Python dependencies
+ARG REQUIREMENTS_FILE
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r ${REQUIREMENTS_FILE}
+
+
+#########
+# FINAL #
+#########
+
+# pull official base image
+FROM python:3.11.1-bullseye
+
+# create directory for the app user
+RUN mkdir -p /home/app
+
+# create the app user
+RUN addgroup --system app && adduser --system --group app
+
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+ENV ENTRY_POINT_FILE_NAME=entrypoint.stage.sh
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/static
+RUN mkdir $APP_HOME/media
+WORKDIR $APP_HOME
+
+# install system dependencies
+RUN apt-get update && apt-get install -y netcat
+RUN apt-get update && apt-get install -y --no-install-recommends netcat
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /usr/src/app/requirements .
+RUN pip install --no-cache-dir pip==23.3.1
+RUN pip install --no-cache /wheels/*
+
+# copy entrypoint.stage.sh
+COPY ./$ENTRY_POINT_FILE_NAME .
+RUN sed -i 's/\r$//g' $APP_HOME/$ENTRY_POINT_FILE_NAME
+RUN chmod +x $APP_HOME/$ENTRY_POINT_FILE_NAME
+
+# copy project
+COPY . $APP_HOME
+
+# chown all the files to the app user
+RUN chown -R app:app $APP_HOME
+
+# change to the app user
+USER app
+
+# run entrypoint.sh
+ENTRYPOINT ["/home/app/web/entrypoint.stage.sh"]

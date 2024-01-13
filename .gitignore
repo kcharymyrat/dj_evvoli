@@ -166,14 +166,12 @@ logs/
 
 # docker
 docker-compose.yml
-docker-compose.stage.yml
 docker-compose.prod.yml
 docker-compose.dev.yml
 docker-compose.test.yml
 docker-compose.*.yml
 
 .docker-compose.yml
-.docker-compose.stage.yml
 .docker-compose.prod.yml
 .docker-compose.dev.yml
 .docker-compose.test.yml
