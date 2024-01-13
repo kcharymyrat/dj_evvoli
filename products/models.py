@@ -204,10 +204,8 @@ api_logger = logging.getLogger("api")  # For API-specific logging
 
 class PreserveTransparency(ResizeToFit):
     def process(self, img):
-        print("\n\n\nIN Preserver", "img.mode =", img.mode)
         if img.mode == "P":
             img = img.convert("RGBA")
-        print("\n\n\nIN Preserver", "img.mode =", img.mode)
         if img.mode in ("RGBA", "LA"):
             background = Image.new(img.mode[:-1], img.size, "#FFFFFF")
             background.paste(img, img.split()[-1])
