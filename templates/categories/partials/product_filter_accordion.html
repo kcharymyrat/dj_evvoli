@@ -51,13 +51,16 @@
                         </div>
 
                         {% for product_type in types %}
-                        <div class="form-check mx-0">
-                            <input class="form-check-input" type="radio" id="radio-{{product_type}}" name="product_type" value="{{product_type}}" hx-trigger="change">
-                            <label class="form-check-label" for="radio-{{product_type}}">
-                                {{product_type}}
-                            </label>
-                        </div>
+                            {% if product_type %}
+                                <div class="form-check mx-0">
+                                    <input class="form-check-input" type="radio" id="radio-{{ product_type }}" name="product_type" value="{{ product_type }}" hx-trigger="change">
+                                    <label class="form-check-label" for="radio-{{ product_type }}">
+                                        {{ product_type }}
+                                    </label>
+                                </div>
+                            {% endif %}
                         {% endfor %}
+
                     
                 </div>  
             </div>

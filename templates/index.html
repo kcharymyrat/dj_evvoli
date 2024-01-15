@@ -86,7 +86,16 @@
 		</p>
 		<div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
 			<button type="button" class="btn btn-evvoli-pink btn-lg px-4 me-sm-3 rounded-5">{% trans "Read more" %}</button>
-			<button type="button" class="btn btn-evvoli-orange  btn-lg px-4 rounded-5">{% trans "Contact us" %}</button>
+			<button type="button" class="btn btn-evvoli-orange  btn-lg px-4 rounded-5 indexLink"
+				hx-get="{% url 'products:about' %}"
+				hx-swap="innerHTML" 
+				hx-trigger="click delay:500ms" 
+				hx-target="#main-body"
+				hx-throttle="1s"
+				hx-push-url="{% url 'products:about' %}"
+				hx-indicator="#spinner">
+					{% trans "Contact us" %}
+			</button>
 		</div>
 	</div>
 	<div class="overflow-hidden" style="max-height: 40vh;">
@@ -108,5 +117,21 @@
     </div>
 </div>
 <!-- End of Categories  -->
+
+<script>
+	// Function to scroll to the top of the document
+	function indexTopFunction() {
+	  document.body.scrollTop = 0; // For Safari
+	  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+	}
+  
+	// Get all the buttons with the class 'footerLink'
+	var indexLinks = document.querySelectorAll(".indexLink");
+  
+	// Add event listener to each button
+	indexLinks.forEach(function(button) {
+	  button.addEventListener('click', indexTopFunction);
+	});
+</script>
 
 {% endblock content %}

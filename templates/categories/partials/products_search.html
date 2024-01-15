@@ -51,6 +51,7 @@
 								{{product.title_ru}}
 								{% endif %}	
 							</p>
+							<p class="my-0"><small class="text-muted">{% trans "Model" %}: {{ product.model }}</small></p>
 							<p class="">
 								{% if LANGUAGE_CODE == "tk" %}
 								{{product.description|linebreaksbr|truncatechars_html:50 }}
