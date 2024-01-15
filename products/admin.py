@@ -7,6 +7,11 @@ from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
 from .models import Product, Category, ProductImage, ProductSpecification
+from .mixins import ImageValidationMixin
+
+max_image_resolution = ImageValidationMixin.MAX_RESOLUTIONS
+min_image_resolution = ImageValidationMixin.MIN_RESOLUTIONS
+max_image_size = ImageValidationMixin.MAX_IMAGE_SIZE
 
 
 class CategoryAdminForm(ModelForm):
@@ -21,7 +26,11 @@ class CategoryAdminForm(ModelForm):
 
 class CategoryAdmin(admin.ModelAdmin):
     form = CategoryAdminForm
-    list_display = ["name", "slug", "products_count"]
+    list_display = [
+        "name",
+        "slug",
+        "products_count",
+    ]
     readonly_fields = ["img_preview"]
     prepopulated_fields = {
         "slug": ("name_en",),
@@ -71,8 +80,10 @@ class ProductAdminForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["image"].help_text = mark_safe(
-            '<span style="color:red; font-size:12px;">'
-            + _(f"Required resolution of the image are")
+            '<span style="color:green; font-size:12px;">'
+            + _(
+                f"Required resolution of the image should be within {min_image_resolution} and {max_image_resolution}"
+            )
             + "</span>"
         )
 
@@ -83,12 +94,13 @@ class ProductAdmin(admin.ModelAdmin):
         "category",
         "type",
         "model",
+        "in_stock",
         "price",
         "sale_percent",
         "sale_price",
     ]
     prepopulated_fields = {
-        "slug": ("title_en",),
+        "slug": ("model",),
     }
     list_filter = [
         "category__name",

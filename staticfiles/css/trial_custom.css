@@ -302,7 +302,7 @@ select#lang-select option:selected {
 
 .carousel-imageMiddle-container {
   position: absolute;
-  bottom: 50%;
+  top: -12%;
 }
 
 .carousel-imageBottom-container img,  

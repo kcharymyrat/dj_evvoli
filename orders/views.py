@@ -1,7 +1,8 @@
 import logging
+import time
 
 from django.db import transaction
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views.generic import CreateView, TemplateView
@@ -158,6 +159,7 @@ def cart_checkout_details(request, *args, **kwargs):
         .first()
     )
     context = {"cart": cart}
+    print(context)
     return render(request, "orders/partials/cart_checkout_details.html", context)
 
 

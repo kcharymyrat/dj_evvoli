@@ -1,4 +1,5 @@
 import uuid
+import logging
 
 from decimal import Decimal
 from PIL import Image
@@ -16,11 +17,17 @@ from django.utils.translation import gettext_lazy as _
 from .mixins import ImageValidationMixin, VideoValidationMixin
 
 
+logger = logging.getLogger(__name__)  # For general application logging (console)
+django_logger = logging.getLogger("django")  # For DJANGO-specific logging
+api_logger = logging.getLogger("api")  # For API-specific logging
+
 User = settings.AUTH_USER_MODEL
 
 
 class Category(ImageValidationMixin, models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, db_index=True
+    )
 
     name = models.CharField(
         _("name (Turkmen)"), max_length=50, unique=True, db_index=True
@@ -34,9 +41,9 @@ class Category(ImageValidationMixin, models.Model):
 
     slug = models.SlugField(_("slug"), unique=True, db_index=True)
 
-    description = models.TextField(_("description (Turkmen)"), null=True, blank=True)
-    description_en = models.TextField(_("description (English)"), null=True, blank=True)
-    description_ru = models.TextField(_("description (Russian)"), null=True, blank=True)
+    description = models.TextField(_("description (Turkmen)"))
+    description_en = models.TextField(_("description (English)"))
+    description_ru = models.TextField(_("description (Russian)"))
 
     image = models.ImageField(_("image"), upload_to=f"images/categories/")
     thumbnail = ImageSpecField(
@@ -75,11 +82,13 @@ class Category(ImageValidationMixin, models.Model):
 
 class ProductManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().all()[:10]
+        return super().get_queryset().filter(in_stock=True)
 
 
 class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, db_index=True
+    )
     category = models.ForeignKey(
         Category,
         verbose_name=_("category"),
@@ -88,15 +97,21 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
         db_index=True,
     )
 
-    type = models.CharField(_("type (Turkmen)"), max_length=50, null=True)
-    type_en = models.CharField(_("type (English)"), max_length=50, null=True)
-    type_ru = models.CharField(_("type (Russian)"), max_length=50, null=True)
+    type = models.CharField(
+        _("type (Turkmen)"), max_length=50, null=True, db_index=True
+    )
+    type_en = models.CharField(
+        _("type (English)"), max_length=50, null=True, db_index=True
+    )
+    type_ru = models.CharField(
+        _("type (Russian)"), max_length=50, null=True, db_index=True
+    )
 
     model = models.CharField(_("model"), max_length=100, unique=True, db_index=True)
 
-    title = models.CharField(_("title (Turkmen)"), max_length=100, unique=True)
-    title_en = models.CharField(_("title (English)"), max_length=100, unique=True)
-    title_ru = models.CharField(_("title (Russian)"), max_length=100, unique=True)
+    title = models.CharField(_("title (Turkmen)"), max_length=100)
+    title_en = models.CharField(_("title (English)"), max_length=100)
+    title_ru = models.CharField(_("title (Russian)"), max_length=100)
 
     slug = models.SlugField(_("slug"), unique=True, db_index=True)
 
@@ -111,9 +126,9 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
     )
     on_sale = models.BooleanField(_("on sale"), default=False)
 
-    description = models.TextField(_("description (Turkmen)"), null=True, blank=True)
-    description_en = models.TextField(_("description (English)"), null=True, blank=True)
-    description_ru = models.TextField(_("description (Russian)"), null=True, blank=True)
+    description = models.TextField(_("description (Turkmen)"))
+    description_en = models.TextField(_("description (English)"))
+    description_ru = models.TextField(_("description (Russian)"))
 
     in_stock = models.BooleanField(_("in stock"), default=True)
 
@@ -135,7 +150,7 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
     )
 
     objects = models.Manager()
-    newest = ProductManager()
+    actives = ProductManager()
 
     class Meta:
         verbose_name = _("product")
@@ -165,7 +180,7 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
             self.sale_price = Decimal(
                 "%.2f" % (self.price * (100 - self.sale_percent) / 100)
             )
-        elif self.sale_percent == 0:
+        else:
             self.sale_price = self.price
             self.on_sale = False
         super().save(*args, **kwargs)
@@ -193,13 +208,6 @@ class ProductSpecification(models.Model):
     class Meta:
         verbose_name = _("product specification")
         verbose_name_plural = _("product specifications")
-
-
-import logging
-
-logger = logging.getLogger(__name__)  # For general application logging (console)
-django_logger = logging.getLogger("django")  # For DJANGO-specific logging
-api_logger = logging.getLogger("api")  # For API-specific logging
 
 
 class PreserveTransparency(ResizeToFit):

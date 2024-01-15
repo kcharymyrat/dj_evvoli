@@ -55,7 +55,8 @@
     {% comment %} <img id="spinner" class="htmx-indicator" src="{% static 'spinner.gif' %}" alt="logo" class="" width="70px"> {% endcomment %}
 
     <div id="spinner" class="htmx-indicator mx-auto text-center">
-        <i class="fas fa-spinner fa-spin htmx-indicator"></i> Loading...
+        {% comment %} <i class="fas fa-spinner fa-spin htmx-indicator"></i> Loading... {% endcomment %}
+        <img id="spinner" src="{% static 'spinner.gif' %}" alt="logo" class="" width="70px">
     </div>
 
     <div id="main-body" class="mx-auto px-0">

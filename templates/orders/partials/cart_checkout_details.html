@@ -4,48 +4,54 @@
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as languages %}
 
+<div id="cart-checkout-details" class="col-md-5 col-lg-4 order-md-last"
+hx-get="{% url "orders:cart_checkout_details" %}" 
+hx-swap="outerHTML" 
+hx-trigger="click" 
+hx-throttle="1s"
+hx-target="#cart-checkout-details">
+
+<h4 class="d-flex justify-content-between align-items-center mb-3">
+    {% trans "Cart Details" %}
+</h4>
+<ul class="list-group mb-3">
+    {% for item in cart.cart_items.all %}
+    <li class="list-group-item d-flex justify-content-between lh-sm">
+        <div>
+            <h6 class="my-0 pointer-cursor"
+            hx-get="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}"
+            hx-swap="innerHTML" 
+            hx-trigger="click delay:0.5s"
+            hx-throttle="1s"
+            hx-target="#main-body"
+            hx-push-url="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}">
+                {% if LANGUAGE_CODE == "tk" %}
+                {{item.product.title}}
+                {% elif LANGUAGE_CODE == "en" %}
+                {{item.product.title_en}}
+                {% else %}
+                {{item.product.title_ru}}
+                {% endif %}
+            </h6>
+            <p class="my-0"><small class="text-muted">{% trans "Model" %}: {{ item.product.model }}</small></p>
+            <small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
+        </div>
+        <span class="text-muted">{{item.sub_total}} m.</span>
+    </li>
+    {% endfor %}
+    <li class="list-group-item d-flex justify-content-between">
+        <span>{% trans "TOTAL" %}</span>
+        <strong>{{ cart.total_price }} m.</strong>
+    </li>
+</ul>
+<button class="btn evvoli-btn-primary w-100 rounded-5"
+hx-get="{% url "orders:order" %}" 
+hx-trigger="click" 
+hx-target="#main-body" 
+hx-swap="innerHTML"
+hx-push-url="{% url 'orders:order' %}">
+    {% trans "Proceed to Checkout" %}
+</button>
 
 
-<div id="cart-checkout-details" class="col-md-5 col-lg-4 order-md-last">
-    <h4 class="d-flex justify-content-between align-items-center mb-3">
-        {% trans "Cart Details" %}
-    </h4>
-    <ul class="list-group mb-3">
-        {% for item in cart.cart_items.all %}
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-                <h6 class="my-0 pointer-cursor"
-                hx-get="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}"
-                hx-swap="innerHTML" 
-                hx-trigger="click delay:0.5s"
-                hx-throttle="1s"
-                hx-target="#main-body"
-                hx-indicator="#spinner"
-                hx-push-url="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}">
-                    {% if LANGUAGE_CODE == "tk" %}
-                    {{item.product.title}}
-                    {% elif LANGUAGE_CODE == "en" %}
-                    {{item.product.title_en}}
-                    {% else %}
-                    {{item.product.title_ru}}
-                    {% endif %}
-                </h6>
-                <small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
-            </div>
-            <span class="text-muted">{{item.sub_total}} m.</span>
-        </li>
-        {% endfor %}
-        <li class="list-group-item d-flex justify-content-between">
-            <span>{% trans "TOTAL" %}</span>
-            <strong>{{ cart.total_price }} m.</strong>
-        </li>
-    </ul>
-    <button class="btn evvoli-btn-primary w-100 rounded-5"
-    hx-get="{% url "orders:order" %}" 
-    hx-trigger="click" 
-    hx-target="#main-body" 
-    hx-swap="innerHTML"
-    hx-push-url="{% url 'orders:order' %}">
-        {% trans "Proceed to Checkout" %}
-    </button>
 </div>

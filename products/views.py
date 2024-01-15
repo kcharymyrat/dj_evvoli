@@ -54,11 +54,12 @@ def search_view(request):
                 | Q(type_en__icontains=query)
                 | Q(type_ru__icontains=query)
             )
+            .filter(in_stock=True)
             .distinct()
             .prefetch_related("category")
         )
     else:
-        products = Product.objects.all().prefetch_related("category")
+        products = Product.objects.filter(in_stock=True).prefetch_related("category")
 
     paginator = Paginator(products, 3)
     page_obj = paginator.get_page(page_number)
@@ -96,7 +97,7 @@ def category_list_view(request, *args, **kwargs):
             .prefetch_related("products")
             .first()
         )
-        category_products = category.products.all()
+        category_products = category.products.all().filter(in_stock=True)
         paginator = Paginator(category_products, 2)
         page_obj = paginator.get_page(page_number)
 
@@ -132,15 +133,21 @@ def category_list_view(request, *args, **kwargs):
                 # Check if product_type exist:
                 if product_type and product_type != "all":
                     if current_language == "en":
-                        products = category.products.filter(type_en=product_type)
+                        products = category.products.filter(
+                            type_en=product_type
+                        ).filter(in_stock=True)
                     elif current_language == "ru":
-                        products = category.products.filter(type_ru=product_type)
+                        products = category.products.filter(
+                            type_ru=product_type
+                        ).filter(in_stock=True)
                     else:
-                        products = category.products.filter(type=product_type)
+                        products = category.products.filter(type=product_type).filter(
+                            in_stock=True
+                        )
 
                 # Check if all product types was chose
                 if product_type == "all":
-                    products = category.products.all()
+                    products = category.products.all().filter(in_stock=True)
 
                 # Check for on sale - maybe will have to change it to context processor later???
                 on_sale = filter_dict.get("on_sale")
@@ -175,30 +182,38 @@ def category_list_view(request, *args, **kwargs):
             # Check if product_type exist:
             if product_type and product_type != "all":
                 if current_language == "en":
-                    products = category.products.filter(type_en=product_type)
+                    products = category.products.filter(type_en=product_type).filter(
+                        in_stock=True
+                    )
                 elif current_language == "ru":
-                    products = category.products.filter(type_ru=product_type)
+                    products = category.products.filter(type_ru=product_type).filter(
+                        in_stock=True
+                    )
                 else:
-                    products = category.products.filter(type=product_type)
+                    products = category.products.filter(type=product_type).filter(
+                        in_stock=True
+                    )
 
             # Check if all product types was chose
             if product_type == "all":
-                products = category.products.all()
+                products = category.products.all().filter(in_stock=True)
 
             # Check for on sale - maybe will have to change it to context processor later???
             on_sale = request.GET.get("on_sale")
             if on_sale:
-                products = products.filter(on_sale=True)
+                products = products.filter(on_sale=True).filter(in_stock=True)
 
             # Check the price range
             min_price = request.GET.get("min_price")
             max_price = request.GET.get("max_price")
             if min_price and max_price:
-                products = products.filter(price__gt=min_price, price__lt=max_price)
+                products = products.filter(
+                    price__gt=min_price, price__lt=max_price
+                ).filter(in_stock=True)
             elif min_price:
-                products = products.filter(price__gt=min_price)
+                products = products.filter(price__gt=min_price).filter(in_stock=True)
             elif max_price:
-                products = products.filter(price__lt=max_price)
+                products = products.filter(price__lt=max_price).filter(in_stock=True)
 
             paginator = Paginator(products, 2)
             page_obj = paginator.get_page(page_number)
@@ -232,8 +247,8 @@ def all_product_elements_list_view(request, kwargs):
     category = (
         Category.objects.filter(slug=category_slug).prefetch_related("products").first()
     )
-    category_products = (
-        category.products.all()
+    category_products = category.products.all().filter(
+        in_stock=True
     )  # This won't hit the database again because of prefetch_related
     paginator = Paginator(category_products, 2)
     page_obj = paginator.get_page(page_number)

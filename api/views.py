@@ -31,11 +31,11 @@ class CategoryProductListAPIView(ListAPIView):
         the category as determined by the category portion of the URL.
         """
         category_id = self.kwargs["category_id"]
-        return Product.objects.filter(category__id=category_id)
+        return Product.objects.filter(category__id=category_id).filter(in_stock=True)
 
 
 class ProductDetailAPIView(RetrieveAPIView):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().filter(in_stock=True)
     serializer_class = ProductDetailSerializer
 
 
@@ -70,13 +70,17 @@ def get_filetered_products(query):
             | Q(name_en__icontains=query)
             | Q(name_ru__icontains=query)
         )
-        products = Product.objects.filter(
-            Q(model__icontains=query)
-            | Q(category__in=categories)
-            | Q(type__icontains=query)
-            | Q(type_en__icontains=query)
-            | Q(type_ru__icontains=query)
-        ).distinct()
+        products = (
+            Product.objects.filter(
+                Q(model__icontains=query)
+                | Q(category__in=categories)
+                | Q(type__icontains=query)
+                | Q(type_en__icontains=query)
+                | Q(type_ru__icontains=query)
+            )
+            .filter(in_stock=True)
+            .distinct()
+        )
     else:
         products = Product.objects.none()
 

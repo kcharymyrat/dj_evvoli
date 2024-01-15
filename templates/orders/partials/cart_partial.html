@@ -16,7 +16,12 @@
 	<div class="row g-5">
 
 		<!--Cart Checkout Details -->
-		<div id="cart-checkout-details" class="col-md-5 col-lg-4 order-md-last">
+		<div id="cart-checkout-details" class="col-md-5 col-lg-4 order-md-last"
+        hx-get="{% url "orders:cart_checkout_details" %}" 
+        hx-swap="outerHTML" 
+        hx-trigger="click" 
+        hx-throttle="1s"
+        hx-target="#cart-checkout-details">
 			<h4 class="d-flex justify-content-between align-items-center mb-3">
 				{% trans "Cart Details" %}
 			</h4>
@@ -40,6 +45,7 @@
                             {{item.product.title_ru}}
                             {% endif %}
                         </h6>
+                        <p class="my-0"><small class="text-muted">{% trans "Model" %}: {{ item.product.model }}</small></p>
 						<small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
 					</div>
 					<span class="text-muted">{{item.sub_total}} m.</span>
@@ -96,7 +102,7 @@
                                     hx-target="#main-body"
                                     hx-indicator="#spinner"
                                     hx-push-url="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}">
-										<p class="card-text pb-3">
+										<p class="my-0 card-text pb-3">
                                             {% if LANGUAGE_CODE == "tk" %}
                                             {{item.product.title}}
                                             {% elif LANGUAGE_CODE == "en" %}
@@ -105,19 +111,16 @@
                                             {{item.product.title_ru}}
                                             {% endif %}
                                         </p>
+                                        <p><small class="text-muted">{% trans "Model" %}: {{ item.product.model }}</small></p>
 									</a>
 									<div id="" class="d-flex col-lg-6 align-items-center justify-content-around btn-evvoli-pink rounded-5">
-										<p id="minus-btn-{{product.id}}" class="minusBtn my-2 pointer-cursor" data-url='{% url "orders:remove_from_cart" slug=product.slug %}'
-                                        hx-get="{% url "orders:cart_checkout_details" %}" 
-                                        hx-swap="outerHTML" 
-                                        hx-trigger="click delay:1s" 
-                                        hx-target="#cart-checkout-details"><i class="fa-solid fa-minus"></i></p>
+										<p id="minus-btn-{{product.id}}" class="minusBtn my-2 pointer-cursor" data-url='{% url "orders:remove_from_cart" slug=product.slug %}'>
+                                            <i class="fa-solid fa-minus"></i>
+                                        </p>
 										<p id="product-qty-{{product.id}}" class="productQty my-2">{{ item.quantity }}</p>
-										<p id="plus-btn-{{product.id}}" class="plusBtn my-2 pointer-cursor" data-url='{% url "orders:add_to_cart" slug=product.slug %}'
-                                        hx-get="{% url "orders:cart_checkout_details" %}" 
-                                        hx-swap="outerHTML" 
-                                        hx-trigger="click delay:1s" 
-                                        hx-target="#cart-checkout-details"><i class="fa-solid fa-plus"></i></p>
+										<p id="plus-btn-{{product.id}}" class="plusBtn my-2 pointer-cursor" data-url='{% url "orders:add_to_cart" slug=product.slug %}'>
+                                            <i class="fa-solid fa-plus"></i>
+                                        </p>
 									</div>
 								</div>
 
@@ -161,6 +164,17 @@
         }, 1000);
     }
 
+    function cartDetailsUpdatePar() {
+        var url = "{% url 'orders:cart_checkout_details' %}"
+        var cartDetailId = "#cart-checkout-details"
+        var cartDetail = document.querySelector(cartDetailId)
+
+        if (cartDetail) {
+            // triggers the myEvent event on #tab2 with the answer 42
+            htmx.trigger(cartDetailId, "click")
+        }
+    }
+
     var updateNavCartPar = (element, qty) => {
         element.textContent = qty;
     };
@@ -173,9 +187,7 @@
 
     var removeProductFromDisplayPar = (element, qty) => {
         if (qty == 0) {
-            setTimeout(() => {
-                element.remove();
-            }, 500);
+            element.remove();
         };
     };
 
@@ -208,6 +220,7 @@
                     removeProductFromDisplayPar(liProduct, jsonData.productQty);
                     updateNavCartPar(cartTotalQtyPar, jsonData.cartQty);
                     updateNavCartPar(navCartQtyPar, jsonData.cartQty);
+                    cartDetailsUpdatePar();
                 } else {
                     console.error('Failed to add item to cart', response.json);
                 }
@@ -245,6 +258,7 @@
                     updateDisplayPar(pProductQty, jsonData.productQty);
                     updateNavCartPar(cartTotalQtyPar, jsonData.cartQty);
                     updateNavCartPar(navCartQtyPar, jsonData.cartQty);
+                    cartDetailsUpdatePar();
                 } else {
                     console.error('Failed to add item to cart', response.json);
                 }
