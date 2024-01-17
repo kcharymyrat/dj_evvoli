@@ -29,7 +29,7 @@ class Cart(models.Model):
     )
     is_ordered = models.BooleanField(_("is ordered"), default=False)
     date_added = models.DateTimeField(_("date added"), auto_now_add=True)
-    date_modified = models.DateTimeField(_("date added"), auto_now=True)
+    date_modified = models.DateTimeField(_("date modified"), auto_now=True)
 
     @property
     def total_quantity(self):
@@ -49,7 +49,7 @@ class Cart(models.Model):
         self.save(update_fields=["is_ordered"])
 
     def __str__(self):
-        return f"Cart {self.id}: {self.total_price} manats"
+        return _("Cart") + f" {self.id}: {self.total_price}" + _("manats")
 
 
 class CartItem(models.Model):
@@ -99,7 +99,6 @@ class CartItem(models.Model):
 class Order(models.Model):
     ORDER_STATUSES = (
         ("Created", "Created"),
-        ("Ordered", "Ordered"),
         ("Shipped", "Shipped"),
         ("Completed", "Completed"),
         ("Cancelled", "Cancelled"),
@@ -151,8 +150,7 @@ class Order(models.Model):
     def save(self, *args, **kwargs) -> None:
         self.total_order_price = self.cart.total_price
         self.cart.update_is_ordered()
-        # return super().save()
         super(Order, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.id}, order_price = {self.total_order_price}"
+        return f"{self.id}," + _("Order price") + "=" + f"{self.total_order_price}"

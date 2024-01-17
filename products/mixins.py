@@ -12,8 +12,6 @@ class ImageValidationMixin:
     MAX_RESOLUTIONS = (1400, 1000)
 
     def clean_image(self):
-        print("clean_image: self.image =", self.image)
-
         image = self.image
         min_width, min_height = self.MIN_RESOLUTIONS
         max_width, max_height = self.MAX_RESOLUTIONS
@@ -31,11 +29,15 @@ class ImageValidationMixin:
 
             if img.width < min_width or img.height < min_height:
                 min_message = _("Please upload an image with a minimum resolution of")
-                raise ValidationError(f"{min_message} {min_width}x{min_height} pixels!")
+                raise ValidationError(
+                    f"{min_message} {min_width}x{min_height}" + _("pixels") + "!"
+                )
 
             if img.width > max_width or img.height > max_height:
                 max_message = _("Please upload an image with a maximum resolution of")
-                raise ValidationError(f"{max_message} {max_width}x{max_height} pixels!")
+                raise ValidationError(
+                    f"{max_message} {max_width}x{max_height}" + _("pixels") + "!"
+                )
 
 
 class VideoValidationMixin:
@@ -48,7 +50,6 @@ class VideoValidationMixin:
 
     def clean_video(self):
         video = getattr(self, "video", None)
-        print("clean_video: video =", video)
 
         if video:
             file_extension = os.path.splitext(self.video.name)[1][1:].lower()

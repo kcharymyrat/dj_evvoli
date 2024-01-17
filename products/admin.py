@@ -19,7 +19,10 @@ class CategoryAdminForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["image"].help_text = mark_safe(
             '<span style="color:red; font-size:12px;">'
-            + _(f"Required resolution of the image")
+            + _(f"Required resolution of the image should be within")
+            + str(min_image_resolution)
+            + _("and")
+            + str(max_image_resolution)
             + "</span>"
         )
 
@@ -81,9 +84,10 @@ class ProductAdminForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["image"].help_text = mark_safe(
             '<span style="color:green; font-size:12px;">'
-            + _(
-                f"Required resolution of the image should be within {min_image_resolution} and {max_image_resolution}"
-            )
+            + _(f"Required resolution of the image should be within")
+            + str(min_image_resolution)
+            + _("and")
+            + str(max_image_resolution)
             + "</span>"
         )
 

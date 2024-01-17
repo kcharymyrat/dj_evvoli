@@ -8,6 +8,8 @@ from imagekit.processors import ResizeToFit
 
 from django.db import models
 from django.db.models import CheckConstraint, Q
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.conf import settings
 from django.urls import reverse
 from django.utils.html import mark_safe
