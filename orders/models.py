@@ -38,7 +38,7 @@ class Cart(models.Model):
     class Meta:
         verbose_name = _("cart")
         verbose_name_plural = _("carts")
-        ordering = ["date_added"]
+        ordering = ["-date_modified"]
 
     def update_total_price(self):
         self.total_price = sum(item.sub_total for item in self.cart_items.all())
