@@ -1,4 +1,29 @@
 @font-face {
+    font-family: 'signika-bold';
+    src: url('../fonts/signika/static/Signika-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'signika-light';
+    src: url('../fonts/signika/static/Signika-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'signika-medium';
+    src: url('../fonts/signika/static/Signika-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'signika-regular';
+    src: url('../fonts/signika/static/Signika-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'signika-semibold';
+    src: url('../fonts/signika/static/Signika-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
     font-family: 'robotothin_italic';
     src: url('roboto-thinitalic-webfont.woff2') format('woff2'),
         url('roboto-thinitalic-webfont.woff') format('woff');
@@ -47,70 +72,33 @@
 
 }
 
-@font-face {
-    font-family: 'signika-bold';
-    src: url('../fonts/signika/static/Signika-Bold.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'signika-light';
-    src: url('../fonts/signika/static/Signika-Light.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'signika-medium';
-    src: url('../fonts/signika/static/Signika-Medium.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'signika-regular';
-    src: url('../fonts/signika/static/Signika-Regular.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'signika-semibold';
-    src: url('../fonts/signika/static/Signika-SemiBold.ttf') format('truetype');
-}
 
 
 :root {
-    --jeytun-green: rgb(48, 137, 74);
-    --jeytun-cyprus: rgb(1, 51, 51);
-    --jeytun-yellow: rgb(214, 157, 81);
-}
-
-/* Colors of Jeytun */
-.jeytun-green {
-    color: var(--jeytun-green);
-}
-
-.jeytun-cyprus {
-    color: var(--jeytun-cyprus);
-}
-
-.jeytun-yellow {
-    color: var(--jeytun-yellow);
-}
-
-/* END of Colors of Jeytun */
-
-
-/* Background Colors of Jeytun  */
-.bg-jeytun-yellow {
-    background-color: var(--jeytun-yellow);
-}
-
-.bg-jeytun-green {
-    background-color: var(--jeytun-green);
+    --color-pink: rgb(236, 29, 137);
+    --color-orange: rgb(251, 175, 61);
+    --color--purple: #9b51e0;
+    --evvoli-cyprus: rgb(1, 51, 51);
+    --wp--preset--color--black: #000000;
+    --wp--preset--color--cyan-bluish-gray: #abb8c3;
+    --wp--preset--color--white: #ffffff;
+    --wp--preset--color--pale-pink: #f78da7;
+    --wp--preset--color--vivid-red: #cf2e2e;
+    --wp--preset--color--luminous-vivid-orange: #ff6900;
+    --wp--preset--color--luminous-vivid-amber: #fcb900;
+    --wp--preset--color--light-green-cyan: #7bdcb5;
+    --wp--preset--color--vivid-green-cyan: #00d084;
+    --wp--preset--color--pale-cyan-blue: #8ed1fc;
+    --wp--preset--color--vivid-cyan-blue: #0693e3;
+    --wp--preset--color--vivid-purple: #9b51e0;
 }
 
 
-.bg-jeytun-cyprus {
-    background-color: var(--jeytun-cyprus);
+/* ----------------------------GLOBAL STYLES----------------------------------- */
+* {
+    padding: 0;
+    margin: 0;
 }
-
-/* END of Background Colors of Jeytun  */
-
 
 body,
 h1,
@@ -124,240 +112,632 @@ a,
 span,
 input,
 textarea {
-    font-family:'signika-regular', 'robotoregular', Helvetica, sans-serif !important;
+    font-family: 'signika-regular', 'robotoregular', Helvetica, sans-serif !important;
+    color: var(--evvoli-cyprus);
+}
+
+
+/* HTMX Transitions */
+body {
+    transition: opacity 1s ease;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.pointer-cursor:hover {
+    color: var(--color-orange);
+}
+
+.evvoli-orange {
+    color: var(--color-orange);
+}
+
+.evvoli-pink {
+    color: var(--color-pink);
+}
+
+.evvoli-purple {
+    color: var(--color--purple);
+}
+
+.evvoli-bg-orange {
+    background-color: var(--color-orange);
+}
+
+.evvoli-bg-pink {
+    background-color: var(--color-pink);
+}
+
+.evvoli-bg-purple {
+    background-color: var(--color--purple);
+}
+
+.evvoli-btn-primary {
+    background-color: var(--color-pink);
+    color: white;
+}
+
+
+.evvoli-btn-primary:hover {
+    background-color: var(--color--purple);
+    color: white;
+}
+
+.evvoli-btn-secondary {
+    background-color: var(--color--purple);
+    color: white;
+}
+
+.evvoli-btn-secondary:hover {
+    background-color: var(--color-pink);
+    color: white;
+}
+
+.btn-evvoli-add {
+    background-color: var(--color-pink);
+    color: white;
+    transition: all ease-in 0.5s;
+}
+
+.btn-evvoli-add:hover {
+    background-color: var(--color--purple);
+    color: white;
+    opacity: 0.9;
+}
+
+
+.borderRoundEvvoli {
+    border-radius: 20%;
+}
+
+.btn-evvoli-purple {
+    background-color: transparent;
+    color: var(--color--purple);
+    border: var(--color--purple) 1px solid;
+}
+
+.btn-evvoli-purple:hover {
+    background-color: var(--color--purple);
+    color: white;
+}
+
+.btn-evvoli-pink {
+    transition: all ease-in 0.10s;
+    background-color: transparent;
+    color: var(--color-pink);
+    border: var(--color-pink) 1px solid;
+}
+
+.btn-evvoli-pink:hover {
+    background-color: var(--color-pink);
+    color: white;
+}
+
+.btn-evvoli-pink:hover>p {
+    transition: all ease-in 0.25s;
+    background-color: var(--color-pink);
+    color: white;
+}
+
+.btn-evvoli-orange {
+    background-color: transparent;
+    color: var(--color-orange);
+    border: var(--color-orange) 1px solid;
+}
+
+.btn-evvoli-orange:hover {
+    background-color: var(--color-orange);
+    color: white;
+}
+
+#main-body.htmx-added {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+#main-body {
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+/* -------------------------END OF GLOBAL STYLES----------------------------------- */
+
+
+
+/* --------------------------------base.html--------------------------------------- */
+#overlay {
+    opacity: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    transition: opacity .5s;
+    cursor: pointer;
+    pointer-events: none;
+    /* This will make the overlay unclickable when it's invisible */
+}
+/* --------------------------------base.html--------------------------------------- */
+
+
+
+/*----------------------------- navbar.html ---------------------------------------- */
+.nav-link {
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: var(--color-pink);
+}
+
+.fa-search {
+    color: gray;
+}
+
+select#lang-select {
+    box-shadow: none;
+}
+
+select#lang-select:focus {
+    outline: 0;
+    box-shadow: none;
+    color: gray;
+}
+
+select#lang-select:active {
+    outline: none;
+    box-shadow: none;
+}
+
+input#search-input {
+    font-size: 0.75em !important;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    font-size: small;
+    transition: all 3s ease-in-out;
+}
+
+input#search-input:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+input#search-input:placeholder-shown {
+    font-size: 0.75em !important;
+    color: gray;
+}
+
+input#search-input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: gray;
+    opacity: 1;
+    /* Firefox */
+}
+
+input#search-input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: gray;
+}
+
+input#search-input::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: gray;
+}
+
+#navbar-search-btn:hover {
+    background: transparent;
+    color: var(--color-pink);
+}
+
+select#lang-select {
+    background-color: transparent;
+    color: gray;
+}
+
+select#lang-select option {
+    color: gray;
+    border: none;
+}
+
+select#lang-select option:selected {
+    color: gray;
+}
+
+#navBar {
+    z-index: 3;
+}
+/*---------------------------- END of navbar.html ----------------------------------- */
+
+
+
+/* -------------------------------index.html----------------------------------------- */
+/* Carousel base class */
+.carousel {
+    margin-bottom: 4rem;
+}
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+    bottom: 3rem;
+    z-index: 2;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+    height: 640px;
+}
+
+.carousel-item {
+    position: relative;
+}
+
+.carousel-imageBottom-container {
+    position: absolute;
+    bottom: 0;
+}
+
+.carousel-imageBottom-container img {
+    width: 100%;
+    height: auto;
+}
+
+.carousel-imageMiddle-container {
+    position: absolute;
+    top: -12%;
+}
+
+.carousel-imageBottom-container img,
+.carousel-imageMiddle-container img,
+.carousel-imageTop-container img {
+    width: 100%;
+    height: auto;
+}
+
+
+/* MARKETING CONTENT */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* rtl:begin:ignore */
+.marketing .col-lg-4 p {
+    margin-right: .75rem;
+    margin-left: .75rem;
+}
+
+/* rtl:end:ignore */
+
+#myCarousel {
+    width: 100%;
+}
+
+@media screen and (min-width: 1480px) {
+    #myCarousel {
+        text-align: center;
+        margin: auto;
+        width: 1480px;
+    }
+}
+
+/* END OF MARKETING CONTENT */
+
+
+/* Featurettes */
+
+.featurette-divider {
+    margin: 5rem 0;
+    /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+/* rtl:begin:remove */
+.featurette-heading {
+    letter-spacing: -.05rem;
+}
+
+/* rtl:end:remove */
+
+@media (min-width: 40em) {
+
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+        margin-bottom: 1.25rem;
+        font-size: 1.25rem;
+        line-height: 1.4;
+    }
+
+    .featurette-heading {
+        font-size: 50px;
+    }
+}
+
+@media (min-width: 62em) {
+
+    .featurette-heading,
+    .featurette-image {
+        margin-top: 7rem;
+    }
+}
+
+/* END of Featurettes */
+/* ---------------------------END of index.html----------------------------------- */
+
+
+
+/* --------------------------------Cart (Basket) -------------------------------- */
+.basket-qty {
+    color: #fff;
+    background: var(--wp--preset--color--vivid-purple);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 11px;
+    height: 15px;
+    width: 14px;
+    position: absolute;
+    box-sizing: content-box;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 1px;
+    right: 10px;
+}
+
+.basket-btn {
+    position: relative;
+}
+
+.basket-btn:hover,
+.basket-btn:focus,
+.basket-btn:active,
+.basket-btn.active {
+    color: var(--wp--preset--color--vivid-purple);
+    transition-duration: 0.4s;
+    background-color: #fff;
+}
+/* ------------------------END of Basket-------------------------------- */
+
+
+
+/* ------------------------product filter------------------------------- */
+.icon-control {
+    margin-top: 5px;
+    float: right;
+    font-size: 80%;
+}
+
+.btn-light {
+    background-color: #fff;
+    border-color: #e4e4e4;
+}
+
+.list-menu {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.list-menu a {
+    color: #343a40;
+}
+
+.card-product-grid .info-wrap {
+    overflow: hidden;
+    padding: 18px 20px;
+}
+
+[class*='card-product'] a.title {
+    color: #212529;
+    display: block;
+}
+
+.card-product-grid:hover .btn-overlay {
+    opacity: 1;
+}
+
+.card-product-grid .btn-overlay {
+    -webkit-transition: .5s;
+    transition: .5s;
+    opacity: 0;
+    left: 0;
+    bottom: 0;
+    color: #fff;
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.img-wrap {
+    overflow: hidden;
+    position: relative;
+}
+
+.card {
+    border: none;
+}
+
+/* Acccordion custom style */
+.accordion-button {
+    background-color: transparent !important;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+
+.accordion-button:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--color-pink);
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+.form-check-label {
     color: var(--jeytun-cyprus);
 }
 
-i.fa-envelope,
-i.fa-phone,
-i.fas {
-    color: var(--jeytun-yellow);
+.form-check-label:hover {
+    color: var(--color-pink);
 }
 
-.text-cyprus {
-    color: var(--jeytun-cyprus);
+.accordion-header {
+    box-shadow: none;
+    outline: none;
+    border: none;
 }
 
-.text-cyprus:hover {
-    color: var(--jeytun-yellow);
+.accordion-body {
+    box-shadow: none;
+    outline: none;
+    border: none;
 }
 
-.hover-jeytun-yellow:hover {
-    color: var(--jeytun-yellow);
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+    box-shadow: none;
+    outline: none;
+    border: none;
 }
 
-.bg-jeytun-light {
-    background-color: #e9eef5;
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
 }
 
-
-/*-------------------------------------- footer.html ---------------------------------------------------- */
-.border-jt-yellow {
-    border-bottom: 1px solid rgba(214, 157, 81, 0.8);
+#filter-accordion {
+    margin: 0;
+    padding: 0;
 }
-.footer-news-img {
-    width: 100%; 
+
+.product-filter-button-text {
+    font-size: 0.9rem;
+    color: #343a40;
+}
+
+.hr-divider {
+    color: #f8dfe6;
+}
+
+@media (max-width: 991px) {
+
+    .accordion-button {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    #filter-accordion {
+        margin: 0.5rem;
+        padding: 0;
+    }
+}
+/* ---------------------------END of product filter-------------------------------- */
+
+
+/* --------------------------------Product Detail---------------------------------- */
+#product-main-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.video-player {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 500px;
     object-fit: cover;
 }
-/*------------------------------------END of footer.html ------------------------------------------------ */
+
+.video-thumbnail {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+/* ---------------------------END OF Product Detail---------------------------------- */
 
 
-
-/*-------------------------------------- index.html ---------------------------------------------------- */
-.btn-category-detail {
-    color: var(--jeytun-cyprus);
-    background-color: var(--jeytun-yellow);
+/* ----------------------------------Order Form-------------------------------------- */
+.helptext {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 0;
+    padding-top: 0;
 }
 
-.btn-category-detail:hover {
-    background-color: var(--jeytun-cyprus);
-    color: var(--jeytun-yellow);
+#id_phone {
+    /*phone from Django form model just above the .helptext, no need for the margin*/
+    margin-bottom: 0;
+}
+/* --------------------------------END of Order Form---------------------------------- */
+
+
+
+/* ----------------------------------Footer------------------------------------- */
+#footerHeader {
+    font-size: 4rem;
+    font-weight: bold;
 }
 
-.btn-toggle-categories {
-    transition: all 0.5s ease;
+.footerLink {
+    color: whitesmoke;
 }
 
-.btn-toggle-categories:hover {
-    background-color: var(--jeytun-yellow);
+.footerLink:hover {
+    color: var(--color-pink);
 }
 
-.btn-toggle-categories:hover>i {
-    color: var(--jeytun-cyprus);
+.fa-tiktok {
+    background-color: var(--color--purple);
+    font-size: 2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
 }
 
-.btn-toggle-categories[aria-expanded=false] .categories-expanded {
-    display: none;
+.fa-instagram {
+    background-color: var(--color-pink);
+    font-size: 2rem;
+    padding: 0.5rem;
+    border-radius: 20%;
 }
 
-.btn-toggle-categories[aria-expanded=true] .categories-collapsed {
-    display: none;
+#footerContainer {
+    width: 100%;
 }
 
-/* .product-card {
-    box-shadow: rgba(214, 157, 81, 0.2) 7px 7px 0px 2px;
-} */
-
-.product-title-link {
-    color: var(--jeytun-cyprus);
+#footer-copy-google-play {
+    text-align: center;
 }
 
-.product-title-link:hover {
-    color: var(--jeytun-yellow);
+#google-play-badge img {
+    height: 50px;
+    /* Adjust as needed */
+    margin-top: 10px;
+    /* Space above the badge */
 }
 
-.product-eye-button {
-    color: var(--jeytun-cyprus);
-    background-color: var(--jeytun-yellow);
-}
-
-.product-eye-button:hover {
-    background-color: var(--jeytun-cyprus);
-    color: var(--jeytun-yellow);
-}
-
-.product-eye-button:hover > i {
-    color: var(--jeytun-yellow);
-}
-
-.page-link {
-    color: var(--jeytun-yellow);
-}
-
-.page-link:hover {
-    background-color: var(--jeytun-cyprus);
-    color: var(--jeytun-yellow);
-}
-
-@media only screen and (max-width: 992px) {
-    .yh {
-        font-size: small;
+/* For responsive design */
+@media screen and (max-width: 768px) {
+    #google-play-badge img {
+        height: 30px;
     }
 }
-/*-----------------------------------END of index.html ------------------------------------------------- */
 
-
-/*-------------------------------------- about.html ---------------------------------------------------- */
-/* Nothing yet was implemented */
-/*------------------------------------END of about.html ------------------------------------------------ */
-
-
-/*-------------------------------------- products.html -------------------------------------------------- */
-
-
-/* .product-wap-border {
-    border-color: var(--jeytun-yellow);
-} */
-
-/*-----------------------------------END of products.html ------------------------------------------------ */
-
-
-/*--------------------------------- product_detail.html -------------------------------------------------- */
-/* Nothing yet was implemented */
-/*--------------------------------END of product_detail.html  -------------------------------------------- */
-
-
-
-/* -----------------------------------------news.html----------------------------------------------------- */
-.news-detail-link {
-    color: var(--jeytun-green);
-}
-
-.news-detail-link:hover {
-    color: var(--jeytun-yellow);
-}
-
-.scaleNews {
-    transition: all 0.5s ease;
-}
-
-.scaleNews:hover {
-    box-shadow: 3px 3px 3px 3px #010c05;
-    transform: scale(1.05);
-    background-color: rgba(48, 137, 75, 0.09);
-
-}
-
-.news-list {
-    width: 65vw; 
-    margin-top: 2rem
-}
-/* --------------------------------------END of news.html------------------------------------------------- */
-
-
-/* --------------------------------------news_detail.html------------------------------------------------- */
-.news-prev-next-link {
-    color: var(--jeytun-green);
-}
-
-.news-prev-next-link:hover {
-    color: var(--jeytun-yellow);
-}
-
-.news-image {
-    width: 40%;
-}
-
-.news-detail {
-    width: 70vw;
-}
-/* ----------------------------------END of news_detail.html---------------------------------------------- */
-
-
-
-
-
-/* ---------------------------------------contacts.html-------------------------------------------------- */
-.jeytun-form-control{
-    border: 1px solid var(--jeytun-yellow);
-}
-
-.jeytun-form-control:focus {
-    box-shadow: 3px 0px 3px 0px var(--jeytun-yellow), -3px 0px 3px 0px var(--jeytun-yellow), 0px 3px 3px 0px var(--jeytun-yellow), 0px -3px 3px 0px var(--jeytun-yellow);
-    border: 1px solid var(--jeytun-cyprus);
-}
-
-.btn-jeytun {
-    color: var(--jeytun-cyprus);
-    background-color: var(--jeytun-yellow);
-}
-
-.btn-jeytun:hover {
-    background-color: var(--jeytun-cyprus);
-    color: var(--jeytun-yellow);
-}
-
-.btn-category-detail {
-    color: var(--jeytun-cyprus);
-    background-color: var(--jeytun-yellow);
-}
-
-.btn-category-detail:hover {
-    background-color: var(--jeytun-cyprus);
-    color: var(--jeytun-yellow);
-}
-/* ------------------------------------END of contacts.html----------------------------------------------- */
-
-
-
-
-/* ----------------------------------------media queries --------------------------------------------------- */
-
-@media only screen and (max-width: 992px) {
-    .news-list {
-      width: 95vw;
-    }
-    .news-detail {
-        width: 95vw;
-    }
-  }
-
-/* ----------------------------------------END of media queries --------------------------------------------------- */
-
-
-
-
-
-/* ----------------------------------------------------------------------------------------------------------------- */
-/* -----------------------------------END OF CUSTOM CSS file ------------------------------------------------------- */
-/* ----------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------END OF Footer----------------------------------- */

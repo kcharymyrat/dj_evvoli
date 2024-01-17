@@ -79,19 +79,6 @@
 				a consumer electronics brand that blends human-centric technology and neo-modern designs with excellent value. Our diversified range of electronics and technology products will inspire you to evolve for life.
 				{% endblocktrans %}
 			</p>
-			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-				<button type="button" class="btn btn-evvoli-pink btn-lg px-4 me-sm-3 rounded-5">{% trans "Read more" %}</button>
-				<button type="button" class="btn btn-evvoli-orange  btn-lg px-4 rounded-5 indexLink"
-				hx-get="{% url 'products:about' %}"
-				hx-swap="innerHTML" 
-				hx-trigger="click delay:500ms" 
-				hx-target="#main-body"
-				hx-throttle="1s"
-				hx-push-url="{% url 'products:about' %}"
-				hx-indicator="#spinner">
-					{% trans "Contact us" %}
-				</button>
-			</div>
 		</div>
 		<div class="overflow-hidden" style="max-height: 40vh;">
 			<div class="container px-5">
@@ -128,15 +115,5 @@
 		  button.addEventListener('click', indexPartialTopFunction);
 		});
 	</script>
-
-	{% comment %} {% django_htmx_script %}
-    <script>
-        try {
-            htmx.logAll();
-            console.log("Yo")
-        } catch(e) {
-            console.log("No htmx, so no htmx.logAll()")
-        }
-    </script> {% endcomment %}
 
 </main>
