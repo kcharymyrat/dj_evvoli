@@ -61,7 +61,7 @@ def search_view(request):
     else:
         products = Product.objects.filter(in_stock=True).prefetch_related("category")
 
-    paginator = Paginator(products, 3)
+    paginator = Paginator(products, 12)
     page_obj = paginator.get_page(page_number)
 
     if request.htmx.target == "product_search_elements":
@@ -98,7 +98,7 @@ def category_list_view(request, *args, **kwargs):
             .first()
         )
         category_products = category.products.all().filter(in_stock=True)
-        paginator = Paginator(category_products, 2)
+        paginator = Paginator(category_products, 10)
         page_obj = paginator.get_page(page_number)
 
         if current_language == "en":
@@ -164,7 +164,7 @@ def category_list_view(request, *args, **kwargs):
                 elif max_price:
                     products = products.filter(price__lt=max_price)
 
-                paginator = Paginator(products, 2)
+                paginator = Paginator(products, 10)
                 page_obj = paginator.get_page(page_number)
 
                 context["products"] = page_obj
@@ -215,7 +215,7 @@ def category_list_view(request, *args, **kwargs):
             elif max_price:
                 products = products.filter(price__lt=max_price).filter(in_stock=True)
 
-            paginator = Paginator(products, 2)
+            paginator = Paginator(products, 10)
             page_obj = paginator.get_page(page_number)
 
             context["products"] = page_obj
@@ -250,7 +250,7 @@ def all_product_elements_list_view(request, kwargs):
     category_products = category.products.all().filter(
         in_stock=True
     )  # This won't hit the database again because of prefetch_related
-    paginator = Paginator(category_products, 2)
+    paginator = Paginator(category_products, 10)
     page_obj = paginator.get_page(page_number)
 
     if current_language == "en":
