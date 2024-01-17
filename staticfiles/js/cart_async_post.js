@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 console.error('Failed to add item to cart');
             }
         } catch (error) {
-            console.error('Failed to connect to server', error);
+            console.error('Failed to connect to server');
         }
     };
 
@@ -86,7 +86,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 console.error('Failed to add item to cart');
             }
         } catch (error) {
-            console.error('Failed to connect to server', error);
+            console.error('Failed to connect to server');
         }  
     };
 

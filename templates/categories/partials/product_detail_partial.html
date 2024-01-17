@@ -166,11 +166,7 @@
 </div>  <!-- END of <div id="product-detail-div" class="container-xxl mb-3"> -->
 
 <script type="text/javascript">
-    console.log("in product detail partial")
-    console.log("window.addEventListener")
-
     var cartDetailPartial = document.querySelector('#cart-qty');
-    // console.log("cartDetailPartial =", cartDetailPartial);
 
     var addBtnDetailPartial = document.querySelector('#add-btn');
     var minusBtnDetailPartial = document.querySelector('#d-none-minus-btn');
@@ -184,9 +180,6 @@
     var productQtyDetailPartial = addBtnDetailPartial.dataset.productQty;
     var cartQtyDetailPartial = addBtnDetailPartial.dataset.cartQty;
 
-    // console.log(addURLDetailPartial, removeURLDetailPartial)
-    // console.log("cartQtyDetailPartial =", cartQtyDetailPartial, "productQtyDetailPartial =", productQtyDetailPartial)
-
     var isClickAllowedProductDetailPartial = true;
     function preventClicksTemporarilyProductDetailPartial() {
       isClickAllowedProductDetailPartial = false;
@@ -198,7 +191,6 @@
 
     // Function to update the display and button visibility
     var updateDisplayDetailPartial = (qty) => {
-        console.log("qty =", qty)
         if (qty > 0) {
             addBtnDetailPartial.classList.add('d-none');
             dNoneDivDetailPartial.classList.remove('d-none');
@@ -233,13 +225,11 @@
                 const jsonData = await response.json();
                 updateDisplayDetailPartial(jsonData.productQty);
                 updateNavCartDetailPartial(jsonData.cartQty);
-                console.log("jsonData =", jsonData)
             } else {
-                console.log(response.json)
                 console.error('Failed to add item to cart');
             }
         } catch (error) {
-            console.error('Failed to connect to server', error);
+            console.error('Failed to connect to server');
         }
     };
 
@@ -256,16 +246,14 @@
                 }
             });
             if(response.ok) {
-                console.log(response.json)
                 const jsonData = await response.json();
                 updateDisplayDetailPartial(jsonData.productQty);
                 updateNavCartDetailPartial(jsonData.cartQty);
             } else {
-                console.log(response.json)
                 console.error('Failed to add item to cart');
             }
         } catch (error) {
-            console.error('Failed to connect to server', error);
+            console.error('Failed to connect to server');
         }  
     };
 
@@ -274,6 +262,5 @@
     minusBtnDetailPartial.addEventListener('click', removeFromCartDetailPartial);
     plusBtnDetailPartial.addEventListener('click', addToCartDetailPartial);
 
-    console.log("END OF SCRIPT")
 </script>
 

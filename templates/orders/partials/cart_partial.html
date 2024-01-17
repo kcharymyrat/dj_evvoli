@@ -214,7 +214,6 @@
                     }
                 });
                 if(response.ok) {
-                    console.log(response.json)
                     const jsonData = await response.json();
                     updateDisplayPar(pProductQty, jsonData.productQty);
                     removeProductFromDisplayPar(liProduct, jsonData.productQty);
@@ -222,10 +221,10 @@
                     updateNavCartPar(navCartQtyPar, jsonData.cartQty);
                     cartDetailsUpdatePar();
                 } else {
-                    console.error('Failed to add item to cart', response.json);
+                    console.error('Failed to add item to cart');
                 }
             } catch (error) {
-                console.error('Failed to connect to server', error);
+                console.error('Failed to connect to server');
             }
         });
     });
@@ -253,22 +252,19 @@
                     }
                 });
                 if(response.ok) {
-                    console.log(response.json)
                     const jsonData = await response.json();
                     updateDisplayPar(pProductQty, jsonData.productQty);
                     updateNavCartPar(cartTotalQtyPar, jsonData.cartQty);
                     updateNavCartPar(navCartQtyPar, jsonData.cartQty);
                     cartDetailsUpdatePar();
                 } else {
-                    console.error('Failed to add item to cart', response.json);
+                    console.error('Failed to add item to cart');
                 }
             } catch (error) {
-                console.error('Failed to connect to server', error);
+                console.error('Failed to connect to server');
             }
         });
-    });
-    
-	console.log("END CART PARTTIAL")
+    });    
 </script>
 
 

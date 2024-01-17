@@ -359,8 +359,21 @@ select#lang-select option:selected {
 
 /* -------------------------------index.html----------------------------------------- */
 /* Carousel base class */
+.text-background-blur {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+    padding: 1rem; /* Spacing around the text */
+    border-radius: 10px; /* Optional: rounded corners */
+}
+
 .carousel {
     margin-bottom: 4rem;
+}
+
+.carousel-inner {
+    margin: 0;
+    padding: 0;
 }
 
 /* Since positioning the image, we need to help out the caption */
@@ -378,26 +391,43 @@ select#lang-select option:selected {
     position: relative;
 }
 
-.carousel-imageBottom-container {
-    position: absolute;
-    bottom: 0;
-}
-
-.carousel-imageBottom-container img {
+.carousel-item img {
     width: 100%;
-    height: auto;
 }
 
-.carousel-imageMiddle-container {
-    position: absolute;
-    top: -12%;
+.carousel-caption-end {
+    right: 2rem; /* Align to the far right */
+    left: auto; /* Override default left alignment */
+    bottom: 1rem;
+    text-align: right; /* Ensure text is right-aligned */
 }
 
-.carousel-imageBottom-container img,
-.carousel-imageMiddle-container img,
-.carousel-imageTop-container img {
-    width: 100%;
-    height: auto;
+.carousel-caption-start {
+    left: 2rem; /* Align to the far right */
+    right: auto; /* Override default left alignment */
+    bottom: 1rem;
+    text-align: right; /* Ensure text is right-aligned */
+}
+
+
+@media (max-width: 960px) {
+    .carousel-item {
+        text-align: center;
+    }
+
+    .carousel-item img {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .carousel-caption h1 {
+        font-size: 1rem; /* Smaller font size on small screens */
+    }
+
+    .carousel-caption .btn {
+        padding: 0.25rem 0.5rem; /* Smaller buttons on small screens */
+        font-size: 0.8rem; /* Smaller button font size */
+    }
 }
 
 
