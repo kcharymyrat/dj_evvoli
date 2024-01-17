@@ -9,7 +9,9 @@
 	<div class="py-5 text-center">
 		<h2>{% trans "Your Shopping Cart" %}</h2>
 		<p class="lead">
-            {% trans "Kindly review the items in your basket and proceed to checkout at your earliest convenience. You may also adjust the quantity of your selected products as needed." %}
+            {% blocktrans %}
+            Kindly review the items in your basket and proceed to checkout at your earliest convenience. You may also adjust the quantity of your selected products as needed.
+            {% endblocktrans %}
 		</p>
 	</div>
 
@@ -48,12 +50,12 @@
                         <p class="my-0"><small class="text-muted">{% trans "Model" %}: {{ item.product.model }}</small></p>
 						<small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
 					</div>
-					<span class="text-muted">{{item.sub_total}} m.</span>
+					<span class="text-muted">{{item.sub_total}}{% trans "m." %}</span>
 				</li>
                 {% endfor %}
 				<li class="list-group-item d-flex justify-content-between">
 					<span>{% trans "TOTAL" %}</span>
-					<strong>{{ cart.total_price }} m.</strong>
+					<strong>{{ cart.total_price }} {% trans "m." %}</strong>
 				</li>
 			</ul>
             <button class="btn evvoli-btn-primary w-100 rounded-5"
@@ -82,7 +84,7 @@
 						<div class="row g-0">
 							<div class="col-md-6 col-lg-4">
 								<img class="img-fluid pointer-cursor" src="{{ product.thumbnail.url }}" 
-                                alt="{{ product.title }}"
+                                alt="{% trans "product image" %}"
                                 hx-get="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}"
                                 hx-swap="innerHTML" 
                                 hx-trigger="click delay:0.5s"

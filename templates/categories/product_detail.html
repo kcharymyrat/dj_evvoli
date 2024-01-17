@@ -10,7 +10,7 @@
 
 
 {% block title %}
-{% if product %}{{ product.title }}{% else %}{% trans "Önüm" %}{% endif %}
+{% if product %}{{ product.title }}{% else %}{% trans "Product details" %}{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -32,7 +32,7 @@
               {{product.title_ru}}
               {% endif %}
             </p>
-            <p>Model: <span>{{product.model}}</span></p>
+            <p>{% trans "Model" %}: <span>{{product.model}}</span></p>
             <p class="fw-bold">{% trans "Product Specifications" %}:</p> 
             <p class="">
               {% if LANGUAGE_CODE == "tk" %}
@@ -47,9 +47,9 @@
 
         <div class="d-flex d-flex-inline justify-content-between">
             <div class="price-wrap mt-1 h3">
-                <span class="price">{{product.sale_price}} TMT</span>
+                <span class="price">{{product.sale_price}} {% trans "m." %}</span>
                 {% if product.on_sale %}
-                <del class="price-old">{{product.price}} TMT</del>
+                <del class="price-old">{{product.price}} {% trans "m." %}</del>
                 {% endif %}
             </div>
         </div>

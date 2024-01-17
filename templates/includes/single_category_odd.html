@@ -26,7 +26,7 @@
         hx-push-url="{% url 'products:category_list' category_slug=category.slug %}">{% trans "See More" %}</button>
     </div>
     <div class="col-md-6 order-md-1">
-        <img class="featurette-image img-fluid mx-auto" src = {{category.image.url}} width="500" height="500" aria-label="Placeholder: 500x500" alt="{{ category.name }}">
+        <img class="featurette-image img-fluid mx-auto" src = {{category.image.url}} width="500" height="500" aria-label="Placeholder: 500x500" alt="{% trans "category image" %}">
     </div>
 </div>
 <hr class="featurette-divider">

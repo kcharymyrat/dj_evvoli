@@ -36,12 +36,12 @@ hx-target="#cart-checkout-details">
             <p class="my-0"><small class="text-muted">{% trans "Model" %}: {{ item.product.model }}</small></p>
             <small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
         </div>
-        <span class="text-muted">{{item.sub_total}} m.</span>
+        <span class="text-muted">{{item.sub_total}} {% trans "m." %}</span>
     </li>
     {% endfor %}
     <li class="list-group-item d-flex justify-content-between">
         <span>{% trans "TOTAL" %}</span>
-        <strong>{{ cart.total_price }} m.</strong>
+        <strong>{{ cart.total_price }} {% trans "m." %}</strong>
     </li>
 </ul>
 <button class="btn evvoli-btn-primary w-100 rounded-5"

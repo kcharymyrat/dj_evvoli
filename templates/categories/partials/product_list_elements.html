@@ -23,7 +23,7 @@
 		<figure class="card card-product-grid">
 			<div class="img-wrap">
 				<span class="badge badge-danger"> {% trans "NEW" %} </span>
-				<img src="{{product.image.url}}" alt="{{product.title}}" class="card-img img-fluid">
+				<img src="{{product.image.url}}" alt="{% trans "product image" %}" class="card-img img-fluid">
 				<a class="btn-overlay product-quick-view text-decoration-none pointer-cursor rounded-5"
 				hx-get="{% url "products:product_detail" category_slug=category_slug slug=product.slug %}"
 				hx-swap="innerHTML" 
@@ -70,9 +70,9 @@
 						{% endif %}	
 					</p>
 					<div class="price-wrap">
-						<span class="price h3">{{product.sale_price}} TMT</span>
+						<span class="price h3">{{product.sale_price}} {% trans "m." %}</span>
 						{% if product.on_sale %}
-						<del class="price-old">{{product.price}} TMT</del>
+						<del class="price-old">{{product.price}} {% trans "m." %}</del>
 						{% endif %}
 					</div> <!-- price-wrap.// -->
 				</div>

@@ -6,7 +6,7 @@
 {% get_language_info_list for LANGUAGES as languages %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
     <meta name="description" content="Your one-stop shop for all your electronics needs. We offer a wide range of products including TVs, air conditioners, washing machines, and more.">
     <meta name="keywords" content="Electronics, TVs, Air Conditioners, Washing Machines, Online Shopping">
 
-    <title>Evvoli| TM {% block title %}{% endblock title %}</title>
+    <title>{% block title %}{% endblock title %} | Evvoli TM</title>
 
     <link rel="icon" type="image/x-icon" href="{% static 'img/icons/evvoli-favicon.png' %}">
 
@@ -55,7 +55,7 @@
 
     <div id="spinner" class="htmx-indicator mx-auto text-center">
         {% comment %} <i class="fas fa-spinner fa-spin htmx-indicator"></i> Loading... {% endcomment %}
-        <img id="spinner" src="{% static 'spinner.gif' %}" alt="logo" class="" width="70px">
+        <img id="spinner" src="{% static 'spinner.gif' %}" alt="{% trans "loading" %}" class="" width="70px">
     </div>
 
     <div id="main-body" class="mx-auto px-0">

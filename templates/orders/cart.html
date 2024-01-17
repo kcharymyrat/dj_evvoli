@@ -52,12 +52,12 @@
                         <p class="my-0"><small class="text-muted">{% trans "Model" %}: {{ item.product.model }}</small></p>
 						<small id="detail-qty-{{item.product.id}}" class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
 					</div>
-					<span id="detail-subtotal-{{item.product.id}}" class="text-muted">{{item.sub_total}} m.</span>
+					<span id="detail-subtotal-{{item.product.id}}" class="text-muted">{{item.sub_total}} {% trans "m." %}</span>
 				</li>
                 {% endfor %}
 				<li class="list-group-item d-flex justify-content-between">
 					<span>{% trans "TOTAL" %}</span>
-					<strong id="detail-total-{{item.product.id}}">{{ cart.total_price }} m.</strong>
+					<strong id="detail-total-{{item.product.id}}">{{ cart.total_price }} {% trans "m." %}</strong>
 				</li>
 			</ul>
             <button class="btn evvoli-btn-primary w-100 rounded-5"
@@ -87,7 +87,7 @@
 						<div class="row g-0">
 							<div class="col-md-6 col-lg-4">
 								<img class="img-fluid pointer-cursor" src="{{ product.thumbnail.url }}" 
-                                alt="{{ product.title }}"
+                                alt="{% trans "product image" %}"
                                 hx-get="{% url "products:product_detail" category_slug=item.product.category.slug slug=item.product.slug %}"
                                 hx-swap="innerHTML" 
                                 hx-trigger="click delay:0.5s"

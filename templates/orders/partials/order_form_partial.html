@@ -10,7 +10,9 @@
 	<div class="py-5 text-center">
 		<h2>{% trans "Checkout form" %}</h2>
 		<p class="lead">
-			{% trans "Kindly fill out the checkout form below to conclude your order. We are dedicated to ensuring the most efficient and timely delivery service for your convenience." %}
+			{% blocktrans %}
+			Kindly fill out the checkout form below to conclude your order. We are dedicated to ensuring the most efficient and timely delivery service for your convenience.
+			{% endblocktrans %}
 		</p>
 	</div>
 
@@ -44,12 +46,12 @@
 						<p class="my-0"><small class="text-muted">{% trans "Model" %}: {{ item.product.model }}</small></p>
 						<small class="text-muted">{% trans "Quantity" %}: {{ item.quantity }}</small>
 					</div>
-					<span class="text-muted">{{item.sub_total}} m.</span>
+					<span class="text-muted">{{item.sub_total}}{% trans "m." %}</span>
 				</li>
 				{% endfor %}
 				<li class="list-group-item d-flex justify-content-between">
 					<span>{% trans "TOTAL" %}</span>
-					<strong>{{ cart.total_price }} m.</strong>
+					<strong>{{ cart.total_price }}{% trans "m." %}</strong>
 				</li>
 			</ul>
 		</div>
@@ -59,7 +61,9 @@
 		<div class="col-md-7 col-lg-8">
 			<h4 class="d-flex justify-content-between align-items-center mb-3">
 				<span class="evvoli-pink">{% trans "Your Order" %}</span>
-				<span id="cartTotalQty" class="badge evvoli-bg-pink rounded-pill">{% trans "No. of products" %}: {{ cart.total_quantity }}</span>
+				<span id="cartTotalQty" class="badge evvoli-bg-pink rounded-pill">
+					{% trans "No. of products" %}: {{ cart.total_quantity }}
+				</span>
 			</h4>
 			<form method="POST" class="list-group mb-3">
                 {% csrf_token %}
