@@ -112,8 +112,9 @@ class Order(models.Model):
     cart = models.ForeignKey(
         Cart,
         verbose_name=_("cart"),
-        on_delete=models.CASCADE,
-        related_name="order",
+        on_delete=models.SET_NULL,
+        related_name="orders",
+        null=True,
     )
     status = models.CharField(
         _("status"), max_length=120, choices=ORDER_STATUSES, default="Created"

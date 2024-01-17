@@ -1,6 +1,7 @@
 import logging
 import time
 
+from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -173,10 +174,28 @@ class OrderCreateView(CreateView):
         if cart_id:
             self.cart_id = cart_id
             self.cart = (
-                Cart.objects.filter(id=request.session["cart_id"])
+                Cart.objects.filter(id=cart_id)
                 .prefetch_related("cart_items__product__category")
                 .first()
             )
+
+            if not self.cart:
+                # Clear session entries starting with "cart"
+                cart_keys = [
+                    key for key in request.session.keys() if key.startswith("cart")
+                ]
+                for key in cart_keys:
+                    del request.session[key]
+
+                # Create a new cart and save its ID in the session
+                new_cart = Cart.objects.create()
+                request.session["cart_id"] = new_cart.id
+                self.request.session.modified = True
+
+                # Deliver the message and redirect
+                messages.info(request, _("A new cart has been created for you."))
+                return redirect("products:home")
+
             context = {"self.cart": self.cart}
         return super().dispatch(request, *args, **kwargs)
 
