@@ -78,6 +78,7 @@
     --color-pink: rgb(236, 29, 137);
     --color-orange: rgb(251, 175, 61);
     --color--purple: #9b51e0;
+    --color-amber: #fcb900;
     --evvoli-cyprus: rgb(1, 51, 51);
     --wp--preset--color--black: #000000;
     --wp--preset--color--cyan-bluish-gray: #abb8c3;
@@ -172,6 +173,16 @@ body {
 
 .evvoli-btn-secondary:hover {
     background-color: var(--color-pink);
+    color: white;
+}
+
+.evvoli-btn-tertiary {
+    background-color: var(--color-orange);
+    color: white;
+}
+
+.evvoli-btn-tertiary:hover {
+    background-color: var(--color-amber);
     color: white;
 }
 
@@ -380,6 +391,15 @@ select#lang-select option:selected {
 .carousel-caption {
     bottom: 3rem;
     z-index: 2;
+}
+
+.carousel-caption h1 {
+    font-size: 2.5rem; /* Smaller font size on small screens */
+    font-weight: 600;
+}
+
+.carousel-caption .btn {
+    font-size: 1.5rem; /* Smaller button font size */
 }
 
 /* Declare heights because of positioning of img element */
