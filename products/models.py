@@ -118,13 +118,13 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
     slug = models.SlugField(_("slug"), unique=True, db_index=True)
 
     price = models.DecimalField(
-        _("price"), max_digits=6, decimal_places=2, db_index=True
+        _("price"), max_digits=10, decimal_places=2, db_index=True
     )
     sale_percent = models.PositiveIntegerField(
         _("sale percentage"), default=0, validators=[MaxValueValidator(100)]
     )
     sale_price = models.DecimalField(
-        _("sale price"), max_digits=6, decimal_places=2, blank=True, null=True
+        _("sale price"), max_digits=10, decimal_places=2, blank=True, null=True
     )
     on_sale = models.BooleanField(_("on sale"), default=False)
 

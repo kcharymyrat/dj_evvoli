@@ -45,32 +45,18 @@ class CategoryAdmin(admin.ModelAdmin):
 
     products_count.short_description = _("Number of Products")
 
+    def has_delete_permission(self, request, obj=None):
+        # Returning False will prevent deleting inline items
+        return False
+
 
 admin.site.register(Category, CategoryAdmin)
-
-
-class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ["id", "product"]
-    search_fields = ["product__model"]
-    readonly_fields = ["img_preview"]
-
-
-admin.site.register(ProductImage, ProductImageAdmin)
 
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     readonly_fields = ["img_preview"]
     extra = 0
-
-
-class ProductSpecificationAdmin(admin.ModelAdmin):
-    list_display = ["id", "product"]
-    search_fields = ["product__model"]
-    readonly_fields = ["title", "title_en", "title_ru"]
-
-
-admin.site.register(ProductSpecification, ProductSpecificationAdmin)
 
 
 class ProductSpecificationTitleInline(admin.StackedInline):
@@ -121,6 +107,10 @@ class ProductAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         return self.readonly_fields + ("sale_price", "img_preview")
+
+    # def has_delete_permission(self, request, obj=None):
+    #     # Returning False will prevent deleting inline items
+    #     return False
 
 
 admin.site.register(Product, ProductAdmin)

@@ -96,6 +96,35 @@ class CartItem(models.Model):
         )
 
 
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        "Order",
+        on_delete=models.CASCADE,
+        related_name="order_items",
+        verbose_name=_("Order"),
+    )
+    product_title = models.CharField(_("Product Name"), max_length=255)
+    product_model = models.CharField(_("Product Model"), max_length=255)
+    product_price = models.DecimalField(_("Price"), max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField(_("Quantity"))
+
+    class Meta:
+        verbose_name = _("Order Item")
+        verbose_name_plural = _("Order Items")
+
+    def __str__(self):
+        return (
+            f"{self.product_title}:{self.product_model} - {self.quantity}"
+            + _("pcs")
+            + "@"
+            + f"{self.product_price} m."
+        )
+
+    @property
+    def total_price(self):
+        return self.product_price * self.quantity
+
+
 class Order(models.Model):
     ORDER_STATUSES = (
         ("Created", "Created"),
@@ -145,12 +174,19 @@ class Order(models.Model):
         ordering = ["-timestamp"]
 
     @property
-    def all_cart_items(self):
-        return [cart_item for cart_item in self.cart.cart_items.all()]
+    def all_order_items(self):
+        return self.order_items.all()
+
+    def update_total_price(self):
+        # Call this method explicitly after creating OrderItem instances
+        self.total_order_price = sum(
+            item.product_price * item.quantity for item in self.order_items.all()
+        )
+        self.save()
 
     def save(self, *args, **kwargs) -> None:
-        self.total_order_price = self.cart.total_price
-        self.cart.update_is_ordered()
+        if self.cart:
+            self.cart.update_is_ordered()
         super(Order, self).save(*args, **kwargs)
 
     def __str__(self):

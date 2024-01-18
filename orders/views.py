@@ -10,7 +10,7 @@ from django.views.generic import CreateView, TemplateView
 from django.views.decorators.http import require_POST
 from django.utils.translation import gettext_lazy as _
 
-from .models import Cart, CartItem, Order
+from .models import Cart, CartItem, Order, OrderItem
 from .forms import OrderForm
 
 from products.models import Product
@@ -200,8 +200,23 @@ class OrderCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        if self.cart:
-            form.instance.cart = self.cart
+        with transaction.atomic():
+            order = form.save(commit=False)
+            if self.cart:
+                form.instance.cart = self.cart
+                order.cart = self.cart
+                order.save()
+                for cart_item in self.cart.cart_items.all():
+                    OrderItem.objects.create(
+                        order=order,
+                        product_title=cart_item.product.title,
+                        product_model=cart_item.product.model,
+                        product_price=cart_item.product.sale_price,
+                        quantity=cart_item.quantity,
+                    )
+                order.update_total_price()
+                order.save()
+
         return super().form_valid(form)
 
     def get_success_url(self):

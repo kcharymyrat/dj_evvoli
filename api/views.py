@@ -1,3 +1,5 @@
+import logging
+
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
@@ -15,6 +17,8 @@ from .serializers import (
 
 from products.models import Category, Product
 from orders.models import CartItem, Cart, Order
+
+api_logger = logging.getLogger("api")
 
 
 class CategoryListAPIView(ListAPIView):
@@ -48,6 +52,7 @@ class OrderCreateAPIView(APIView):
                 {"message": "Order created successfully", "order_id": order.id},
                 status=status.HTTP_201_CREATED,
             )
+        api_logger.error(f"Invalid data for order creation: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
