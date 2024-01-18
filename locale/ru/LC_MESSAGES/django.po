@@ -267,8 +267,8 @@ msgid "name (English)"
 msgstr "название (Англ.)"
 
 #: .\products\models.py:41
-msgid "название (Русс.)"
-msgstr ""
+msgid "name (Russian)"
+msgstr "название (Русс.)"
 
 #: .\products\models.py:44 .\products\models.py:118
 msgid "slug"
@@ -630,15 +630,15 @@ msgstr "О нас"
 
 #: .\templates\includes\footer.html:52
 msgid "2024 Evvoli Turkmenistan. All rights reserved."
-msgstr ""
+msgstr "2024 Evvoli Туркменистан. Все права защищены."
 
 #: .\templates\includes\footer.html:55
 msgid "Get it on Google Play"
-msgstr ""
+msgstr "Скачайте в Google Play"
 
 #: .\templates\includes\navbar.html:19
 msgid "Evvoli logo"
-msgstr ""
+msgstr "логотип Evvoli"
 
 #: .\templates\includes\navbar.html:31
 msgid "Menu"
@@ -813,7 +813,7 @@ msgstr ""
 
 #: .\templates\orders\partials\order_form_partial.html:24
 msgid "Order Details"
-msgstr ""
+msgstr "Детали заказа"
 
 #: .\templates\orders\partials\order_form_partial.html:63
 msgid "Your Order"

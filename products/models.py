@@ -100,13 +100,25 @@ class Product(ImageValidationMixin, VideoValidationMixin, models.Model):
     )
 
     type = models.CharField(
-        _("type (Turkmen)"), max_length=50, null=True, db_index=True
+        _("type (Turkmen)"),
+        max_length=50,
+        db_index=True,
+        blank=True,
+        null=True,
     )
     type_en = models.CharField(
-        _("type (English)"), max_length=50, null=True, db_index=True
+        _("type (English)"),
+        max_length=50,
+        db_index=True,
+        blank=True,
+        null=True,
     )
     type_ru = models.CharField(
-        _("type (Russian)"), max_length=50, null=True, db_index=True
+        _("type (Russian)"),
+        max_length=50,
+        db_index=True,
+        blank=True,
+        null=True,
     )
 
     model = models.CharField(_("model"), max_length=100, unique=True, db_index=True)

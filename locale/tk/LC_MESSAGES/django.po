@@ -51,11 +51,11 @@ msgstr "bank karty"
 
 #: .\orders\forms.py:66
 msgid "Full Name*"
-msgstr "Ady"
+msgstr "Adyňyz*"
 
 #: .\orders\forms.py:69
 msgid "Phone*"
-msgstr "Telefon belgiňiz"
+msgstr "Telefon belgiňiz*"
 
 #: .\orders\forms.py:72
 msgid "E-mail"
@@ -63,7 +63,7 @@ msgstr "E-mail"
 
 #: .\orders\forms.py:75
 msgid "Address*"
-msgstr "Salgyňyz"
+msgstr "Salgyňyz*"
 
 #: .\orders\models.py:15
 msgid ""
@@ -84,11 +84,11 @@ msgstr "sargyt edilenmi"
 
 #: .\orders\models.py:31
 msgid "date added"
-msgstr ""
+msgstr "goşulan senesi"
 
 #: .\orders\models.py:32
 msgid "date modified"
-msgstr "goşulan senesi"
+msgstr "üýtgedilen senesi"
 
 #: .\orders\models.py:39 .\orders\models.py:64 .\orders\models.py:143
 msgid "cart"
@@ -166,7 +166,7 @@ msgstr "Sargydyň harytlary"
 
 #: .\orders\models.py:149
 msgid "status"
-msgstr "status"
+msgstr "sargyt ýagdaýy"
 
 #: .\orders\models.py:152
 msgid "payment option"
@@ -218,7 +218,7 @@ msgstr "Sargyt bahasy"
 
 #: .\orders\views.py:196
 msgid "A new cart has been created for you."
-msgstr "Siziň üçin täze araba döredildi."
+msgstr "Siziň üçin täze sebet döredildi."
 
 #: .\products\admin.py:22 .\products\admin.py:73
 msgid "Required resolution of the image should be within"
@@ -234,11 +234,11 @@ msgstr "Hartylaryň sany"
 
 #: .\products\mixins.py:25
 msgid "Make sure that your image is less than"
-msgstr ""
+msgstr "Suratyňyzyň görkezilenden ululykdan pesdigine göz ýetiriň"
 
 #: .\products\mixins.py:31
 msgid "Please upload an image with a minimum resolution of"
-msgstr ""
+msgstr "Görkezilen ölçegden pes surat ýüklememegiňizi haýyş edýäris"
 
 #: .\products\mixins.py:33 .\products\mixins.py:39
 msgid "pixels"
@@ -246,7 +246,7 @@ msgstr "piksel"
 
 #: .\products\mixins.py:37
 msgid "Please upload an image with a maximum resolution of"
-msgstr ""
+msgstr "Görkezilen ölçegden uly surat ýüklememegiňizi haýyş edýäris"
 
 #: .\products\mixins.py:60
 msgid "Unsupported file type. Only mp4, mov, and mkv are supported."
@@ -342,11 +342,11 @@ msgstr "bahasy"
 
 #: .\products\models.py:124
 msgid "sale percentage"
-msgstr "skidka göterimi"
+msgstr "arzanladyş göterimi"
 
 #: .\products\models.py:127
 msgid "sale price"
-msgstr "arzanladyş bahasy"
+msgstr "arzanladyşdan soňky bahasy"
 
 #: .\products\models.py:129
 msgid "on sale"
@@ -418,7 +418,10 @@ msgid ""
 "solutions. Our mission is to enhance the digital experience with cutting-"
 "edge products and services.\n"
 "                    "
-msgstr "Evvoli innowasion tehnologiýa çözgütleriniň öňdebaryjy üpjünçisidir. Biziň maksadymyz, öňdebaryjy önümler we hyzmatlar bilen sanly tejribäni ösdürmek."
+msgstr ""
+"\n"
+"                    Evvoli innowasion tehnologiýa çözgütleriniň öňdebaryjy üpjünçisidir. Biziň maksadymyz, öňdebaryjy önümler we hyzmatlar bilen sanly tejribäni ösdürmek.\n"
+"                    "
 
 #: .\templates\about.html:28 .\templates\about_partial.html:25
 msgid "Our Stores"
@@ -509,7 +512,7 @@ msgstr "Sebede goşuň"
 #: .\templates\categories\partials\product_detail_partial.html:146
 #: .\templates\categories\partials\product_video.html:6
 msgid "Your browser does not support the video tag."
-msgstr "Brauzeriňiz wideo belligini goldamaýar"
+msgstr "Brauzeriňiz wideo belligini (video HTML tag) goldamaýar"
 
 #: .\templates\categories\partials\product_filter_accordion.html:21
 msgid "OFFERS"
@@ -625,15 +628,15 @@ msgstr "Biz barada"
 
 #: .\templates\includes\footer.html:52
 msgid "2024 Evvoli Turkmenistan. All rights reserved."
-msgstr ""
+msgstr "2024 Evvoli Türkmenistan. Ähli hukuklar goralandyr."
 
 #: .\templates\includes\footer.html:55
 msgid "Get it on Google Play"
-msgstr ""
+msgstr "Google Play-dan ýükläň"
 
 #: .\templates\includes\navbar.html:19
 msgid "Evvoli logo"
-msgstr ""
+msgstr "Evvoli nyşany"
 
 #: .\templates\includes\navbar.html:31
 msgid "Menu"
@@ -708,7 +711,10 @@ msgid ""
 "neo-modern designs with excellent value. Our diversified range of "
 "electronics and technology products will inspire you to evolve for life.\n"
 "\t\t\t"
-msgstr "häzirki zaman ajaýyp dizaýyny bilen el ýeterli bahany birleşdirýän hojalyk tehnika markasydyr. Dürli hojalyk tehnikalarymyz täze özgerişlere ýetmäge ylham berer."
+msgstr ""
+"\n"
+"\t\t\thäzirki zaman ajaýyp dizaýyny bilen el ýeterli bahany birleşdirýän hojalyk tehnika markasydyr. Dürli hojalyk tehnikalarymyz täze özgerişlere ýetmäge ylham berer.\n"
+"\t\t\t" 
 
 #: .\templates\index.html:106 .\templates\index_partial.html:103
 msgid "decorative image"
@@ -721,7 +727,10 @@ msgid ""
 "and neo-modern designs with excellent value. Our diversified range of "
 "electronics and technology products will inspire you to evolve for life.\n"
 "\t\t\t\t"
-msgstr "häzirki zaman ajaýyp dizaýyny bilen el ýeterli bahany birleşdirýän hojalyk tehnika markasydyr. Dürli hojalyk tehnikalarymyz täze özgerişlere ýetmäge ylham berer."
+msgstr ""
+"\n"
+"\t\t\t\thäzirki zaman ajaýyp dizaýyny bilen el ýeterli bahany birleşdirýän hojalyk tehnika markasydyr. Dürli hojalyk tehnikalarymyz täze özgerişlere ýetmäge ylham berer.\n"
+"\t\t\t\t" 
 
 #: .\templates\orders\cart.html:13
 #: .\templates\orders\partials\cart_partial.html:10
@@ -736,7 +745,10 @@ msgid ""
 "at your earliest convenience. You may also adjust the quantity of your "
 "selected products as needed.\n"
 "            "
-msgstr "Sargydyňyzy tamamlamak üçin aşakdaky töleg formasyny dolduryň. Siziň rahatlylygyňyz üçin wagtynda eltip barmäge çalyşýarys."
+msgstr ""
+"\n"
+"            Sargydyňyzy tamamlamak üçin aşakdaky töleg formasyny dolduryň. Siziň rahatlylygyňyz üçin wagtynda eltip barmäge çalyşýarys.\n"
+"            "
 
 #: .\templates\orders\cart.html:31
 #: .\templates\orders\partials\cart_checkout_details.html:15
@@ -792,7 +804,10 @@ msgid ""
 "dedicated to ensuring the most efficient and timely delivery service for "
 "your convenience.\n"
 "\t\t\t"
-msgstr "Sargydyňyzy tamamlamak üçin aşakdaky töleg formasyny dolduryň. Siziň rahatlylygyňyz üçin wagtynda eltip barmäge çalyşýarys."
+msgstr ""
+"\n"
+"\t\t\tSargydyňyzy tamamlamak üçin aşakdaky töleg formasyny dolduryň. Siziň rahatlylygyňyz üçin wagtynda eltip barmäge çalyşýarys.\n"
+"\t\t\t"
 
 #: .\templates\orders\partials\order_form_partial.html:24
 msgid "Order Details"
