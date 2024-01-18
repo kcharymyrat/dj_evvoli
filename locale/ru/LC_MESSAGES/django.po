@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-18 11:40+0500\n"
+"POT-Creation-Date: 2024-01-18 13:22+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,257 +16,259 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 #: .\dj_project\settings\_base.py:131
 msgid "Turkmen"
-msgstr "Türkmen"
+msgstr "Туркменский"
 
 #: .\dj_project\settings\_base.py:132
 msgid "English"
-msgstr "Iňlis"
+msgstr "Английский"
 
 #: .\dj_project\settings\_base.py:133
 msgid "Russian"
-msgstr "Rus"
+msgstr "Русский"
 
 #: .\orders\forms.py:29
 msgid "Provide only 8 digits, don't start with +993 or 8 6x"
-msgstr "Diňe 8 sany san giriziň, we +993 ýa-da 8 6x bilen başlamaň"
+msgstr "Укажите только 8 цифр, не начинайте с +993 или 8 6x."
 
 #: .\orders\forms.py:41
 msgid "Delivery Time*"
-msgstr "Eltip bermegiň wagty"
+msgstr "Время доставки"
 
 #: .\orders\forms.py:45
 msgid "Payment Options"
-msgstr "Töleg Şekili"
+msgstr "Варианты оплаты"
 
 #: .\orders\forms.py:47 .\orders\models.py:137
 msgid "cash"
-msgstr "nagt"
+msgstr "наличные"
 
 #: .\orders\forms.py:48 .\orders\models.py:138
 msgid "card terminal"
-msgstr "bank karty"
+msgstr "банковская платежная карта"
 
 #: .\orders\forms.py:66
 msgid "Full Name*"
-msgstr "Ady"
+msgstr "Полное имя"
 
 #: .\orders\forms.py:69
 msgid "Phone*"
-msgstr "Telefon belgiňiz"
+msgstr "Номер телефона"
 
 #: .\orders\forms.py:72
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "Электронная почта"
 
 #: .\orders\forms.py:75
 msgid "Address*"
-msgstr "Salgyňyz"
+msgstr "Адрес"
 
 #: .\orders\models.py:15
 msgid ""
 "Phone number must be entered in the format: '12345678'. Exactly 8 digits."
-msgstr "Telefon belgisi '12345678' görnüşinde girizilmeli. 8 san."
+msgstr "Номер телефона необходимо ввести в формате: «12345678». Ровно 8 цифр."
 
 #: .\orders\models.py:23 .\products\models.py:159
 msgid "products"
-msgstr "harytlar"
+msgstr "товары"
 
 #: .\orders\models.py:28
 msgid "cart price"
-msgstr "sebetiň bahasy"
+msgstr "стоимость корзины"
 
 #: .\orders\models.py:30
 msgid "is ordered"
-msgstr "sargyt edilenmi"
+msgstr "заказан"
 
 #: .\orders\models.py:31
 msgid "date added"
-msgstr ""
+msgstr "дата добавления"
 
 #: .\orders\models.py:32
 msgid "date modified"
-msgstr "goşulan senesi"
+msgstr "дата изменения"
 
 #: .\orders\models.py:39 .\orders\models.py:64 .\orders\models.py:143
 msgid "cart"
-msgstr "sebet"
+msgstr "корзина"
 
 #: .\orders\models.py:40
 msgid "carts"
-msgstr "sebetler"
+msgstr "корзины"
 
 #: .\orders\models.py:52 .\templates\orders\cart.html:8
 #: .\templates\orders\no_products_in_cart.html:8
 msgid "Cart"
-msgstr "Sebet"
+msgstr "Корзина"
 
 #: .\orders\models.py:52
 msgid "manats"
-msgstr "manat"
+msgstr "манат"
 
 #: .\orders\models.py:58 .\products\models.py:158 .\products\models.py:199
 #: .\products\models.py:230
 msgid "product"
-msgstr "haryt"
+msgstr "товар"
 
 #: .\orders\models.py:68
 msgid "quantity"
-msgstr "mukdary"
+msgstr "количество"
 
 #: .\orders\models.py:75
 msgid "cart item"
-msgstr "sebediň harydy"
+msgstr "предмет корзины"
 
 #: .\orders\models.py:76
 msgid "carts items"
-msgstr "sebediň harytlary"
+msgstr "предметы корзины"
 
 #: .\orders\models.py:92 .\products\models.py:192
 msgid "Product model"
-msgstr "Haryt modeli"
+msgstr "Модель продукта"
 
 #: .\orders\models.py:95 .\orders\models.py:118
 msgid "pcs"
-msgstr "sany"
+msgstr "шт."
 
 #: .\orders\models.py:104 .\templates\orders\order_form.html:8
 #: .\templates\orders\order_not_allowed.html:8
 msgid "Order"
-msgstr "Sargyt"
+msgstr "Заказ"
 
 #: .\orders\models.py:106
 msgid "Product Name"
-msgstr "Haryt ady"
+msgstr "Наименование товара"
 
 #: .\orders\models.py:107
 msgid "Product Model"
-msgstr "Haryt modeli"
+msgstr "Модель продукта."
 
 #: .\orders\models.py:108
 msgid "Price"
-msgstr "Bahasy"
+msgstr "Цена"
 
 #: .\orders\models.py:109 .\templates\orders\cart.html:53
 #: .\templates\orders\partials\cart_checkout_details.html:37
 #: .\templates\orders\partials\cart_partial.html:51
 #: .\templates\orders\partials\order_form_partial.html:47
 msgid "Quantity"
-msgstr "Mukdary"
+msgstr "Количество"
 
 #: .\orders\models.py:112
 msgid "Order Item"
-msgstr "Sargydyň harydy"
+msgstr "Товар заказа"
 
 #: .\orders\models.py:113
 msgid "Order Items"
-msgstr "Sargydyň harytlary"
+msgstr "Товары заказа"
 
 #: .\orders\models.py:149
 msgid "status"
-msgstr "status"
+msgstr "статус заказа"
 
 #: .\orders\models.py:152
 msgid "payment option"
-msgstr "töleg şekili"
+msgstr "вариант оплаты"
 
 #: .\orders\models.py:154
 msgid "customer name"
-msgstr "müşderiniň ady"
+msgstr "имя покупателя"
 
 #: .\orders\models.py:156
 msgid "phone number"
-msgstr "telefon belgisi"
+msgstr "номер телефона"
 
 #: .\orders\models.py:159
 msgid "8 digits"
-msgstr "8 sany san"
+msgstr "8 цифр"
 
 #: .\orders\models.py:162
 msgid "delivery date and time"
-msgstr "Eltip berme senesi we wagty"
+msgstr "дата и время доставки"
 
 #: .\orders\models.py:164
 msgid "shipping address"
-msgstr "eltip berme salgysy"
+msgstr "адреса доставки"
 
 #: .\orders\models.py:165
 msgid "email"
-msgstr "email"
+msgstr "электронная почта"
 
 #: .\orders\models.py:167
 msgid "total order price"
-msgstr "jemi sargyt bahasy"
+msgstr "общая стоимость заказа"
 
 #: .\orders\models.py:169
 msgid "timestamp"
-msgstr "wagt belligi"
+msgstr "временная метка"
 
 #: .\orders\models.py:172
 msgid "order"
-msgstr "sargyt"
+msgstr "заказ"
 
 #: .\orders\models.py:173
 msgid "orders"
-msgstr "sargytlar"
+msgstr "заказы"
 
 #: .\orders\models.py:193
 msgid "Order price"
-msgstr "Sargyt bahasy"
+msgstr "Стоимость заказа"
 
 #: .\orders\views.py:196
 msgid "A new cart has been created for you."
-msgstr "Siziň üçin täze araba döredildi."
+msgstr "Для вас создана новая корзина."
 
 #: .\products\admin.py:22 .\products\admin.py:73
 msgid "Required resolution of the image should be within"
-msgstr "Suratyň gerekli ölçeg aralygy"
+msgstr "Требуемое разрешение изображения должно находиться в пределах"
 
 #: .\products\admin.py:24 .\products\admin.py:75
 msgid "and"
-msgstr "we"
+msgstr "и"
 
 #: .\products\admin.py:46
 msgid "Number of Products"
-msgstr "Hartylaryň sany"
+msgstr "Количество товаров"
 
 #: .\products\mixins.py:25
 msgid "Make sure that your image is less than"
-msgstr ""
+msgstr "Убедитесь, что размер вашего изображения меньше"
 
 #: .\products\mixins.py:31
 msgid "Please upload an image with a minimum resolution of"
-msgstr ""
+msgstr "Пожалуйста, загрузите изображение с минимальным разрешением"
 
 #: .\products\mixins.py:33 .\products\mixins.py:39
 msgid "pixels"
-msgstr "piksel"
+msgstr "пиксели"
 
 #: .\products\mixins.py:37
 msgid "Please upload an image with a maximum resolution of"
-msgstr ""
+msgstr "Пожалуйста, загрузите изображение с максимальным разрешением"
 
 #: .\products\mixins.py:60
 msgid "Unsupported file type. Only mp4, mov, and mkv are supported."
-msgstr "Goldanmaýan faýl görnüşi. Diňe mp4, mov we mkv goldaýar."
+msgstr "Неподдерживаемый тип файла. Поддерживаются только mp4, mov и mkv."
 
 #: .\products\mixins.py:64
 msgid "Make sure that your video is less than 20 MB."
-msgstr "Wideoňyzyň 20 MB-dan azdygyna göz ýetiriň."
+msgstr "Убедитесь, что размер вашего видео меньше 20 МБ."
 
 #: .\products\models.py:35
 msgid "name (Turkmen)"
-msgstr "ady (Türkmençe)"
+msgstr "название (Туркменское)"
 
 #: .\products\models.py:38
 msgid "name (English)"
-msgstr "ady (Iňlisçe)"
+msgstr "название (Англ.)"
 
 #: .\products\models.py:41
-msgid "name (Russian)"
-msgstr "ady (Rusça)"
+msgid "название (Русс.)"
+msgstr ""
 
 #: .\products\models.py:44 .\products\models.py:118
 msgid "slug"
@@ -274,115 +276,115 @@ msgstr "slug"
 
 #: .\products\models.py:46 .\products\models.py:131
 msgid "description (Turkmen)"
-msgstr "beýany (Turkmençe)"
+msgstr "описание (Туркменское)"
 
 #: .\products\models.py:47 .\products\models.py:132
 msgid "description (English)"
-msgstr "beýany (Iňlisçe)"
+msgstr "описание (Англ.)"
 
 #: .\products\models.py:48 .\products\models.py:133
 msgid "description (Russian)"
-msgstr "beýany (Rusça)"
+msgstr "описание (Русс.)"
 
 #: .\products\models.py:50 .\products\models.py:137 .\products\models.py:234
 msgid "image"
-msgstr "surady"
+msgstr "изображение"
 
 #: .\products\models.py:58 .\products\models.py:148
 msgid "created at"
-msgstr "döredilen wagty"
+msgstr "создан в"
 
 #: .\products\models.py:59 .\products\models.py:149
 msgid "modified at"
-msgstr "üýtgedilen wagty"
+msgstr "изменено в"
 
 #: .\products\models.py:61 .\products\models.py:151
 msgid "created by"
-msgstr "tarapyndan döredildi"
+msgstr "(кем) создан"
 
 #: .\products\models.py:65 .\products\models.py:96
 msgid "category"
-msgstr "kategoriýasy"
+msgstr "категория"
 
 #: .\products\models.py:66
 msgid "categories"
-msgstr "kategoriýalary"
+msgstr "категории"
 
 #: .\products\models.py:103
 msgid "type (Turkmen)"
-msgstr "görnüşi (Turkmençe)"
+msgstr "тип (Туркменское)"
 
 #: .\products\models.py:106
 msgid "type (English)"
-msgstr "görnüşi (Iňlisçe)"
+msgstr "тип (Англ.)"
 
 #: .\products\models.py:109
 msgid "type (Russian)"
-msgstr "görnüşi (Rusça)"
+msgstr "тип (Русс.)"
 
 #: .\products\models.py:112
 msgid "model"
-msgstr "modeli"
+msgstr "модель"
 
 #: .\products\models.py:114 .\products\models.py:203
 msgid "title (Turkmen)"
-msgstr "ady (Turkmençe)"
+msgstr "название (Туркменское)"
 
 #: .\products\models.py:115 .\products\models.py:204
 msgid "title (English)"
-msgstr "ady (Iňlisçe)"
+msgstr "название (Англ.)"
 
 #: .\products\models.py:116 .\products\models.py:205
 msgid "title (Russian)"
-msgstr "ady (Rusça)"
+msgstr "название (Русс.)"
 
 #: .\products\models.py:121 .\products\models.py:192
 msgid "price"
-msgstr "bahasy"
+msgstr "цена"
 
 #: .\products\models.py:124
 msgid "sale percentage"
-msgstr "skidka göterimi"
+msgstr "процент скидки"
 
 #: .\products\models.py:127
 msgid "sale price"
-msgstr "arzanladyş bahasy"
+msgstr "цена со скидкой"
 
 #: .\products\models.py:129
 msgid "on sale"
-msgstr "arzanladyşda my"
+msgstr "со скидкой"
 
 #: .\products\models.py:135
 msgid "in stock"
-msgstr "ätiýaçda haryt barmy"
+msgstr "в наличии"
 
 #: .\products\models.py:145
 msgid "video"
-msgstr "wideo"
+msgstr "видео"
 
 #: .\products\models.py:206
 msgid "content (Turkmen)"
-msgstr "mazmuny (Turkmençe)"
+msgstr "содержание (Туркменское)"
 
 #: .\products\models.py:207
 msgid "content (English)"
-msgstr "mazmuny (Iňlisçe)"
+msgstr "содержание (Англ.)"
 
 #: .\products\models.py:208
 msgid "content (Russian)"
-msgstr "mazmuny (Rusça)"
+msgstr "содержание (Русс.)"
 
 #: .\products\models.py:211
 msgid "product specification"
-msgstr "harydyň spesifikasiýasy"
+msgstr "спецификация продукта"
 
 #: .\products\models.py:212
 msgid "product specifications"
-msgstr "harydyň spesifikasiýalary"
+msgstr "спецификации продукта"
 
 #: .\products\models.py:242
 msgid "description"
-msgstr "beýany"
+msgstr "описание"
 
 #: .\products\models.py:250
 #: .\templates\categories\partials\product_detail_partial.html:116
@@ -397,19 +399,19 @@ msgstr "beýany"
 #: .\templates\orders\cart.html:90
 #: .\templates\orders\partials\cart_partial.html:87
 msgid "product image"
-msgstr "harydyň surady"
+msgstr "изображение продукта"
 
 #: .\products\models.py:251
 msgid "product images"
-msgstr "harydyň suratlary"
+msgstr "изображении продукта"
 
 #: .\templates\about.html:8
 msgid "About us"
-msgstr "Biz barada"
+msgstr "О нас"
 
 #: .\templates\about.html:16 .\templates\about_partial.html:13
 msgid "About Evvoli Turkmenistan"
-msgstr "Evvoli Türkmenistan barada"
+msgstr "О Evvoli Туркменистан"
 
 #: .\templates\about.html:18 .\templates\about_partial.html:15
 msgid ""
@@ -418,48 +420,51 @@ msgid ""
 "solutions. Our mission is to enhance the digital experience with cutting-"
 "edge products and services.\n"
 "                    "
-msgstr "Evvoli innowasion tehnologiýa çözgütleriniň öňdebaryjy üpjünçisidir. Biziň maksadymyz, öňdebaryjy önümler we hyzmatlar bilen sanly tejribäni ösdürmek."
+msgstr ""
+"\n"
+"                    Evvoli  - ведущий поставщик инновационных технологических решений. Наша миссия - расширять возможности цифровых технологий с помощью передовых продуктов и услуг.\n"
+"                    " 
 
 #: .\templates\about.html:28 .\templates\about_partial.html:25
 msgid "Our Stores"
-msgstr "Dükanlarymyz"
+msgstr "Наши магазины"
 
 #: .\templates\about.html:34 .\templates\about_partial.html:31
 msgid "Ashgabat"
-msgstr "Aşgabat"
+msgstr "Ашгабат"
 
 #: .\templates\about.html:35 .\templates\about_partial.html:32
 msgid "Hoja Ahmet Yasawy St, Ashgabat 744000, Turkmenistan"
-msgstr "Hoja Ahmet Ýasasawy köçesi, Aşgabat 744000, Türkmenistan"
+msgstr "ул. Ходжа Ахмета Ясавы, Ашгабат 744000, Туркменистан"
 
 #: .\templates\about.html:36 .\templates\about_partial.html:33
 msgid "Gundogar Bazar D3, Ashgabat 744000, Turkmenistan"
-msgstr "Gündogar Bazar D3, Aşgabat 744000, Türkmenistan"
+msgstr "Гундогар Базар D3, Ашгабат 744000, Туркменистан"
 
 #: .\templates\about.html:37 .\templates\about.html:47
 #: .\templates\about_partial.html:34 .\templates\about_partial.html:44
 msgid "Phone"
-msgstr "Telefon belgimiz"
+msgstr "Номер телефона"
 
 #: .\templates\about.html:45 .\templates\about_partial.html:42
 msgid "Mary"
-msgstr "Mary"
+msgstr "Мары"
 
 #: .\templates\about.html:46 .\templates\about_partial.html:43
 msgid "Oguz Han, Mary, Turkmenistan"
-msgstr "Oguz Han köçesi, Mary ş., Turkmenistan"
+msgstr "ул. Огуз Хан, г. Мары, Туркменистан"
 
 #: .\templates\about.html:57 .\templates\about_partial.html:54
 msgid "Find Us Here"
-msgstr "Biz şu ýerde"
+msgstr "Мы здесь"
 
 #: .\templates\base.html:60
 msgid "loading"
-msgstr ""
+msgstr "загрузка"
 
 #: .\templates\categories\categories.html:10
 msgid "Products"
-msgstr "Harytlar"
+msgstr "Товары"
 
 #: .\templates\categories\partials\product_detail_partial.html:27
 #: .\templates\categories\partials\product_list_elements.html:61
@@ -472,12 +477,12 @@ msgstr "Harytlar"
 #: .\templates\orders\partials\cart_partial.html:116
 #: .\templates\orders\partials\order_form_partial.html:46
 msgid "Model"
-msgstr "Model"
+msgstr "Модель"
 
 #: .\templates\categories\partials\product_detail_partial.html:28
 #: .\templates\categories\product_detail.html:36
 msgid "Product Specifications"
-msgstr "Harydyň Spesifikasiýalary"
+msgstr "Спецификации товара"
 
 #: .\templates\categories\partials\product_detail_partial.html:42
 #: .\templates\categories\partials\product_detail_partial.html:44
@@ -498,60 +503,60 @@ msgstr "Harydyň Spesifikasiýalary"
 #: .\templates\orders\partials\order_form_partial.html:54
 #: .\templates\orders\partials\order_success_partial.html:17
 msgid "m."
-msgstr "m."
+msgstr "м."
 
 #: .\templates\categories\partials\product_detail_partial.html:52
 #: .\templates\categories\product_detail.html:60
 msgid "Add to Cart"
-msgstr "Sebede goşuň"
+msgstr "Добавить в корзину"
 
 #: .\templates\categories\partials\product_detail_partial.html:110
 #: .\templates\categories\partials\product_detail_partial.html:146
 #: .\templates\categories\partials\product_video.html:6
 msgid "Your browser does not support the video tag."
-msgstr "Brauzeriňiz wideo belligini goldamaýar"
+msgstr "Ваш браузер не поддерживает видео тег."
 
 #: .\templates\categories\partials\product_filter_accordion.html:21
 msgid "OFFERS"
-msgstr "TEKLIPLER"
+msgstr "ПРЕДЛОЖЕНИЯ"
 
 #: .\templates\categories\partials\product_filter_accordion.html:28
 msgid "ON SALE"
-msgstr "ARZANLANDYRYŞDA"
+msgstr "СО СКИДКОЙ"
 
 #: .\templates\categories\partials\product_filter_accordion.html:40
 msgid "PRODUCT TYPES"
-msgstr "HARYT GÖRNÜŞLERI"
+msgstr "ТИПЫ ТОВАРА"
 
 #: .\templates\categories\partials\product_filter_accordion.html:49
 msgid "All products"
-msgstr "Hemmesi"
+msgstr "Все"
 
 #: .\templates\categories\partials\product_filter_accordion.html:75
 msgid "PRICE RANGE"
-msgstr "BAHA ARALYGY"
+msgstr "ЦЕНОВОЙ ДИАПАЗОН"
 
 #: .\templates\categories\partials\product_list_elements.html:25
 #: .\templates\categories\partials\product_search_single.html:22
 #: .\templates\categories\partials\products_search.html:20
 msgid "NEW"
-msgstr "TÄZE"
+msgstr "НОВЫЙ"
 
 #: .\templates\categories\partials\product_list_elements.html:35
 #: .\templates\categories\partials\product_search_single.html:30
 #: .\templates\categories\partials\products_search.html:28
 msgid "Quick view"
-msgstr "Harydy gör"
+msgstr "Быстрый просмотр"
 
 #: .\templates\categories\partials\product_list_elements.html:87
 #: .\templates\categories\partials\product_search_single.html:79
 #: .\templates\categories\partials\products_search.html:77
 msgid "Details"
-msgstr "Maglumatlar"
+msgstr "Подробно"
 
 #: .\templates\categories\product_detail.html:13
 msgid "Product details"
-msgstr "Haryt maglumatlary"
+msgstr "Информация о товаре"
 
 #: .\templates\errors\400.html:4
 msgid "Bad Request"
@@ -560,20 +565,20 @@ msgstr "Bad Request"
 #: .\templates\errors\400.html:10 .\templates\errors\403.html:11
 #: .\templates\errors\500.html:10
 msgid "Oops!"
-msgstr "Ýalňyşlyk!"
+msgstr "Упс!"
 
 #: .\templates\errors\400.html:10
 msgid "Bad Request."
-msgstr "Bad Request."
+msgstr "Bad Request"
 
 #: .\templates\errors\400.html:12
 msgid "The server could not understand the request due to invalid syntax."
-msgstr "Nädogry sintaksis sebäpli serwer haýyşa düşünip bilmedi."
+msgstr "Серверу не удалось понять запрос из-за неверного синтаксиса."
 
 #: .\templates\errors\400.html:14 .\templates\errors\403.html:15
 #: .\templates\errors\404.html:17 .\templates\errors\500.html:14
 msgid "Go Home"
-msgstr "Baş Sahypa"
+msgstr "Главная страница"
 
 #: .\templates\errors\403.html:5
 msgid "Forbidden"
@@ -581,39 +586,39 @@ msgstr "Forbidden"
 
 #: .\templates\errors\403.html:11
 msgid "Forbidden."
-msgstr "Forbidden."
+msgstr "Forbidden"
 
 #: .\templates\errors\403.html:13
 msgid "You don't have permission to access this page."
-msgstr "Bu sahypa girmäge rugsadyňyz ýok."
+msgstr "У вас нет разрешения на доступ к этой странице."
 
 #: .\templates\errors\404.html:5
 msgid "Page Not Found"
-msgstr "Sahypa tapylmady"
+msgstr "Страница не найдена"
 
 #: .\templates\errors\404.html:13
 msgid "Opps!"
-msgstr "Ýalnyşlyk!"
+msgstr "Упс!"
 
 #: .\templates\errors\404.html:13
 msgid "Page not found."
-msgstr "Sahypa tapylmady."
+msgstr "Страница не найдена."
 
 #: .\templates\errors\404.html:15
 msgid "The page you’re looking for doesn’t exist."
-msgstr "Gözleýän sahypaňyz ýok."
+msgstr "Страница, которую вы ищете, не существует."
 
 #: .\templates\errors\500.html:4
 msgid "Server Error"
-msgstr "Serwer ýalňyşlygy"
+msgstr "Server Error"
 
 #: .\templates\errors\500.html:10
 msgid "Internal Server Error."
-msgstr "Içerki Serwer ýalňyşlygy"
+msgstr "Внутренняя ошибка сервера."
 
 #: .\templates\errors\500.html:12
 msgid "Something went wrong on our end."
-msgstr "Serwer tarap ýalňyşy"
+msgstr "Что-то пошло не так с нашей стороны."
 
 #: .\templates\includes\footer.html:11
 msgid "Evolve for life"
@@ -621,7 +626,7 @@ msgstr "Evolve for life"
 
 #: .\templates\includes\footer.html:35 .\templates\includes\navbar.html:47
 msgid "About Us"
-msgstr "Biz barada"
+msgstr "О нас"
 
 #: .\templates\includes\footer.html:52
 msgid "2024 Evvoli Turkmenistan. All rights reserved."
@@ -637,69 +642,69 @@ msgstr ""
 
 #: .\templates\includes\navbar.html:31
 msgid "Menu"
-msgstr "Menü"
+msgstr "Меню"
 
 #: .\templates\includes\navbar.html:75
 msgid "Others"
-msgstr "Beýlekiler"
+msgstr "Другие"
 
 #: .\templates\includes\navbar.html:105
 msgid "Search"
-msgstr "Gözleg"
+msgstr "Поиск"
 
 #: .\templates\includes\single_category_even.html:26
 #: .\templates\includes\single_category_odd.html:26
 msgid "See More"
-msgstr "Giňişleýin öwren"
+msgstr "Узнать больше"
 
 #: .\templates\includes\single_category_even.html:29
 #: .\templates\includes\single_category_odd.html:29
 msgid "category image"
-msgstr "kategoriya surady"
+msgstr "изображение категории"
 
 #: .\templates\index.html:9
 msgid "Home"
-msgstr "Baş Sahypa"
+msgstr "Главная страница"
 
 #: .\templates\index.html:23 .\templates\index_partial.html:20
 msgid "AC"
-msgstr "Kondisioner"
+msgstr "Кондиционер"
 
 #: .\templates\index.html:27 .\templates\index_partial.html:24
 msgid "Italian quality for your home"
-msgstr "Italiýanyň hili siziň öýüňize"
+msgstr "Итальянское качество для вашего дома"
 
 #: .\templates\index.html:35 .\templates\index_partial.html:32
 msgid "Evvoli ACs"
-msgstr "Kondisionerler"
+msgstr "Кондиционеры"
 
 #: .\templates\index.html:43 .\templates\index_partial.html:40
 msgid "TV"
-msgstr "Telewizor"
+msgstr "Телевизор"
 
 #: .\templates\index.html:47 .\templates\index_partial.html:44
 msgid "Evvoli - Choose the future"
-msgstr "Evvoli - Gelejegi saýla"
+msgstr "Evvoli - выбирай будущее"
 
 #: .\templates\index.html:55 .\templates\index_partial.html:52
 msgid "Evvoli TVs"
-msgstr "Telewizorlar"
+msgstr "Телевизоры"
 
 #: .\templates\index.html:62 .\templates\index_partial.html:59
 msgid "Washing Machines"
-msgstr "Kir ýuwujy maşynlar"
+msgstr "Стиральные машины"
 
 #: .\templates\index.html:66 .\templates\index_partial.html:63
 msgid "Europe begins with Evvoli"
-msgstr "Ýewropa Evvoli bilen başlaýar"
+msgstr "Европа начинается с Evvoli "
 
 #: .\templates\index.html:74 .\templates\index_partial.html:71
 msgid "Evvoli WMs"
-msgstr "Kir ýuwujy maşynlar"
+msgstr "Стиральные машины"
 
 #: .\templates\index.html:96 .\templates\index_partial.html:93
 msgid "evvoli is..."
-msgstr "Evvoli"
+msgstr "Evvoli - это"
 
 #: .\templates\index.html:99
 msgid ""
@@ -708,11 +713,14 @@ msgid ""
 "neo-modern designs with excellent value. Our diversified range of "
 "electronics and technology products will inspire you to evolve for life.\n"
 "\t\t\t"
-msgstr "häzirki zaman ajaýyp dizaýyny bilen el ýeterli bahany birleşdirýän hojalyk tehnika markasydyr. Dürli hojalyk tehnikalarymyz täze özgerişlere ýetmäge ylham berer."
+msgstr ""
+"\n"
+"\t\t\tбренд бытовой техники сочетающий в себе технологии, современный дизайн с превосходной стоимостью. Наш разнообразный ассортимент  электронной техники вдохновит Вас на эволюцию в течении всей жизни.\n"
+"\t\t\t" 
 
 #: .\templates\index.html:106 .\templates\index_partial.html:103
 msgid "decorative image"
-msgstr "bezeg surady"
+msgstr "декоративное изображение"
 
 #: .\templates\index_partial.html:96
 msgid ""
@@ -721,12 +729,15 @@ msgid ""
 "and neo-modern designs with excellent value. Our diversified range of "
 "electronics and technology products will inspire you to evolve for life.\n"
 "\t\t\t\t"
-msgstr "häzirki zaman ajaýyp dizaýyny bilen el ýeterli bahany birleşdirýän hojalyk tehnika markasydyr. Dürli hojalyk tehnikalarymyz täze özgerişlere ýetmäge ylham berer."
+msgstr ""
+"\n"
+"\t\t\t\tбренд бытовой техники сочетающий в себе технологии, современный дизайн с превосходной стоимостью. Наш разнообразный ассортимент  электронной техники вдохновит Вас на эволюцию в течении всей жизни.\n"
+"\t\t\t\t" 
 
 #: .\templates\orders\cart.html:13
 #: .\templates\orders\partials\cart_partial.html:10
 msgid "Your Shopping Cart"
-msgstr "Sebediňiz"
+msgstr "Ваша корзина"
 
 #: .\templates\orders\cart.html:15
 #: .\templates\orders\partials\cart_partial.html:12
@@ -736,54 +747,57 @@ msgid ""
 "at your earliest convenience. You may also adjust the quantity of your "
 "selected products as needed.\n"
 "            "
-msgstr "Sargydyňyzy tamamlamak üçin aşakdaky töleg formasyny dolduryň. Siziň rahatlylygyňyz üçin wagtynda eltip barmäge çalyşýarys."
+msgstr ""
+"\n"
+"            Пожалуйста, просмотрите товары в вашей корзине и приступайте к оформлению заказа при первой же возможности. При необходимости Вы также можете изменить количество.\n"
+"            " 
 
 #: .\templates\orders\cart.html:31
 #: .\templates\orders\partials\cart_checkout_details.html:15
 #: .\templates\orders\partials\cart_partial.html:28
 msgid "Cart Details"
-msgstr "Sebet Maglumatlary"
+msgstr "Детали корзины"
 
 #: .\templates\orders\cart.html:59
 #: .\templates\orders\partials\cart_checkout_details.html:43
 #: .\templates\orders\partials\cart_partial.html:57
 #: .\templates\orders\partials\order_form_partial.html:53
 msgid "TOTAL"
-msgstr "JEMI"
+msgstr "ИТОГО"
 
 #: .\templates\orders\cart.html:70
 #: .\templates\orders\partials\cart_checkout_details.html:53
 #: .\templates\orders\partials\cart_partial.html:67
 msgid "Proceed to Checkout"
-msgstr "Dowam ediň"
+msgstr "Продолжить"
 
 #: .\templates\orders\cart.html:78
 #: .\templates\orders\partials\cart_partial.html:75
 msgid "Your Cart"
-msgstr "Sebetiňiz"
+msgstr "Ваша корзина"
 
 #: .\templates\orders\order_success.html:8
 msgid "Order success"
-msgstr "Üstünlikli sargyt"
+msgstr "Успешный заказ"
 
 #: .\templates\orders\partials\no_products_in_cart_partial.html:10
 msgid "Your cart is empty"
-msgstr "Sebetiňiz boş"
+msgstr "Ваша корзина пуста"
 
 #: .\templates\orders\partials\no_products_in_cart_partial.html:12
 msgid ""
 "Seems that you have not added anything to your cart. Please add the products "
 "to the cart."
-msgstr "Sebetiňize hiç zat goşulmadyk. Sebete haryt  goşmagyňyzy haýyş edýäris."
+msgstr "Кажется, Вы ничего не добавили в корзину. Пожалуйста, добавьте товары в корзину."
 
 #: .\templates\orders\partials\no_products_in_cart_partial.html:23
 #: .\templates\orders\partials\order_not_allowed_partial.html:23
 msgid "Home Page"
-msgstr "Baş Sahypa"
+msgstr "Домашняя страница"
 
 #: .\templates\orders\partials\order_form_partial.html:11
 msgid "Checkout form"
-msgstr "Sargyt formasy"
+msgstr "Форма оформления заказа"
 
 #: .\templates\orders\partials\order_form_partial.html:13
 msgid ""
@@ -792,59 +806,62 @@ msgid ""
 "dedicated to ensuring the most efficient and timely delivery service for "
 "your convenience.\n"
 "\t\t\t"
-msgstr "Sargydyňyzy tamamlamak üçin aşakdaky töleg formasyny dolduryň. Siziň rahatlylygyňyz üçin wagtynda eltip barmäge çalyşýarys."
+msgstr ""
+"\n"
+"\t\t\tПожалуйста заполните форму оформления заказа, чтобы завершить заказ. Мы стремимся обеспечить наиболее эффективную и своевременную доставку для вашего удобства.\n"
+"\t\t\t"
 
 #: .\templates\orders\partials\order_form_partial.html:24
 msgid "Order Details"
-msgstr "Sargyt Maglumatlary"
+msgstr ""
 
 #: .\templates\orders\partials\order_form_partial.html:63
 msgid "Your Order"
-msgstr "Sargydyňyz"
+msgstr "Детали заказа"
 
 #: .\templates\orders\partials\order_form_partial.html:65
 msgid "No. of products"
-msgstr "Harytlaryň sany"
+msgstr "Кол-во товаров"
 
 #: .\templates\orders\partials\order_form_partial.html:71
 msgid "Checkout"
-msgstr "Sargydyňyzy tamamlaň"
+msgstr "Оформить заказ"
 
 #: .\templates\orders\partials\order_not_allowed_partial.html:10
 msgid "Unable to Proceed with Order"
-msgstr "Sargyt goýmagy dowam etdirmek mümkin däl."
+msgstr "Невозвожно продолжить оформление заказа"
 
 #: .\templates\orders\partials\order_not_allowed_partial.html:12
 msgid ""
 "Your shopping cart is currently empty. It appears that no items have been "
 "added to your basket yet. Please select the products you wish to purchase "
 "and add them to your basket to continue."
-msgstr "Sebetiňiz boş. Sebetiňize entäk hiç zat goşulmandyr. Satyn almak isleýän harytlaryňyzy saýlaň we dowam etdirmek üçin sebetiňize goşuň."
+msgstr "Ваша корзина пуста. Судя по всему, в вашу корзину еще не добавлено ни одного товара. Пожалуйста, выберите товар, которые вы хотите приобрести, и добавьте их в корзину, чтобы продолжить."
 
 #: .\templates\orders\partials\order_success_partial.html:12
 msgid "Thank you for your Order!"
-msgstr "Sargydyňyz üçin sag boluň!"
+msgstr "Благодарим Вас за Ваш Заказ!"
 
 #: .\templates\orders\partials\order_success_partial.html:13
 msgid "Your order has been placed successfully and is being processed."
-msgstr "Sargydyňyz üstünlikli ýerleşdirildi we işlenýär."
+msgstr "Ваш заказ был успешно размещен и обрабатывается"
 
 #: .\templates\orders\partials\order_success_partial.html:15
 msgid "Order Details:"
-msgstr "Sargyt Maglumatlary:"
+msgstr "Детали заказа:"
 
 #: .\templates\orders\partials\order_success_partial.html:16
 msgid "Order Number"
-msgstr "Sargyt Nomeri"
+msgstr "Номер заказа"
 
 #: .\templates\orders\partials\order_success_partial.html:17
 msgid "Order Total"
-msgstr "Sargyt Jemi"
+msgstr "Сумма заказа"
 
 #: .\templates\orders\partials\order_success_partial.html:18
 msgid "You will be contacted by our team for the delivery details."
-msgstr "Sargydyňyzy eltip bermek üçin Siz bilen habarlaşarys."
+msgstr "С Вами свяжется наша команда для подробной информации о доставке"
 
 #: .\templates\orders\partials\order_success_partial.html:27
 msgid "Continue Shopping"
-msgstr "Dowam etmek"
+msgstr "Продолжить покупку"
