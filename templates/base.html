@@ -6,17 +6,22 @@
 {% get_language_info_list for LANGUAGES as languages %}
 
 <!DOCTYPE html>
-<html>
+<html lang="{{LANGUAGE_CODE}}">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="keywords" content="evvoli, evvoli Türkmenistan, evoli, evvoli Turkmenistan, evvoli ashgabat, evvoli mary, QLED, Mini LED, evolve, LED TV, telewizor, kondisioner, holodilnik, kir yuwujy, split unit, floor standing ac, floor standing, LED televisions, TV, Air conditioner, AC, portable AC, smart tv, Home Appliance, kitchen machines, electronics, TV, air conditioners, washing machines, online shopping, электроника, телевизоры, кондиционеры, стиральные машины, Туркменистан ">
+
     <meta name="description" content="Your one-stop shop for all your electronics needs. We offer a wide range of products including TVs, air conditioners, washing machines, and more.">
-    <meta name="keywords" content="Electronics, TVs, Air Conditioners, Washing Machines, Online Shopping">
 
     <title>{% block title %}{% endblock title %} | Evvoli TM</title>
+
+    <link rel="alternate" href="http://example.com/" hreflang="en-tm" />
+    <link rel="alternate" href="http://example.com/ru" hreflang="ru-tm" />
+    <link rel="alternate" href="http://example.com/tk" hreflang="tk-tm" />
 
     <link rel="icon" type="image/x-icon" href="{% static 'img/icons/evvoli-favicon.png' %}">
 

@@ -15,6 +15,9 @@
 		</aside>
 
 		<div id="products_main" class="col-lg-10">
+			<div id="filter_spinner" class="htmx-indicator mx-auto text-center">
+				<img id="spinner" src="{% static 'spinner.gif' %}" alt="{% trans "loading" %}" class="" width="70px">
+			</div>
 			{% include "categories/partials/product_list_elements.html" %}
 		</div>
 	</div>
