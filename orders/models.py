@@ -127,15 +127,15 @@ class OrderItem(models.Model):
 
 class Order(models.Model):
     ORDER_STATUSES = (
-        ("Created", "Created"),
-        ("Shipped", "Shipped"),
-        ("Completed", "Completed"),
-        ("Cancelled", "Cancelled"),
+        ("Ordered", _("Ordered")),
+        ("Shipped", _("Shipped")),
+        ("Completed", _("Completed")),
+        ("Cancelled", _("Cancelled")),
     )
 
     PAYMENT_CHOICES = (
-        (_("cash"), _("cash")),
-        (_("card terminal"), _("card terminal")),
+        ("cash", _("cash")),
+        ("card terminal", _("card terminal")),
     )
 
     cart = models.ForeignKey(
@@ -146,7 +146,7 @@ class Order(models.Model):
         null=True,
     )
     status = models.CharField(
-        _("status"), max_length=120, choices=ORDER_STATUSES, default="Created"
+        _("status"), max_length=120, choices=ORDER_STATUSES, default="Ordered"
     )
     payment_option = models.CharField(
         _("payment option"), max_length=120, choices=PAYMENT_CHOICES, default="Cash"

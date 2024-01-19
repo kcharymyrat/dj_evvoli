@@ -176,33 +176,27 @@ class OrderCreateSerializer(serializers.Serializer):
             order = Order.objects.create(**validated_data)
 
             for product_id, quantity in cart_data.items():
-                try:
-                    product = Product.objects.get(id=product_id)
+                product = (
+                    Product.objects.filter(in_stock=True).filter(id=product_id).first()
+                )
 
-                    OrderItem.objects.create(
-                        order=order,
-                        product_title=product.title,
-                        product_model=product.model,
-                        product_price=product.sale_price,
-                        quantity=quantity,
-                    )
-
-                except Product.DoesNotExist as e:
-                    api_logger.error(
-                        f"Order FAILED since no product with id = {product_id} : {e}"
-                    )
+                if not product:
                     raise serializers.ValidationError(
                         {
-                            "detail": f"Product does not exist",
+                            "detail": "Product does not exist",
                             "product_id": product_id,
                         }
                     )
 
-                except Exception as e:
-                    api_logger.error(f"Error creating order: {e}")
-                    raise serializers.ValidationError(
-                        {"detail": f"An error occurred while creating the order."}
-                    )
+                OrderItem.objects.create(
+                    order=order,
+                    product_title=product.title,
+                    product_model=product.model,
+                    product_price=product.sale_price,
+                    quantity=quantity,
+                )
+
+            # ... rest of your method
 
             order.update_total_price()
 

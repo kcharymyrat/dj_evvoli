@@ -1,5 +1,6 @@
 {% load i18n static %}
 {% load django_htmx %}
+{% load compress %}
 
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
@@ -25,13 +26,15 @@
 
     <link rel="icon" type="image/x-icon" href="{% static 'img/icons/evvoli-favicon.png' %}">
 
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'fonts/roboto/stylesheet.css' %}" type="text/css">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'fonts/roboto/stylesheet.css' %}" type="text/css">
+
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css">
+    {% endcompress %}
 
     {% block third_party_css %}{% endblock third_party_css %}
-
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css">
 
     <style>
         .htmx-indicator{
@@ -69,25 +72,27 @@
 
     {% include "includes/footer.html" %}
 
-    <script src="{% static 'popper/popper.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/custom.js' %}"></script>
-    <script>
-        var navbar = document.querySelector('#navBar');
-        var overlay = document.querySelector('#overlay');
+    {% compress js %}
+        <script src="{% static 'popper/popper.min.js' %}"></script>
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
+        <script>
+            var navbar = document.querySelector('#navBar');
+            var overlay = document.querySelector('#overlay');
 
-        navbar.addEventListener('mouseover', function() {
-            overlay.style.opacity = '1';
-            overlay.style.pointerEvents = 'auto'; // Make the overlay clickable again
-        });
+            navbar.addEventListener('mouseover', function() {
+                overlay.style.opacity = '1';
+                overlay.style.pointerEvents = 'auto'; // Make the overlay clickable again
+            });
 
-        navbar.addEventListener('mouseout', function() {
-            overlay.style.opacity = '0';
-            setTimeout(function() { // This will delay the pointer-events update until the transition is complete
-                overlay.style.pointerEvents = 'none';
-            }, 500); // The delay should be equal to the transition duration
-        });
-    </script>
+            navbar.addEventListener('mouseout', function() {
+                overlay.style.opacity = '0';
+                setTimeout(function() { // This will delay the pointer-events update until the transition is complete
+                    overlay.style.pointerEvents = 'none';
+                }, 500); // The delay should be equal to the transition duration
+            });
+        </script>
+    {% endcompress %}
     
     {% block js %}{% endblock js %}
 

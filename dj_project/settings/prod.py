@@ -1,6 +1,13 @@
 from ._base import *
 
-DEBUG = True
+DEBUG = False
+
+COMPRESS_ENABLED = True
+
+if DEBUG:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+
 
 str(os.getenv("DATABASE_USER"))
 
@@ -14,5 +21,6 @@ DATABASES = {
         "PORT": os.getenv("SQL_PORT", "5432"),
     }
 }
+
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]

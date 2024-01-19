@@ -70,11 +70,9 @@ class OrderAdmin(admin.ModelAdmin):
         "customer_name",
         "phone",
         "shipping_address",
-        "email",
         "total_order_price",
-        "all_order_items",
     ]
-    list_filter = ["status", "phone", "payment_option"]
+
     readonly_fields = (
         "id",
         "cart",
@@ -82,13 +80,17 @@ class OrderAdmin(admin.ModelAdmin):
         "payment_option",
         "customer_name",
         "phone",
-        "shipping_address",
         "email",
+        "shipping_address",
         "total_order_price",
         "all_order_items",
     )
-    list_display_links = ["cart"]
-    list_editable = ["status"]
+    list_filter = ["status", "payment_option"]
+    search_fields = (
+        "phone",
+        "customer_name",
+    )
+    list_display_links = ["id"]
 
     def has_add_permission(self, request, obj=None):
         # Returning False will prevent adding new inline items

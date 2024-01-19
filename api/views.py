@@ -45,6 +45,7 @@ class ProductDetailAPIView(RetrieveAPIView):
 
 class OrderCreateAPIView(APIView):
     def post(self, request, *args, **kwargs):
+        print("request.data =", request.data)
         serializer = OrderCreateSerializer(data=request.data)
         if serializer.is_valid():
             order = serializer.save()

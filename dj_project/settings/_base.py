@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "imagekit",
     "django_htmx",
     "corsheaders",
+    "compressor",
     # Local
     "users.apps.UsersConfig",
     "products.apps.ProductsConfig",
@@ -149,6 +150,13 @@ STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 STATIC_ROOT = BASE_DIR / "static"
 
 MEDIA_ROOT = BASE_DIR / "media"
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # other finders..
+    "compressor.finders.CompressorFinder",
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
